@@ -10,7 +10,9 @@ class Tariffs extends AdminSectionPage
 {
     protected static ?string $title = 'Tariffs';
 
-    protected static ?string $slug = 'tariffs';
+    protected static ?string $slug = 'tariffs-overview';
+
+    protected static bool $shouldRegisterNavigation = false;
 
     protected static string|UnitEnum|null $navigationGroup = AdminNavigation::GROUP_TARIFFS;
 

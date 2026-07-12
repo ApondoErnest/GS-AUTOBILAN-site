@@ -3,7 +3,7 @@
 **Type:** Technical roadmap (no code) · **Version:** 1.3 · **Updated:** 2026-07-12  
 **Slogan:** Votre sécurité, c’est notre métier.
 
-**Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096).  
+**Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096). First unchecked: **S056**.  
 **Company data:** [docs/01-project-documentation/00-company-data.md](docs/01-project-documentation/00-company-data.md)
 
 ---
@@ -117,4 +117,4 @@ Full: [docs/01-project-documentation/05-operational-workflows.md](docs/01-projec
 
 ## 8. Next
 
-Open **[docs/STEPS.md](docs/STEPS.md)** → first unchecked step (**S052**).
+Open **[docs/STEPS.md](docs/STEPS.md)** → first unchecked step (**S056**).

@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S052** (Filament resources: Tariffs)
+**Current next step:** **S056** (Build Home page)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -341,22 +341,26 @@
 - **Done when:** CRUD works for agencies and services.
 
 ### S052 — Build Filament resources: Tariffs (+ placeholder flag)
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — Filament `TariffResource` now provides Super Admin-only list/create/edit/delete flows, keeps `is_placeholder` visible in forms and the table, shows placeholder prices as pending official tariffs, and records tariff changes in the activity log (2026-07-12)
+- **Detail:** [09-admin-dashboard/02-admin-modules.md](09-admin-dashboard/02-admin-modules.md)
 - **Depends on:** S051
 - **Done when:** Tariffs editable; `is_placeholder` visible.
 
 ### S053 — Build Filament resources: Bookings + Document readiness
-- [ ] **Pending**
+- [x] **Completed** — Filament `BookingResource` and `DocumentReadinessResource` now provide operational create/list/edit flows, status workflow controls, public/internal booking notes, document next-action/public messages, `updated_by` stamping, and Agency Admin scoping by assigned agency (2026-07-12)
+- **Detail:** [09-admin-dashboard/02-admin-modules.md](09-admin-dashboard/02-admin-modules.md)
 - **Depends on:** S052
 - **Done when:** Status workflow and public/internal notes editable; agency scoped.
 
 ### S054 — Build Filament resources: Contact messages + Articles + FAQs
-- [ ] **Pending**
+- [x] **Completed** — Filament `ContactMessageResource`, `ArticleResource`, and `FaqResource` now provide list/create/edit/delete flows, status controls, contact assignment/internal notes, article publishing/SEO fields, FAQ active/order controls, Agency Admin contact scoping, and Content Manager article/FAQ access (2026-07-12)
+- **Detail:** [09-admin-dashboard/02-admin-modules.md](09-admin-dashboard/02-admin-modules.md)
 - **Depends on:** S053
 - **Done when:** CRUD works for these modules.
 
 ### S055 — Build Filament resources: Gallery + Testimonials + Users + Settings + Audit
-- [ ] **Pending**
+- [x] **Completed** — Filament `GalleryItemResource`, `TestimonialResource`, `UserResource`, `SettingResource`, and read-only `ActivityResource` now provide the remaining admin modules; Content Managers can manage gallery/testimonials, while Super Admins manage staff users/settings and view audit logs (2026-07-12)
+- **Detail:** [09-admin-dashboard/02-admin-modules.md](09-admin-dashboard/02-admin-modules.md)
 - **Depends on:** S054
 - **Done when:** Remaining admin modules usable; Super Admin manages users/settings.
 
@@ -367,7 +371,7 @@
 Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About.
 
 ### S056 — Build Home page (all main sections)
-- [ ] **Pending**
+- [ ] **Pending** ← **do this next**
 - **Detail:** [10-public-website/README.md](10-public-website/README.md)
 - **Depends on:** S055
 - **Done when:** Home shows agencies, services, CTAs, previews in FR (EN labels may still be partial until Block M).
@@ -642,8 +646,8 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | F Frontend design | S029–S034 | Completed |
 | G Database | S035–S039 | Completed |
 | H Backend | S040–S047 | Completed |
-| I Admin | S048–S055 | In progress |
-| J Public pages | S056–S065 | Locked |
+| I Admin | S048–S055 | Completed |
+| J Public pages | S056–S065 | In progress |
 | K Booking | S066–S068 | Locked |
 | L Tracking | S069–S070 | Locked |
 | M Bilingual | S071–S073 | Locked |
@@ -656,4 +660,4 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 51 · **Remaining:** 45 · **Next:** S052
+**Total steps:** 96 · **Completed:** 55 · **Remaining:** 41 · **Next:** S056

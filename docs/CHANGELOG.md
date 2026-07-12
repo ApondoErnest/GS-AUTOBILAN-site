@@ -4,7 +4,11 @@
 
 ### Changed
 
-- **S051:** Filament resources added for Agencies and Services with list/create/edit/delete flows, Agency Admin agency scoping, and Livewire resource tests; S052 is now next.
+- **S055:** Filament resources added for Gallery, Testimonials, Users, Settings, and read-only Audit with Content Manager gallery/testimonial access, Super Admin user/settings management, JSON settings editing, and audit visibility; S056 is now next.
+- **S054:** Filament resources added for Contact messages, Articles, and FAQs with queue/content CRUD flows, contact agency scoping, article publishing/SEO fields, and FAQ active/order controls.
+- **S053:** Filament resources added for Bookings and Document readiness with status workflows, generated booking references, default readiness creation, editable public/internal messages, `updated_by` stamping, and Agency Admin scoping.
+- **S052:** Filament resource added for Tariffs with Super Admin-only CRUD, visible placeholder handling, pending official tariff table text, and activity-log auditing.
+- **S051:** Filament resources added for Agencies and Services with list/create/edit/delete flows, Agency Admin agency scoping, and Livewire resource tests.
 - **S050:** Dashboard widgets added for booking KPIs, bookings by agency, document-readiness alerts, new contact messages, published article pulse, and latest contact/article activity with Agency Admin scoping tests.
 - **S049:** Admin navigation groups added in the documented order with role-aware section overview pages and navigation coverage tests.
 - **S048:** Filament Shield registered for the admin panel; three GS staff roles remain the only seeded panel roles, active staff-role access is enforced, Role management is Super Admin-only, and focused Shield role tests were added.

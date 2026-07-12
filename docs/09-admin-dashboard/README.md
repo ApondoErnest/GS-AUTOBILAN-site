@@ -1,7 +1,7 @@
 # Admin dashboard design — V1
 
 **Project:** GS AUTOBILAN Official Website  
-**Version:** 1.5 · **Status:** S048-S051 implemented; continue S052  
+**Version:** 1.9 · **Status:** S048-S055 implemented; admin resource build complete  
 **Related:** [01-navigation-and-widgets.md](01-navigation-and-widgets.md) · [02-admin-modules.md](02-admin-modules.md) · [../05-architecture/03-permission-matrix.md](../05-architecture/03-permission-matrix.md)
 
 ---
@@ -39,3 +39,11 @@ Use Filament 5 + Shield. Theme accents may follow **GS Royal Blue** `#145DB3` (a
 **Implemented at S050:** the dashboard now shows booking KPI cards, bookings by agency, document-readiness alerts, new contact messages, published article pulse, and latest contact/article activity. Operational metrics are scoped to the Agency Admin's assigned agency.
 
 **Implemented at S051:** Agencies and Services now have Filament resources with list/create/edit/delete flows. Agency Admin access is scoped to the assigned agency; services remain Super Admin / Content Manager managed.
+
+**Implemented at S052:** Tariffs now have a Super Admin-only Filament resource with list/create/edit/delete flows, a visible placeholder flag, pending-official-tariff display text for placeholder prices, and activity-log auditing on tariff changes.
+
+**Implemented at S053:** Bookings and document readiness now have Filament resources under Operations. Booking creation generates a GS reference and default readiness row; booking status, public tracking messages, and internal notes are editable; readiness status, missing-information notes, bilingual next actions, and public messages are editable with `updated_by` stamped. Agency Admin access is scoped to assigned-agency records.
+
+**Implemented at S054:** Contact messages, articles, and FAQs now have Filament resources. Contact messages support queue status, assignment, internal notes, and Agency Admin scoping; articles support bilingual content, publishing status/date, featured image, and SEO fields; FAQs support bilingual question/answer content plus active/order controls.
+
+**Implemented at S055:** Gallery, testimonials, users, settings, and audit now have Filament resources. Content Managers can manage gallery/testimonial content; Super Admins can manage staff users, roles, JSON site settings, and view read-only audit logs.
