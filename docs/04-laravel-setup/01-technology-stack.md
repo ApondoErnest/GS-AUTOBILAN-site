@@ -12,11 +12,11 @@
 
 | Layer | Choice | Why |
 |-------|--------|-----|
-| Backend | Laravel 11, PHP 8.2+ | Routing, auth, queues, ORM, mail, validation in one ecosystem |
+| Backend | Laravel 13, PHP 8.2+ | Routing, auth, queues, ORM, mail, validation in one ecosystem |
 | Database | **MySQL 8** | Simple, common Laravel hosting; PostgreSQL optional later |
-| Public UI | Blade + Livewire 3 + Alpine.js | Reactive forms without a heavy SPA |
-| Styling | Tailwind CSS + Vite | Fast custom UI; utility-first |
-| Admin | Filament 3 | Resources, tables, forms, widgets quickly |
+| Public UI | Blade + Livewire 4 + Alpine.js (via Livewire) | Reactive forms without a heavy SPA |
+| Styling | Tailwind CSS 4 + Vite 8 | Fast custom UI; utility-first |
+| Admin | Filament 5 | Resources, tables, forms, widgets quickly |
 | Icons | Heroicons + custom SVG | UI + inspection-specific visuals |
 | Maps | Leaflet + OpenStreetMap | No paid API key for V1 |
 | Deploy | Local → Docker Compose → VPS | Progressive, controllable |

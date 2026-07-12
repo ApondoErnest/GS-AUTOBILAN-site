@@ -5,7 +5,7 @@
 - Default: **French** · Secondary: **English**  
 - URLs: `/fr` · `/en` with localized slugs  
 - CMS: `_fr` / `_en` fields  
-- UI: `lang/fr.json` · `lang/en.json`  
+- UI: structured PHP translation files under `lang/fr/` · `lang/en/`  
 - Translate: menus, buttons, forms, validation, statuses, FAQ, footer, SEO, tracking errors  
 - Manual review before launch — avoid machine-only translation  
 

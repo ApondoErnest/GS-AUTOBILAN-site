@@ -53,6 +53,8 @@
 | Customer email | Optional if email provided |
 | WhatsApp / SMS APIs | **Not in V1** — staff use deep links / phone manually |
 
+**Implemented at S047:** booking/contact create services fire events; listeners send queued mail notifications to `settings.direction_generale.email` with `mail.from.address` as fallback. Local mail remains compatible with `MAIL_MAILER=log`.
+
 ---
 
 ## 5. Failed tracking message

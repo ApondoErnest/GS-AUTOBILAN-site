@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S016** (initialize Git repository)
+**Current next step:** **S052** (Filament resources: Tariffs)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -21,7 +21,7 @@
 ## Block A — Project documentation
 
 ### S001 — Write project brief
-- [x] **Completed**
+- [x] **Completed** — slogan, agencies, role wording verified · UI identity link added 2026-07-11
 - **Detail:** [01-project-documentation/01-project-brief.md](01-project-documentation/01-project-brief.md)
 - **Done when:** Brief exists with name, slogan, goal, users, agencies, stack, approach.
 
@@ -38,7 +38,7 @@
 - **Done when:** 10 public pages + admin sections + FR/EN URLs documented.
 
 ### S004 — Create content and assets checklist
-- [x] **Completed**
+- [x] **Completed** — revised 2026-07-11: colours locked to **GS Royal Safety Bands**
 - **Detail:** [01-project-documentation/04-content-checklist.md](01-project-documentation/04-content-checklist.md)
 - **Depends on:** S003
 - **Done when:** Checklist of logo, photos, tariffs, FR/EN copy, FAQs, articles exists.
@@ -66,7 +66,7 @@
 - **Done when:** Public + admin + booking + tracking requirements listed with IDs.
 
 ### S008 — Write non-functional requirements
-- [x] **Completed**
+- [x] **Completed** — NFR-08a brand identity (GS Royal Safety Bands) added 2026-07-11
 - **Detail:** [02-requirements/02-non-functional-requirements.md](02-requirements/02-non-functional-requirements.md)
 - **Depends on:** S007
 - **Done when:** Bilingual, mobile, security, SEO, performance, ops requirements listed.
@@ -113,12 +113,12 @@
 - **Done when:** `docs/`, `brand/`, `design/`, `README.md`, `plan.md`, `STEPS.md` path are present.
 
 ### S016 — Initialize Git repository (main + develop)
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — repo on `main` + `develop` · commit `088772a` · `.gitignore` in place
 - **Depends on:** S015
 - **Done when:** Git repo exists with `main` and `develop` branches (no secrets committed).
 
 ### S017 — Confirm environment plan documented
-- [ ] **Pending**
+- [x] **Completed** — local / docker-dev / staging / production reviewed 2026-07-10
 - **Detail:** [03-local-environment/02-environments.md](03-local-environment/02-environments.md)
 - **Depends on:** S016
 - **Done when:** local / docker-dev / staging / production plan is understood and file reviewed.
@@ -128,43 +128,43 @@
 ## Block D — Laravel foundation
 
 ### S018 — Create Laravel application in project root
-- [ ] **Pending**
+- [x] **Completed** — Laravel 13.19.0 · `docs/`, `brand/`, `design/` preserved · smoke-tested on :8018
 - **Detail:** [04-laravel-setup/README.md](04-laravel-setup/README.md) · [04-laravel-setup/01-technology-stack.md](04-laravel-setup/01-technology-stack.md)
 - **Depends on:** S017
 - **Done when:** Laravel runs; existing `docs/`, `brand/`, `design/` preserved.
 
 ### S019 — Configure `.env` (DB, timezone, locales, mail)
-- [ ] **Pending**
+- [x] **Completed** — `Africa/Douala` · `fr`/`en` · MySQL `gs_autobilan` connected · mail=`log`
 - **Depends on:** S018
 - **Done when:** `APP_TIMEZONE=Africa/Douala`, `APP_LOCALE=fr`, `APP_FALLBACK_LOCALE=en`, DB connects.
 
 ### S020 — Generate app key and run default migrations
-- [ ] **Pending**
+- [x] **Completed** — `APP_KEY` present · default tables on MySQL `gs_autobilan` (users, cache, jobs, sessions, …)
 - **Depends on:** S019
 - **Done when:** `php artisan key:generate` done; default tables exist.
 
 ### S021 — Install frontend stack (Livewire, Alpine, Tailwind, Vite)
-- [ ] **Pending**
+- [x] **Completed** — Livewire 4.3.3 · Tailwind 4 + Vite 8 build OK · Alpine via Livewire
 - **Depends on:** S020
 - **Done when:** Assets build with Vite; Livewire available.
 
 ### S022 — Install Filament and create first Super Admin
-- [ ] **Pending**
+- [x] **Completed** — Filament 5.6.8 · `/admin/login` OK · user `admin@gsautobilan.local`
 - **Depends on:** S021
 - **Done when:** You can log in at `/admin`.
 
 ### S023 — Install required packages (Shield, activitylog, sitemap, medialibrary, honeypot, dompdf, Pint, Pest)
-- [ ] **Pending**
+- [x] **Completed** — all packages in `composer.json` · permission/activity/media migrations run · Pest 4.7 (replaced `laravel/pao`)
 - **Depends on:** S022
 - **Done when:** Packages listed in `composer.json` / installed successfully.
 
 ### S024 — Scaffold empty public layout and component folders
-- [ ] **Pending**
+- [x] **Completed** — `layouts/` · `partials/` · `components/` · `pages/` · `resources/svg/` shells
 - **Depends on:** S023
 - **Done when:** Blade layout/component directories exist (even if empty shells).
 
 ### S025 — Confirm base security (CSRF, auth, protected `/admin`)
-- [ ] **Pending**
+- [x] **Completed** — guests → `/admin/login` · panel has `Authenticate` + `PreventRequestForgery` · CSRF 419 outside tests · Pest `AdminSecurityTest`
 - **Depends on:** S024
 - **Done when:** Admin routes require login; CSRF enabled on forms.
 
@@ -173,19 +173,19 @@
 ## Block E — Architecture
 
 ### S026 — Document four system layers
-- [ ] **Pending**
+- [x] **Completed** — four layers confirmed vs Laravel 13 / Filament 5 / Livewire 4 app (2026-07-11)
 - **Detail:** [05-architecture/01-architecture-overview.md](05-architecture/01-architecture-overview.md)
 - **Depends on:** S025
 - **Done when:** Architecture overview reviewed/confirmed against running app structure (doc already drafted).
 
 ### S027 — Lock module boundaries
-- [ ] **Pending**
+- [x] **Completed** — module map + strict owns/must-not locked 2026-07-11
 - **Detail:** [05-architecture/02-module-boundaries.md](05-architecture/02-module-boundaries.md)
 - **Depends on:** S026
 - **Done when:** Module boundaries doc reviewed and accepted for implementation.
 
 ### S028 — Confirm permission matrix for implementation
-- [ ] **Pending**
+- [x] **Completed** — roles `super_admin` / `agency_admin` / `content_manager` · policies locked for Shield 2026-07-11
 - **Detail:** [05-architecture/03-permission-matrix.md](05-architecture/03-permission-matrix.md)
 - **Depends on:** S027
 - **Done when:** Permission matrix confirmed for Filament Shield setup.
@@ -195,33 +195,36 @@
 ## Block F — Frontend design system
 
 ### S029 — Lock colour tokens in Tailwind config
-- [ ] **Pending**
+- [x] **Completed** — **GS Royal Safety Bands** tokens in `resources/css/app.css` (`gs-primary` `#145DB3`, `gs-navy` `#062A5C`, `gs-accent` `#C8202F`, soft/wall/grey/status…) · revised from centre photos 2026-07-11
 - **Detail:** [06-frontend-design/01-brand-and-ui.md](06-frontend-design/01-brand-and-ui.md)
 - **Depends on:** S028
 - **Done when:** Primary, navy, accent, surface, status colours configured.
 
 ### S030 — Define typography and layout variants
-- [ ] **Pending**
+- [x] **Completed** — type scale + layouts · surfaces updated to `gs-wall` / `gs-soft` / `gs-concrete` · blank hero uses navy + red band (2026-07-11)
 - **Depends on:** S029
+- **Detail:** [06-frontend-design/01-brand-and-ui.md](06-frontend-design/01-brand-and-ui.md)
 - **Done when:** Home/content/listing/article/form/tracking/error layouts defined.
 
 ### S031 — Build shared layout: top strip + header + footer
-- [ ] **Pending**
+- [x] **Completed** — strip, white header/nav, and banded footer render on `/` desktop/mobile with no horizontal overflow (2026-07-11)
 - **Depends on:** S030
-- **Done when:** Strip, nav, footer render on a blank public page.
+- **Detail:** [06-frontend-design/01-brand-and-ui.md](06-frontend-design/01-brand-and-ui.md) §3 (navy strip + red/white band · white header · navy footer with red/white top band)
+- **Done when:** Strip, white header/nav, banded footer render on a blank public page.
 
 ### S032 — Build mobile menu + language switcher + sticky WhatsApp/call FABs
-- [ ] **Pending**
+- [x] **Completed** — mobile drawer, reusable language switcher, and sticky call/WhatsApp FABs work on `/` mobile viewport (2026-07-11)
 - **Depends on:** S031
 - **Done when:** Mobile nav and FABs work on a phone-sized viewport.
 
 ### S033 — Build reusable cards and UI components
-- [ ] **Pending**
+- [x] **Completed** — reusable agency, service, article, testimonial, status badge, FAQ accordion, and CTA group Blade components render with tests (2026-07-11)
 - **Depends on:** S032
-- **Done when:** Agency, service, status badge, FAQ accordion, CTA components exist.
+- **Detail:** [06-frontend-design/01-brand-and-ui.md](06-frontend-design/01-brand-and-ui.md) — white cards + left red band + blue headings
+- **Done when:** Agency, service, status badge, FAQ accordion, CTA components exist (banded card style).
 
 ### S034 — Add placeholder brand treatment (text logo / GS favicon)
-- [ ] **Pending**
+- [x] **Completed** — real `site_logo.png` is used across chrome, and favicon/touch icons were generated from the GS mark (2026-07-11)
 - **Depends on:** S033
 - **Done when:** Site shows text lockup until real logo arrives.
 
@@ -230,30 +233,30 @@
 ## Block G — Database
 
 ### S035 — Create migrations for core tables (users, agencies, settings, services)
-- [ ] **Pending**
+- [x] **Completed** — core migration creates `agencies`, `settings`, `services`, extends `users`, and ran on the local database with schema coverage tests (2026-07-11)
 - **Detail:** [07-database/01-schema-overview.md](07-database/01-schema-overview.md) · [07-database/02-er-diagram.md](07-database/02-er-diagram.md)
 - **Depends on:** S034
 - **Done when:** Migrations exist and run for these tables.
 
 ### S036 — Create migrations for tariffs, bookings, document_readiness, contact_messages
-- [ ] **Pending**
+- [x] **Completed** — booking/contact migration creates `tariffs`, `bookings`, `document_readiness`, and `contact_messages`; it ran on the local database with schema coverage tests (2026-07-11)
 - **Detail:** [07-database/01-schema-overview.md](07-database/01-schema-overview.md)
 - **Depends on:** S035
 - **Done when:** Migrations exist and run.
 
 ### S037 — Create migrations for articles, categories, faqs, gallery, testimonials
-- [ ] **Pending**
+- [x] **Completed** — content migration creates `article_categories`, `articles`, `faqs`, `gallery_items`, and `testimonials`; `activity_log` is ready and schema tests pass (2026-07-11)
 - **Depends on:** S036
 - **Done when:** Migrations exist and run; activity log ready.
 
 ### S038 — Add Eloquent models, enums, indexes, relationships
-- [ ] **Pending**
+- [x] **Completed** — Eloquent models, locked V1 status/category enums, casts, scopes, and documented relationships are in place with contract tests; key indexes were already added in S035-S037 migrations (2026-07-11)
 - **Detail:** [07-database/03-indexes-and-validation.md](07-database/03-indexes-and-validation.md)
 - **Depends on:** S037
 - **Done when:** Models + status enums + key indexes in place.
 
 ### S039 — Seed agencies, services, settings, roles, placeholder tariffs, sample FAQs
-- [ ] **Pending**
+- [x] **Completed** — base seeder loads roles, existing Super Admin role assignment, Nkolbisson/Obili agencies, settings, 8 services, 8 placeholder tariffs, 6 FAQs, and article categories; local DB seeded and verified (2026-07-11)
 - **Detail:** [07-database/04-seed-inventory.md](07-database/04-seed-inventory.md)
 - **Depends on:** S038
 - **Done when:** Nkolbisson + Obili Scalom and base data load via seeder.
@@ -263,48 +266,48 @@
 ## Block H — Backend foundation
 
 ### S040 — Implement locale routing (`/fr`, `/en`) and SetLocale middleware
-- [ ] **Pending**
+- [x] **Completed** — `/` redirects to `/fr/accueil`, localized FR/EN public route skeletons exist, `SetLocale` switches chrome translations, and shared links are locale-aware (2026-07-11)
 - **Detail:** [08-backend/01-routes-and-controllers.md](08-backend/01-routes-and-controllers.md)
 - **Depends on:** S039
 - **Done when:** `/` redirects to `/fr/accueil`; locale switches.
 
 ### S041 — Implement BookingReferenceService (`GS-YEAR-SEQUENCE`)
-- [ ] **Pending**
+- [x] **Completed** — `BookingReferenceService` reserves per-year `GS-YYYY-000001` references through a transaction-backed settings sequence and skips existing bookings; tests cover format, uniqueness, and year isolation (2026-07-11)
 - **Detail:** [08-backend/02-services-policies-events.md](08-backend/02-services-policies-events.md)
 - **Depends on:** S040
 - **Done when:** Unique references generate correctly (covered by a test later).
 
 ### S042 — Implement BookingService + DocumentReadinessService (create path)
-- [ ] **Pending**
+- [x] **Completed** — `BookingService` creates bookings inside a transaction with generated references and default `not_reviewed` document readiness; tests cover creation, uniqueness, idempotency, and rollback (2026-07-11)
 - **Detail:** [08-backend/02-services-policies-events.md](08-backend/02-services-policies-events.md)
 - **Depends on:** S041
 - **Done when:** Creating a booking also creates `not_reviewed` readiness.
 
 ### S043 — Implement TrackingService (safe public lookup)
-- [ ] **Pending**
+- [x] **Completed** — `TrackingService` matches normalized reference + phone + vehicle registration and returns a safe public `TrackingResult` DTO without customer or internal notes; tests cover success, misses, normalization, and missing-readiness fallback (2026-07-11)
 - **Detail:** [08-backend/02-services-policies-events.md](08-backend/02-services-policies-events.md)
 - **Depends on:** S042
 - **Done when:** Lookup requires ref+phone+plate; returns public fields only.
 
 ### S044 — Implement ContactMessageService + ContentService + SEOService stubs
-- [ ] **Pending**
+- [x] **Completed** — contact messages can be stored with default `new` status; active bilingual content helpers and SEO metadata helpers exist with tests for filtering, fallback, canonical, and hreflang output (2026-07-11)
 - **Depends on:** S043
 - **Done when:** Contact can be stored; content/SEO helpers exist.
 
 ### S045 — Implement policies (Agency, Booking, DocumentReadiness, Content, Tariff, User)
-- [ ] **Pending**
+- [x] **Completed** — backend policies are registered for operations, content/services, tariffs/settings/users, and Agency Admin access is scoped to `assigned_agency_id` with policy coverage tests (2026-07-11)
 - **Detail:** [08-backend/02-services-policies-events.md](08-backend/02-services-policies-events.md)
 - **Depends on:** S044
 - **Done when:** Agency Admin scoping enforced in policies.
 
 ### S046 — Wire Form Requests for booking, tracking, contact
-- [ ] **Pending**
+- [x] **Completed** — `BookingRequest`, `TrackingLookupRequest`, and `ContactMessageRequest` validate and normalize public form input; tests cover accepted data, rejected data, active agency/service checks, past dates, and phone/plate/reference cleanup (2026-07-12)
 - **Detail:** [08-backend/03-validation-notifications.md](08-backend/03-validation-notifications.md)
 - **Depends on:** S045
 - **Done when:** Validation rules match requirements docs.
 
 ### S047 — Add events + admin email notification stubs for booking/contact
-- [ ] **Pending**
+- [x] **Completed** — `BookingCreated` and `ContactMessageCreated` events dispatch from services; event listeners send queued mail notifications to the configured direction-generale email with tests for listener registration, event dispatching, on-demand routes, and mail context (2026-07-12)
 - **Detail:** [08-backend/03-validation-notifications.md](08-backend/03-validation-notifications.md)
 - **Depends on:** S046
 - **Done when:** Events fire; mail can be logged/queued locally.
@@ -314,31 +317,31 @@
 ## Block I — Admin dashboard
 
 ### S048 — Configure Filament Shield roles (Super Admin, Agency Admin, Content Manager)
-- [ ] **Pending**
+- [x] **Completed** — Shield is registered on the admin panel, `config/filament-shield.php` is aligned to the three GS staff roles, `User::canAccessPanel()` requires an active staff role, and `RolePolicy` restricts role management to Super Admin; tests cover config, role seeding/assignment, panel access, and role authorization (2026-07-12)
 - **Detail:** [09-admin-dashboard/README.md](09-admin-dashboard/README.md) · [09-admin-dashboard/01-navigation-and-widgets.md](09-admin-dashboard/01-navigation-and-widgets.md)
 - **Depends on:** S047
 - **Done when:** Three roles exist and can be assigned.
 
 ### S049 — Build admin navigation groups
-- [ ] **Pending**
+- [x] **Completed** — admin navigation groups are centralized in `AdminNavigation`, the panel registers Dashboard / Operations / Website Content / Agencies & Services / Tariffs / Communication / Users & Settings in order, and lightweight role-aware section pages keep each group visible without building CRUD early; tests cover group order, page registration, Super Admin visibility, and Agency Admin / Content Manager scoping (2026-07-12)
 - **Detail:** [09-admin-dashboard/01-navigation-and-widgets.md](09-admin-dashboard/01-navigation-and-widgets.md)
 - **Depends on:** S048
 - **Done when:** Dashboard / Operations / Content / Agencies & Services / Tariffs / Communication / Users & Settings visible.
 
 ### S050 — Build dashboard widgets (booking KPIs + alerts)
-- [ ] **Pending**
+- [x] **Completed** — dashboard overview now uses scoped Filament widgets for booking KPIs, bookings by agency, document-readiness alerts, new contact messages, published article pulse, and latest contact/article activity; Agency Admin metrics are restricted to their assigned agency with coverage tests (2026-07-12)
 - **Detail:** [09-admin-dashboard/01-navigation-and-widgets.md](09-admin-dashboard/01-navigation-and-widgets.md)
 - **Depends on:** S049
 - **Done when:** Overview shows new/pending/confirmed counts (scoped for Agency Admin).
 
 ### S051 — Build Filament resources: Agencies + Services
-- [ ] **Pending**
+- [x] **Completed** — Filament `AgencyResource` and `ServiceResource` now provide list/create/edit/delete flows under Agencies & Services; Agency Admin lists only their assigned agency, while service management stays Super Admin / Content Manager only; Livewire resource tests cover CRUD and access scoping (2026-07-12)
 - **Detail:** [09-admin-dashboard/02-admin-modules.md](09-admin-dashboard/02-admin-modules.md)
 - **Depends on:** S050
 - **Done when:** CRUD works for agencies and services.
 
 ### S052 — Build Filament resources: Tariffs (+ placeholder flag)
-- [ ] **Pending**
+- [ ] **Pending** ← **do this next**
 - **Depends on:** S051
 - **Done when:** Tariffs editable; `is_placeholder` visible.
 
@@ -453,8 +456,9 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 
 ## Block M — Bilingual completion
 
-### S071 — Complete `lang/fr.json` and `lang/en.json` for UI chrome
+### S071 — Complete `lang/fr` and `lang/en` UI translation files
 - [ ] **Pending**
+- **Foundation note:** shared chrome strings started early before S033 using structured PHP files under `lang/fr/` and `lang/en/`; S071 still remains for full forms/statuses/errors review.
 - **Detail:** [13-bilingual/README.md](13-bilingual/README.md)
 - **Depends on:** S070
 - **Done when:** Nav, buttons, forms, statuses translate.
@@ -632,13 +636,13 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 |-------|-------|--------|
 | A Documentation | S001–S006 | Completed |
 | B Requirements | S007–S009 | Completed |
-| C Local environment | S010–S017 | Not started |
-| D Laravel | S018–S025 | Locked until C done |
-| E Architecture | S026–S028 | Locked |
-| F Frontend design | S029–S034 | Locked |
-| G Database | S035–S039 | Locked |
-| H Backend | S040–S047 | Locked |
-| I Admin | S048–S055 | Locked |
+| C Local environment | S010–S017 | Completed |
+| D Laravel | S018–S025 | Completed |
+| E Architecture | S026–S028 | Completed |
+| F Frontend design | S029–S034 | Completed |
+| G Database | S035–S039 | Completed |
+| H Backend | S040–S047 | Completed |
+| I Admin | S048–S055 | In progress |
 | J Public pages | S056–S065 | Locked |
 | K Booking | S066–S068 | Locked |
 | L Tracking | S069–S070 | Locked |
@@ -652,4 +656,4 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 9 · **Remaining:** 87 · **Next:** S010
+**Total steps:** 96 · **Completed:** 51 · **Remaining:** 45 · **Next:** S052

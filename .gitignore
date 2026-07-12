@@ -1,41 +1,42 @@
-# OS
+*.log
 .DS_Store
 Thumbs.db
 
-# Env / secrets (never commit)
+# Env / secrets
 .env
 .env.*
 !.env.example
+.env.backup
+.env.production
+/auth.json
 
-# Dependencies (Laravel / Node — populated in Phase 4+)
+# Dependencies
 /vendor
 /node_modules
 
-# Laravel runtime
+# Laravel
 /public/hot
 /public/storage
+/public/build
 /storage/*.key
 /storage/pail
-/storage/framework/cache/data
-/storage/framework/sessions
-/storage/framework/views
-/storage/logs
-/bootstrap/cache/*.php
 .phpunit.result.cache
 .phpunit.cache
+/.phpunit.cache
 Homestead.json
 Homestead.yaml
-auth.json
 
-# Build / IDE
-/public/build
-npm-debug.log
-yarn-error.log
-.idea
-.vscode
-*.swp
-*.swo
+# IDE
+/.idea
+/.nova
+/.vscode
+/.zed
+.phpactor.json
+_ide_helper.php
 
-# Cursor local (keep project rules if added later under .cursor/rules)
+# Cursor local plans/logs (keep project rules if added)
 .cursor/plans
 .cursor/*.log
+
+# Temp
+/laravel-tmp

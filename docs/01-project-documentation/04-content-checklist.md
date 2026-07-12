@@ -12,7 +12,7 @@ Company facts: [00-company-data.md](00-company-data.md)
 |------|--------|-------|
 | Logo (SVG/PNG) | ☐ | Prefer SVG; until then text lockup “GS AUTOBILAN” |
 | Favicon | ☐ | Temporary “GS” monogram OK |
-| Colours | ☑ Draft | `#0B3A75` / `#7A1621` — confirm |
+| Colours | ☑ Locked | **GS Royal Safety Bands** — see [brand-and-ui](../06-frontend-design/01-brand-and-ui.md); primary `#145DB3` · accent `#C8202F` |
 | Brand fonts | ☐ | Clean modern web fonts until specified |
 | Agency exteriors (×2) | ☐ | High priority |
 | Reception / inspection line | ☐ | Min. polished launch: 2 exteriors + reception + line |

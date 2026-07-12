@@ -1,7 +1,8 @@
 # Environments plan
 
-**Phase:** 3 — Local environment  
+**Phase:** 3 — Local environment · **Step:** S017  
 **Project:** GS AUTOBILAN Official Website  
+**Status:** Reviewed and confirmed 2026-07-10  
 **Previous:** [01-setup-checklist.md](01-setup-checklist.md) · **Next phase:** [../04-laravel-setup/](../04-laravel-setup/)
 
 ---
@@ -14,6 +15,8 @@
 | **docker-dev** | Containerized local | On | Same app; compose stack |
 | **staging** | Pre-production | Off | Optional subdomain |
 | **production** | Live VPS | Off | SSL, backups, monitoring |
+
+**Path (locked):** local first → stabilize → docker-dev → staging (optional) → production.
 
 ---
 
@@ -43,3 +46,4 @@
 ## Suggestion
 
 Create `.env.example` in Phase 4 with all keys documented and **no secrets**. Never commit real `.env` files.
+

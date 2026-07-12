@@ -1,15 +1,15 @@
 # Architecture reference
 
 **Steps:** S026–S028 in [../STEPS.md](../STEPS.md)  
-**Status:** Design docs written now; confirm during those steps after Laravel exists.
+**Status:** **S026–S028 complete** 2026-07-11
 
 ## Documents (read in order)
 
-| # | File | Purpose |
-|---|------|---------|
-| 1 | [01-architecture-overview.md](01-architecture-overview.md) | Four layers, flows, services, locale, security |
-| 2 | [02-module-boundaries.md](02-module-boundaries.md) | What each module owns / must not own |
-| 3 | [03-permission-matrix.md](03-permission-matrix.md) | Roles, matrix, policies |
+| # | File | Purpose | Step |
+|---|------|---------|------|
+| 1 | [01-architecture-overview.md](01-architecture-overview.md) | Four layers, flows, services, locale, security | S026 ✓ |
+| 2 | [02-module-boundaries.md](02-module-boundaries.md) | What each module owns / must not own | S027 ✓ |
+| 3 | [03-permission-matrix.md](03-permission-matrix.md) | Roles, matrix, policies | S028 ✓ |
 
 ## Related
 

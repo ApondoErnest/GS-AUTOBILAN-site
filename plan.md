@@ -1,6 +1,6 @@
 # GS AUTOBILAN — Master technical plan (V1)
 
-**Type:** Technical roadmap (no code) · **Version:** 1.2 · **Updated:** 2026-07-10  
+**Type:** Technical roadmap (no code) · **Version:** 1.3 · **Updated:** 2026-07-12  
 **Slogan:** Votre sécurité, c’est notre métier.
 
 **Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096).  
@@ -117,4 +117,4 @@ Full: [docs/01-project-documentation/05-operational-workflows.md](docs/01-projec
 
 ## 8. Next
 
-Open **[docs/STEPS.md](docs/STEPS.md)** → first unchecked step (**S010**).
+Open **[docs/STEPS.md](docs/STEPS.md)** → first unchecked step (**S052**).

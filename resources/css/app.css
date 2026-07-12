@@ -1,0 +1,56 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/livewire/src/Features/SupportPagination/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Type scale — locked S030 */
+    --text-gs-display: 2.5rem;
+    --text-gs-display--line-height: 1.15;
+    --text-gs-h1: 2rem;
+    --text-gs-h1--line-height: 1.2;
+    --text-gs-h2: 1.5rem;
+    --text-gs-h2--line-height: 1.25;
+    --text-gs-h3: 1.25rem;
+    --text-gs-h3--line-height: 1.3;
+    --text-gs-lead: 1.125rem;
+    --text-gs-lead--line-height: 1.6;
+    --text-gs-body: 1rem;
+    --text-gs-body--line-height: 1.65;
+    --text-gs-small: 0.875rem;
+    --text-gs-small--line-height: 1.5;
+}
+
+/* GS Royal Safety Bands — revised from centre photos (S029) */
+@theme static {
+    --color-gs-primary: #145db3;
+    --color-gs-navy: #062a5c;
+    --color-gs-bay: #0b3a75;
+    --color-gs-soft: #eef5ff;
+    --color-gs-accent: #c8202f;
+    --color-gs-accent-soft: #fdecee;
+    --color-gs-surface: #ffffff;
+    --color-gs-wall: #f8fafc;
+    --color-gs-grey: #4b5563;
+    --color-gs-concrete: #e5e7eb;
+    --color-gs-ink: #1f2937;
+    --color-gs-ink-muted: #6b7280;
+    --color-gs-success: #16a34a;
+    --color-gs-warning: #f5c542;
+    --color-gs-danger: #dc2626;
+
+    /* Alias: soft section bg (prefer gs-soft or gs-wall in new UI) */
+    --color-gs-muted: #eef5ff;
+}
+
+@layer base {
+    body {
+        @apply bg-gs-wall font-sans text-gs-body text-gs-ink antialiased;
+    }
+}

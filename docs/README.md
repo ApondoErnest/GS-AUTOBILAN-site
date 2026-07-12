@@ -1,6 +1,6 @@
 # Documentation index
 
-**Version:** 1.2 · **Updated:** 2026-07-10
+**Version:** 1.4 · **Updated:** 2026-07-12
 
 | Priority | File | Role |
 |---------:|------|------|
@@ -17,7 +17,7 @@
 3. Mark `[x]` when **Done when** is met — then the next step.  
 4. Do not invent prices or duplicate company tables; edit `00-company-data.md` instead.
 
-**Current next step:** **S010** (see STEPS.md).
+**Current next step:** **S052** (see STEPS.md).
 
 ---
 

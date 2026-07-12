@@ -1,17 +1,19 @@
 # Frontend design — V1
 
-**Version:** 1.1 · **Steps:** S029–S034  
+**System:** GS Royal Safety Bands · **Version:** 1.3 · **Steps:** S029–S034  
+
+Palette locked in [`../../resources/css/app.css`](../../resources/css/app.css) · detail: [01-brand-and-ui.md](01-brand-and-ui.md)
 
 ## Documents
 
 | File | Purpose |
 |------|---------|
-| [01-brand-and-ui.md](01-brand-and-ui.md) | Colours, type, components, responsive, page order |
+| [01-brand-and-ui.md](01-brand-and-ui.md) | Colours, chrome rules, type, components, page order |
 
-## Deliverables when implemented
+## Next (S031)
 
-Colour system · typography · reusable components · responsive layouts · wireframes (optional in `design/`) · mobile + desktop behaviour
+Build strip + **white** header + banded footer per brand-and-ui §3.
 
 ## Acceptance
 
-All public pages can be built from consistent components and work well on mobile and desktop.
+Public pages share one identity: royal blue · white · red bands · industrial grey — mobile and desktop.

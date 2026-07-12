@@ -21,6 +21,7 @@
 | NFR-06 | Forms usable with large touch targets (≈44px) |
 | NFR-07 | Tariff table becomes cards on small screens |
 | NFR-08 | Admin UI simple enough for non-technical staff |
+| NFR-08a | Public UI follows **GS Royal Safety Bands** (see frontend brand doc) |
 
 ## 3. Performance
 

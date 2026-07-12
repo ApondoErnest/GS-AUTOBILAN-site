@@ -1,6 +1,8 @@
 # Admin modules — V1
 
-**Version:** 1.1 · **Steps:** S051–S055
+**Version:** 1.2 · **Steps:** S051–S055
+
+**Status:** S051 complete; continue S052.
 
 ---
 
@@ -11,6 +13,8 @@ Name · address · phones · WhatsApp · email · opening hours · GPS · map li
 ## 2. Services management
 
 Title FR/EN · descriptions · icon · image · order · active
+
+**Implemented at S051:** `AgencyResource` and `ServiceResource` cover the current schema fields, including bilingual copy, contact/location data, opening-hour JSON fields, active/order flags, and create/edit/delete pages.
 
 ## 3. Tariffs management
 

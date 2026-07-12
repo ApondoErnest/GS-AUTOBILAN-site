@@ -1,6 +1,8 @@
 # Admin navigation and dashboard widgets — V1
 
-**Version:** 1.1 · **Steps:** S048–S050
+**Version:** 1.3 · **Steps:** S048–S050
+
+**Status:** S048-S050 complete.
 
 ---
 
@@ -13,6 +15,8 @@
 5. **Tariffs**  
 6. **Communication** — Contact messages  
 7. **Users & Settings** — Users · Settings · Audit log  
+
+**Implemented at S049:** group names and order are centralized in `App\Filament\AdminNavigation`. Current overview pages are placeholders for navigation only; module CRUD is still reserved for S051-S055.
 
 ---
 
@@ -30,3 +34,5 @@ Show:
 - Latest articles  
 
 **Agency Admin:** see own-agency metrics only.
+
+**Implemented at S050:** `App\Filament\Support\DashboardMetrics` centralizes dashboard counts and latest-activity queries, the Dashboard page renders S050 widgets, and tests cover Super Admin totals plus Agency Admin assigned-agency scoping.

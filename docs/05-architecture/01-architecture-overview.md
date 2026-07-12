@@ -1,7 +1,8 @@
 # System architecture overview — V1
 
 **Project:** GS AUTOBILAN Official Website  
-**Status:** Documented (confirm again at steps S026–S028)  
+**Status:** Confirmed **S026** (2026-07-11) against running Laravel app  
+**Stack in repo:** Laravel **13.19** · Livewire **4.3** · Filament **5.6** · MySQL (local 9.6 / target 8+) · Tailwind 4 · Vite 8  
 **Related:** [02-module-boundaries.md](02-module-boundaries.md) · [03-permission-matrix.md](03-permission-matrix.md) · [../07-database/](../07-database/) · [../01-project-documentation/05-operational-workflows.md](../01-project-documentation/05-operational-workflows.md)
 
 ---
@@ -40,12 +41,14 @@ flowchart TB
   L2 --> L3
 ```
 
-| Layer | Responsibility | Tech |
-|-------|----------------|------|
-| **1. Public frontend** | Pages, language switch, booking/tracking/contact UI | Blade, Livewire, Alpine, Tailwind |
-| **2. Backend application** | Validation, business rules, references, safe lookup, notifications | Laravel controllers, services, policies, events |
-| **3. Database** | Persistent data | MySQL 8 + Eloquent |
-| **4. Admin dashboard** | Staff CRUD, status updates, content, users | Filament 3 + Shield |
+| Layer | Responsibility | Tech | Repo status (S026) |
+|-------|----------------|------|--------------------|
+| **1. Public frontend** | Pages, language switch, booking/tracking/contact UI | Blade, Livewire 4, Alpine (via Livewire), Tailwind 4, Vite | Layout/partial/component **shells** exist (`resources/views/…`); pages not built yet |
+| **2. Backend application** | Validation, business rules, references, safe lookup, notifications | Laravel routes, controllers, services, policies, events | Foundation only (`app/Http`, `app/Models/User`); services come in Block H |
+| **3. Database** | Persistent data | MySQL + Eloquent | Connected DB `gs_autobilan`; default + permission/activity/media tables; domain schema in Block G |
+| **4. Admin dashboard** | Staff CRUD, status updates, content, users | Filament 5 + Shield 4 | Panel at `/admin`; Super Admin user; Shield installed (roles wiring in Block I) |
+
+**Confirmed:** The four-layer split matches the running app. Public and admin both sit on the same Laravel backend and MySQL database; no separate SPA or lane API.
 
 ---
 
@@ -144,12 +147,12 @@ Routes
 
 ## 6. Locale architecture
 
-- Default: `fr` · Fallback: `en`
+- Default: `fr` · Fallback: `en` · Timezone: `Africa/Douala` (**set in `.env` / `config/app.php`**)
 - URL prefix: `/fr/...` · `/en/...`
 - Root `/` → `/fr/accueil`
 - CMS: `_fr` / `_en` columns
-- UI chrome: `lang/fr.json` · `lang/en.json`
-- Middleware: `SetLocale`
+- UI chrome: structured PHP translation files under `lang/fr/` · `lang/en/`
+- Middleware: `SetLocale` (Block M)
 
 ---
 
@@ -170,6 +173,8 @@ Routes
 - Admin: auth + roles + agency scoping policies
 - Tracking: triple-field match; generic errors; no PII in logs
 - Production: HTTPS, debug off, backups
+
+**Confirmed at S025:** `/admin` requires login; Filament uses `Authenticate` + `PreventRequestForgery`; public layout exposes CSRF meta.
 
 Detail steps: S077–S079 in [../STEPS.md](../STEPS.md)
 

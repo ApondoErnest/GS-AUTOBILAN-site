@@ -44,6 +44,8 @@
 | ArticlePublished | Sitemap refresh (later) |
 | TariffUpdated | Activity log |
 
+**Implemented at S047:** `BookingCreated` and `ContactMessageCreated` dispatch from the create services and are registered through `EventServiceProvider`.
+
 ---
 
 ## 4. Jobs / queues (V1)

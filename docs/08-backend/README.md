@@ -1,7 +1,7 @@
 # Backend design — V1
 
 **Project:** GS AUTOBILAN Official Website  
-**Version:** 1.1 · **Status:** Design complete (implement S040–S047)  
+**Version:** 1.2 · **Status:** S040-S047 implemented; backend block complete  
 **Related:** [01-routes-and-controllers.md](01-routes-and-controllers.md) · [02-services-policies-events.md](02-services-policies-events.md) · [03-validation-notifications.md](03-validation-notifications.md)
 
 ---

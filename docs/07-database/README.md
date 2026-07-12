@@ -1,7 +1,7 @@
 # Database reference
 
 **Steps:** S035–S039 in [../STEPS.md](../STEPS.md)  
-**Status:** Schema design documented now; migrations/seeders implemented at those steps.
+**Status:** Complete through S039: schema, models, enums, relationships, and base seed data are in place.
 
 ## Documents (read in order)
 

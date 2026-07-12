@@ -1,6 +1,6 @@
 # Phase 3 — Local setup checklist
 
-**Status:** In progress (tools verified 2026-07-10)
+**Status:** Completed 2026-07-10 (tools + folders + git + environments)
 
 ---
 
@@ -45,6 +45,8 @@ Suggested feature branches:
 `feature/project-foundation` · `feature/frontend-layout` · `feature/admin-dashboard` · `feature/agencies` · `feature/services` · `feature/tariffs` · `feature/booking` · `feature/tracking` · `feature/bilingual` · `feature/contact-faq` · `feature/news`
 
 **When executing this phase:** `git init`, create `main`/`develop`, add `.gitignore` suitable for Laravel (full ignore file comes with Phase 4 scaffold).
+
+**Done 2026-07-10:** repo initialized · branches `main` + `develop` · starter `.gitignore` committed (no secrets).
 
 ---
 
