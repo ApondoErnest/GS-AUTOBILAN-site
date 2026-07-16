@@ -23,6 +23,20 @@ it('renders the English home page with English locale links', function () {
         ->assertSee('href="/fr/accueil"', false);
 });
 
+it('keeps the current public page when switching languages', function () {
+    $this->get('/fr/a-propos')
+        ->assertOk()
+        ->assertSee('href="/fr/a-propos"', false)
+        ->assertSee('href="/en/about"', false)
+        ->assertDontSee('href="/en/home"', false);
+
+    $this->get('/en/about')
+        ->assertOk()
+        ->assertSee('href="/en/about"', false)
+        ->assertSee('href="/fr/a-propos"', false)
+        ->assertDontSee('href="/fr/accueil"', false);
+});
+
 it('registers the localized public route skeletons', function () {
     $this->get('/fr/contact')->assertOk()->assertSee('Contact', false);
     $this->get('/en/contact')->assertOk()->assertSee('Contact', false);

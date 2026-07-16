@@ -1,7 +1,7 @@
 # Brand and UI system — V1
 
 **System name:** GS Royal Safety Bands  
-**Version:** 1.4 · **Status:** Palette revised from centre photos; homepage implemented · **Steps:** S029–S034 + S056
+**Version:** 1.5 · **Status:** Palette revised from centre photos; homepage and about implemented · **Steps:** S029–S034 + S056 + S065
 **Code tokens:** [`../../resources/css/app.css`](../../resources/css/app.css)
 
 Inspired by the real centres: **royal blue + white + red bands + industrial grey**.
@@ -94,6 +94,15 @@ Until photos arrive: solid/gradient blue hero + text lockup (see placeholders).
 - Section rhythm: homepage content sections use `py-9 sm:py-10 lg:py-12` to keep the page connected.
 - Content source: `lang/fr/home.php` and `lang/en/home.php`; view: `resources/views/pages/home.blade.php`.
 
+### About page implementation (S065)
+
+- Hero image: `public/images/aboutpage/hero-about.png` with deep-blue overlay and responsive background zoom/positioning.
+- Trust row: compact three-item row only: agencies, public-holiday opening, professional service.
+- Body sections: white/soft bands with red left accents, mission/vision/values cards, technician checklist, and agencies/direction cards.
+- Technician image: `public/images/aboutpage/technician-about.png`.
+- Section rhythm: About sections are tightened to sit closer together than the initial public-page defaults.
+- Content source: `lang/fr/about.php` and `lang/en/about.php`; view: `resources/views/pages/about.blade.php`.
+
 ### Cards (agency, service, article)
 
 - White background
@@ -147,7 +156,8 @@ Stay on **GS Royal Safety Bands** — avoid purple/cream “AI default” looks 
 |---------|-------|----------|---------|
 | Base chrome | `layouts/app` | strip · header · main · footer · FABs | All public |
 | **Home** | `layouts/home` | `hero` (navy/photo + red band) · `sections` · `final-cta` (`gs-soft`) | Accueil |
-| **Content** | `layouts/content` | heading on `gs-soft` · body on `gs-wall` | About, Visite Technique |
+| **Content** | `layouts/content` | heading on `gs-soft` · body on `gs-wall` | Visite Technique |
+| **About** | custom page view | photo hero · white/soft bands · mission cards · technician checklist · location cards | About |
 | **Listing** | `layouts/listing` | white header · `gs-wall` listing area | Agencies, Services, News, Tariffs |
 | **Article** | `layouts/article` | white header · related on `gs-soft` | News detail |
 | **Form** | `layouts/form` | notice uses `gs-accent-soft` | Booking, Contact |

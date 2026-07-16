@@ -42,7 +42,7 @@ Bilingual public site + Filament admin for vehicle technical inspection in Camer
 | Database implementation | Complete through S039: schema, models, enums, relationships, and base seed data |
 | Backend implementation | Complete through S047: locale routes, services, policies, validation, events, and admin notification stubs |
 | Admin dashboard implementation | Complete through S055: all planned Filament admin resources are in place |
-| Public website implementation | In progress through S056: homepage complete; agencies page is next |
+| Public website implementation | In progress: S056 home and S065 about complete; S057 agencies page is next |
 
 ---
 

@@ -2,8 +2,30 @@
     $variant = $variant ?? 'light';
     $label = $label ?? __('actions.language');
     $currentLocale = app()->getLocale() ?: 'fr';
-    $frHref = route('fr.home', [], false);
-    $enHref = route('en.home', [], false);
+    $currentRouteName = request()->route()?->getName();
+    $currentRouteParameters = request()->route()?->parameters() ?? [];
+    $currentQuery = request()->query();
+
+    $localizedHref = function (string $locale) use ($currentRouteName, $currentRouteParameters, $currentQuery): string {
+        $routeSuffix = preg_replace('/^(fr|en)\./', '', $currentRouteName ?? '');
+        $routeName = $routeSuffix !== '' ? $locale.'.'.$routeSuffix : $locale.'.home';
+
+        if (! \Illuminate\Support\Facades\Route::has($routeName)) {
+            $routeName = $locale.'.home';
+            $currentRouteParameters = [];
+        }
+
+        $href = route($routeName, $currentRouteParameters, false);
+
+        if ($currentQuery !== []) {
+            $href .= '?'.http_build_query($currentQuery);
+        }
+
+        return $href;
+    };
+
+    $frHref = $localizedHref('fr');
+    $enHref = $localizedHref('en');
     $isDark = in_array($variant, ['strip', 'footer'], true);
 
     $navClass = match ($variant) {

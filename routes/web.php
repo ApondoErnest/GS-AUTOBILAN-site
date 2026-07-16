@@ -7,7 +7,7 @@ Route::redirect('/', '/fr/accueil');
 $localizedPages = [
     'fr' => [
         ['uri' => 'accueil', 'name' => 'home', 'view' => 'pages.home', 'title' => 'chrome.home_title'],
-        ['uri' => 'a-propos', 'name' => 'about', 'title' => 'nav.about'],
+        ['uri' => 'a-propos', 'name' => 'about', 'view' => 'pages.about', 'title' => 'about.meta_title'],
         ['uri' => 'nos-agences', 'name' => 'agencies', 'title' => 'nav.agencies'],
         ['uri' => 'services', 'name' => 'services', 'title' => 'nav.services'],
         ['uri' => 'tarifs', 'name' => 'tariffs', 'title' => 'nav.tariffs'],
@@ -19,7 +19,7 @@ $localizedPages = [
     ],
     'en' => [
         ['uri' => 'home', 'name' => 'home', 'view' => 'pages.home', 'title' => 'chrome.home_title'],
-        ['uri' => 'about', 'name' => 'about', 'title' => 'nav.about'],
+        ['uri' => 'about', 'name' => 'about', 'view' => 'pages.about', 'title' => 'about.meta_title'],
         ['uri' => 'our-agencies', 'name' => 'agencies', 'title' => 'nav.agencies'],
         ['uri' => 'services', 'name' => 'services', 'title' => 'nav.services'],
         ['uri' => 'tariffs', 'name' => 'tariffs', 'title' => 'nav.tariffs'],

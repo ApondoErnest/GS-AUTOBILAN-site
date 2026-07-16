@@ -17,7 +17,8 @@ Company facts: [00-company-data.md](00-company-data.md)
 | Homepage hero images | ☑ In use | `public/images/homepage/hero-1.png` through `hero-5.png` |
 | Agency exteriors (×2) | ☑ In use | Home teaser uses `agency-1.png` and `agency-2.png` |
 | Reception / inspection line | ☑ In use | Homepage gallery/advice uses `agence-3.png` through `agence-6.png` plus article images |
-| Staff / vehicles | ☐ Optional | Consent; avoid identifiable plates if needed |
+| About page images | ☑ In use | `public/images/aboutpage/hero-about.png` and `technician-about.png` |
+| Staff / vehicles | ☑ In use for About | Consent; avoid identifiable plates if future staff photos are supplied |
 
 Until photos: maps + colour blocks · gallery “Photos à venir”.
 
@@ -38,13 +39,14 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 
 | Item | FR | EN |
 |------|----|----|
-| Company short description | ☐ | ☐ |
-| Mission / vision / values | ☑ Suggested in brief — approve | ☐ |
+| Company short description | ☑ Draft implemented on About | ☑ Draft implemented on About |
+| Mission / vision / values | ☑ Draft implemented on About — approve | ☑ Draft implemented on About — approve |
 | Services (×8) | ☐ | ☐ |
 | Visite Technique page | ☐ | ☐ |
 | FAQ (×12) | ☐ | ☐ |
 | Homepage hero | ☑ Implemented | ☑ Implemented |
 | Homepage sections | ☑ Implemented | ☑ Implemented |
+| About page sections | ☑ Implemented | ☑ Implemented |
 | Booking disclaimer | ☑ Locked in scope | ☑ Locked |
 
 **Articles (evergreen):** homepage cards now cover préparer le véhicule · documents · contre-visite; full article bodies still need FR then EN content before News launch.

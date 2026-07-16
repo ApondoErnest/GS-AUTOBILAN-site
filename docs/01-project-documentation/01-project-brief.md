@@ -42,11 +42,15 @@ Local → stabilize → Docker → VPS · Timezone `Africa/Douala`
 Booking = **digital intake** (staff confirm by phone/WhatsApp).  
 Tracking = **appointment + document readiness** only — not lane/machine status.
 
-## Suggested About copy (approve with company)
+## About page copy draft (implemented in S065; approve with company)
 
-**Mission:** Contribuer à la sécurité routière au Cameroun en offrant un service de contrôle technique automobile fiable, transparent et professionnel.  
-**Vision:** Devenir une référence du contrôle technique grâce à la qualité du service et à la confiance des usagers.  
-**Values:** Safety · Professionalism · Transparency · Responsibility · Customer care · Reliability
+**FR mission:** Contribuer à la sécurité routière en offrant un service de visite technique fiable, clair et accessible.  
+**FR vision:** Devenir une référence en matière de contrôle technique automobile professionnel, moderne et orienté client.  
+**FR values:** Sécurité · Transparence · Professionnalisme · Fiabilité
+
+**EN mission:** Contribute to road safety by offering a reliable, clear, and accessible technical inspection service.  
+**EN vision:** Become a reference for professional, modern, customer-oriented vehicle technical inspection.  
+**EN values:** Safety · Transparency · Professionalism · Reliability
 
 ## Next
 

@@ -368,7 +368,7 @@
 
 ## Block J — Public website pages
 
-Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About.
+Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; continue from S057.
 
 ### S056 — Build Home page (all main sections)
 - [x] **Completed** — homepage sections built and verified in FR/EN: carousel photo hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery block, advice cards, final readiness CTA, and tightened responsive section rhythm (2026-07-16)
@@ -417,8 +417,8 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** Published articles list and open by slug.
 
 ### S065 — Build About page
-- [ ] **Pending**
-- **Depends on:** S064
+- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S057 remains the next unchecked step.
+- **Depends on:** S064 in the original sequence; completed early by user direction
 - **Done when:** Mission/vision/values/DG block present.
 
 ---
@@ -428,7 +428,7 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ### S066 — Wire booking form submit to BookingService
 - [ ] **Pending**
 - **Detail:** [11-booking-module/README.md](11-booking-module/README.md)
-- **Depends on:** S065
+- **Depends on:** S057–S065 public pages complete (S065 is already complete out of sequence)
 - **Done when:** Valid submit creates booking + readiness + shows reference.
 
 ### S067 — Build booking confirmation screen + link to tracking
@@ -660,4 +660,4 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 56 · **Remaining:** 40 · **Next:** S057
+**Total steps:** 96 · **Completed:** 57 · **Remaining:** 39 · **Next:** S057

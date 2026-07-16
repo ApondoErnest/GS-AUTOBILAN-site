@@ -5,7 +5,9 @@
 ### Changed
 
 - **S056:** Home page completed with the FR/EN carousel hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery section, advice cards, final readiness CTA, homepage image assets, translations, and focused homepage feature coverage; S057 is now next.
-- Roadmap, step tracker, public website notes, frontend design notes, and content checklist updated to reflect the completed homepage and the next Agencies page step.
+- **S065:** About page completed out of sequence with FR/EN photo hero, compact trust row, mission/vision/values, technician checklist, agencies/direction cards, about page assets, tightened section rhythm, and focused About feature coverage; S057 remains next.
+- Language switcher now preserves the matching localized route on public pages, such as `/fr/a-propos` ↔ `/en/about`, instead of sending users back to the homepage.
+- Roadmap, step tracker, public website notes, frontend design notes, and content checklist updated to reflect the completed home/about pages and the next Agencies page step.
 
 ## 1.4 — 2026-07-12
 
