@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S057** (Build Agencies page)
+**Current next step:** **S058** (Add Booking page shell)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -368,7 +368,7 @@
 
 ## Block J — Public website pages
 
-Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; continue from S057.
+Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; continue from S058.
 
 ### S056 — Build Home page (all main sections)
 - [x] **Completed** — homepage sections built and verified in FR/EN: carousel photo hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery block, advice cards, final readiness CTA, and tightened responsive section rhythm (2026-07-16)
@@ -377,12 +377,12 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** Home shows agencies, services, CTAs, previews in FR (EN labels may still be partial until Block M).
 
 ### S057 — Build Agencies page (map + cards + actions)
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — Agencies page built and verified in FR/EN with centered photo hero, compact trust/action controls, two agency cards, live Google map embeds, map information overlays, functional map zoom controls, WhatsApp + booking actions only, current-page language switching, and focused feature coverage (2026-07-16)
 - **Depends on:** S056
-- **Done when:** Both agencies show hours, call, WhatsApp, directions, book.
+- **Done when:** Both agencies show hours, phone info, live maps, WhatsApp, and booking actions.
 
 ### S058 — Add Booking page shell (UI only; logic in Block K)
-- [ ] **Pending**
+- [ ] **Pending** ← **do this next**
 - **Depends on:** S057
 - **Done when:** Booking page layout and non-auto-confirm message visible.
 
@@ -417,7 +417,7 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** Published articles list and open by slug.
 
 ### S065 — Build About page
-- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S057 remains the next unchecked step.
+- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S058 remains the next unchecked step.
 - **Depends on:** S064 in the original sequence; completed early by user direction
 - **Done when:** Mission/vision/values/DG block present.
 
@@ -660,4 +660,4 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 57 · **Remaining:** 39 · **Next:** S057
+**Total steps:** 96 · **Completed:** 58 · **Remaining:** 38 · **Next:** S058

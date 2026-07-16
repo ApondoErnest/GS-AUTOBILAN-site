@@ -8,7 +8,7 @@ $localizedPages = [
     'fr' => [
         ['uri' => 'accueil', 'name' => 'home', 'view' => 'pages.home', 'title' => 'chrome.home_title'],
         ['uri' => 'a-propos', 'name' => 'about', 'view' => 'pages.about', 'title' => 'about.meta_title'],
-        ['uri' => 'nos-agences', 'name' => 'agencies', 'title' => 'nav.agencies'],
+        ['uri' => 'nos-agences', 'name' => 'agencies', 'view' => 'pages.agencies', 'title' => 'agencies.meta_title'],
         ['uri' => 'services', 'name' => 'services', 'title' => 'nav.services'],
         ['uri' => 'tarifs', 'name' => 'tariffs', 'title' => 'nav.tariffs'],
         ['uri' => 'visite-technique', 'name' => 'technical_inspection', 'title' => 'nav.technical_inspection'],
@@ -20,7 +20,7 @@ $localizedPages = [
     'en' => [
         ['uri' => 'home', 'name' => 'home', 'view' => 'pages.home', 'title' => 'chrome.home_title'],
         ['uri' => 'about', 'name' => 'about', 'view' => 'pages.about', 'title' => 'about.meta_title'],
-        ['uri' => 'our-agencies', 'name' => 'agencies', 'title' => 'nav.agencies'],
+        ['uri' => 'our-agencies', 'name' => 'agencies', 'view' => 'pages.agencies', 'title' => 'agencies.meta_title'],
         ['uri' => 'services', 'name' => 'services', 'title' => 'nav.services'],
         ['uri' => 'tariffs', 'name' => 'tariffs', 'title' => 'nav.tariffs'],
         ['uri' => 'technical-inspection', 'name' => 'technical_inspection', 'title' => 'nav.technical_inspection'],

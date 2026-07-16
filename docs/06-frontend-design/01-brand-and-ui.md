@@ -1,7 +1,7 @@
 # Brand and UI system — V1
 
 **System name:** GS Royal Safety Bands  
-**Version:** 1.5 · **Status:** Palette revised from centre photos; homepage and about implemented · **Steps:** S029–S034 + S056 + S065
+**Version:** 1.6 · **Status:** Palette revised from centre photos; homepage, agencies, and about implemented · **Steps:** S029–S034 + S056 + S057 + S065
 **Code tokens:** [`../../resources/css/app.css`](../../resources/css/app.css)
 
 Inspired by the real centres: **royal blue + white + red bands + industrial grey**.
@@ -103,6 +103,14 @@ Until photos arrive: solid/gradient blue hero + text lockup (see placeholders).
 - Section rhythm: About sections are tightened to sit closer together than the initial public-page defaults.
 - Content source: `lang/fr/about.php` and `lang/en/about.php`; view: `resources/views/pages/about.blade.php`.
 
+### Agencies page implementation (S057)
+
+- Hero image: `public/images/agencies/hero-agencies.png` with a light navy gradient, centered copy, compact trust row, and mobile background zoom/height adjustments.
+- Agency cards: white banded cards with red vertical edge, open-holiday badge, confirmed address/hours/phone text, and responsive map pairing.
+- Maps: live Google iframe embeds using confirmed GPS coordinates, visible information cards, `Agrandir le plan` / `Open larger map` links, and functional `+ / -` zoom controls wired through `resources/js/app.js`.
+- Actions: agency cards intentionally show only WhatsApp and booking actions; call and directions buttons are omitted from the final design.
+- Content source: `lang/fr/agencies.php` and `lang/en/agencies.php`; view: `resources/views/pages/agencies.blade.php`.
+
 ### Cards (agency, service, article)
 
 - White background
@@ -114,7 +122,7 @@ Until photos arrive: solid/gradient blue hero + text lockup (see placeholders).
 ```
 | red | GS AUTOBILAN Nkolbisson
 |     | Address…
-|     | [Itinéraire] [Rendez-vous]
+|     | [WhatsApp] [Rendez-vous]
 ```
 
 ### Section dividers
@@ -158,7 +166,8 @@ Stay on **GS Royal Safety Bands** — avoid purple/cream “AI default” looks 
 | **Home** | `layouts/home` | `hero` (navy/photo + red band) · `sections` · `final-cta` (`gs-soft`) | Accueil |
 | **Content** | `layouts/content` | heading on `gs-soft` · body on `gs-wall` | Visite Technique |
 | **About** | custom page view | photo hero · white/soft bands · mission cards · technician checklist · location cards | About |
-| **Listing** | `layouts/listing` | white header · `gs-wall` listing area | Agencies, Services, News, Tariffs |
+| **Listing** | `layouts/listing` | white header · `gs-wall` listing area | Services, News, Tariffs |
+| **Agencies** | custom page view | centered photo hero · live map cards · WhatsApp/RDV actions | Agencies |
 | **Article** | `layouts/article` | white header · related on `gs-soft` | News detail |
 | **Form** | `layouts/form` | notice uses `gs-accent-soft` | Booking, Contact |
 | **Tracking** | `layouts/tracking` | white panels · `gs-concrete` borders | Appointment tracking |

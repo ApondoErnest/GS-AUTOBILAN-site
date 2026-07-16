@@ -1,13 +1,19 @@
 # Documentation changelog
 
+## 1.6 — 2026-07-16
+
+### Changed
+
+- **S057:** Agencies page completed with FR/EN centered photo hero, compact mobile hero treatment, two agency cards, confirmed hours/phone/GPS data, live Google map embeds, visible map info overlays, functional map zoom controls, WhatsApp + booking actions only, and focused Agencies feature coverage; S058 is now next.
+- Roadmap, step tracker, public website notes, frontend design notes, and content checklist updated to reflect the completed home/agencies/about pages and the next Booking shell step.
+
 ## 1.5 — 2026-07-16
 
 ### Changed
 
-- **S056:** Home page completed with the FR/EN carousel hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery section, advice cards, final readiness CTA, homepage image assets, translations, and focused homepage feature coverage; S057 is now next.
-- **S065:** About page completed out of sequence with FR/EN photo hero, compact trust row, mission/vision/values, technician checklist, agencies/direction cards, about page assets, tightened section rhythm, and focused About feature coverage; S057 remains next.
+- **S056:** Home page completed with the FR/EN carousel hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery section, advice cards, final readiness CTA, homepage image assets, translations, and focused homepage feature coverage.
+- **S065:** About page completed out of sequence with FR/EN photo hero, compact trust row, mission/vision/values, technician checklist, agencies/direction cards, about page assets, tightened section rhythm, and focused About feature coverage.
 - Language switcher now preserves the matching localized route on public pages, such as `/fr/a-propos` ↔ `/en/about`, instead of sending users back to the homepage.
-- Roadmap, step tracker, public website notes, frontend design notes, and content checklist updated to reflect the completed home/about pages and the next Agencies page step.
 
 ## 1.4 — 2026-07-12
 

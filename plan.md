@@ -3,7 +3,7 @@
 **Type:** Technical roadmap (no code) · **Version:** 1.4 · **Updated:** 2026-07-16
 **Slogan:** Votre sécurité, c’est notre métier.
 
-**Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096). First unchecked: **S057**.
+**Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096). First unchecked: **S058**.
 **Company data:** [docs/01-project-documentation/00-company-data.md](docs/01-project-documentation/00-company-data.md)
 
 ---
@@ -78,7 +78,7 @@ Docs → Requirements → Local → Laravel → Architecture → Frontend
 | 7 Database | [docs/07-…](docs/07-database/) | S035–S039 |
 | 8 Backend | [docs/08-…](docs/08-backend/) | S040–S047 |
 | 9 Admin | [docs/09-…](docs/09-admin-dashboard/) | S048–S055 |
-| 10 Public site | [docs/10-…](docs/10-public-website/) | S056 and S065 complete · S057–S064 remaining |
+| 10 Public site | [docs/10-…](docs/10-public-website/) | S056, S057, and S065 complete · S058–S064 remaining |
 | 11 Booking | [docs/11-…](docs/11-booking-module/) | S066–S068 |
 | 12 Tracking | [docs/12-…](docs/12-tracking-module/) | S069–S070 |
 | 13 Bilingual | [docs/13-…](docs/13-bilingual/) | S071–S073 |
@@ -117,4 +117,4 @@ Full: [docs/01-project-documentation/05-operational-workflows.md](docs/01-projec
 
 ## 8. Next
 
-Open **[docs/STEPS.md](docs/STEPS.md)** → first unchecked step (**S057**).
+Open **[docs/STEPS.md](docs/STEPS.md)** → first unchecked step (**S058**).

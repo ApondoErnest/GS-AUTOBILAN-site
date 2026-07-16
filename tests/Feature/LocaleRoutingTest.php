@@ -35,6 +35,18 @@ it('keeps the current public page when switching languages', function () {
         ->assertSee('href="/en/about"', false)
         ->assertSee('href="/fr/a-propos"', false)
         ->assertDontSee('href="/fr/accueil"', false);
+
+    $this->get('/fr/nos-agences')
+        ->assertOk()
+        ->assertSee('href="/fr/nos-agences"', false)
+        ->assertSee('href="/en/our-agencies"', false)
+        ->assertDontSee('href="/en/home"', false);
+
+    $this->get('/en/our-agencies')
+        ->assertOk()
+        ->assertSee('href="/en/our-agencies"', false)
+        ->assertSee('href="/fr/nos-agences"', false)
+        ->assertDontSee('href="/fr/accueil"', false);
 });
 
 it('registers the localized public route skeletons', function () {

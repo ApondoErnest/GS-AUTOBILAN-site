@@ -1,6 +1,6 @@
 # Public website implementation — V1
 
-**Steps:** S056–S065 · **Status:** S056 and S065 complete, S057 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
+**Steps:** S056–S065 · **Status:** S056, S057, and S065 complete; S058 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
 
 ---
 
@@ -8,7 +8,7 @@
 
 1. Home · 2. Agencies · 3. Booking shell · 4. Tracking shell · 5. Services · 6. Tariffs · 7. Visite Technique · 8. Contact + FAQ · 9. News · 10. About  
 
-S065 About was completed early by user direction; continue the remaining public build from S057 Agencies.
+S065 About was completed early by user direction; continue the remaining public build from S058 Booking shell.
 
 *(Chrome: navy+red strip · white header · banded footer — Block F / S031.)*
 
@@ -19,7 +19,8 @@ S065 About was completed early by user direction; continue the remaining public 
 | Step | Page | Status | Notes |
 |------|------|--------|-------|
 | S056 | Home | Complete | Implemented in `resources/views/pages/home.blade.php` with FR/EN translations and homepage assets under `public/images/homepage/`. |
-| S057 | Agencies | Next | Full agencies page should expand the teaser cards with maps, call/WhatsApp, directions, hours, and booking actions. |
+| S057 | Agencies | Complete | Implemented in `resources/views/pages/agencies.blade.php` with FR/EN translations, `public/images/agencies/hero-agencies.png`, live Google map embeds, map overlays/zoom controls, WhatsApp + booking actions, and focused page/language-switch tests. |
+| S058 | Booking shell | Next | Add the public booking UI shell and non-auto-confirmation message; submit logic remains in Block K. |
 | S065 | About | Complete (built early) | Implemented in `resources/views/pages/about.blade.php` with FR/EN translations, `public/images/aboutpage/hero-about.png`, `technician-about.png`, and focused page/language-switch tests. |
 
 ---
@@ -29,7 +30,7 @@ S065 About was completed early by user direction; continue the remaining public 
 | Page | Must include |
 |------|----------------|
 | Home | Complete: photo carousel hero (blue overlay) · trust row · agencies teaser · inspection/services preview · booking/tracking CTAs · tariff preview · why GS · agency gallery · advice/news cards · final readiness CTA · red/white/blue ribbon and compact section rhythm |
-| Agencies | Banded white cards · maps · call/WhatsApp · hours · book |
+| Agencies | Complete: centered photo hero · compact trust row · two agency cards · hours/phone info · live Google maps with info overlays and zoom controls · WhatsApp + book actions only · FR/EN |
 | Booking | Non-auto-confirm notice · form sections · success + reference (wired in Block K) |
 | Tracking | Explanation · lookup · safe error · result panel (wired in Block L) |
 | Services | Grid · who for · CTAs to booking/tariffs |
@@ -50,12 +51,21 @@ All public pages work FR/EN, mobile-friendly, DB-driven where required.
 ## Home implementation notes
 
 - The hero uses `public/images/homepage/hero-1.png` through `hero-5.png` as a carousel with a deep-blue overlay and GS red/white/blue ribbon.
-- The home agency teaser uses `agency-1.png` and `agency-2.png`; the call button is intentionally omitted on home and belongs on the full Agencies page.
+- The home agency teaser uses `agency-1.png` and `agency-2.png`; the full Agencies page final action set is WhatsApp + booking, with map interaction handled by the live embedded map.
 - The inspection preview includes the controlled points grid and the six-step process; step 04 is **Contrôle Technique**.
 - The tariff preview uses the supplied category list and prices, plus the why-choose list and gallery images `agence-3.png` through `agence-6.png`.
 - The advice/readiness block uses `prepare-visit.png`, `necessary-docs.png`, `case-cv.png`, and `agence-6.png`; the right CTA keeps only the title plus two checklist columns.
 - Section padding was tightened to `py-9 sm:py-10 lg:py-12` so homepage sections do not feel too far apart.
 - Coverage: `tests/Feature/HomepageHeroTest.php`, `npm run build`, and browser checks on desktop/mobile.
+
+## Agencies implementation notes
+
+- The hero uses `public/images/agencies/hero-agencies.png` with a light navy overlay, centered copy, compact mobile height, and responsive background zoom.
+- The bilingual copy lives in `lang/fr/agencies.php` and `lang/en/agencies.php`; the view is `resources/views/pages/agencies.blade.php`.
+- The page includes two agency cards for Nkolbisson and Obili Scalom, using confirmed addresses, hours, phone text, GPS coordinates, and WhatsApp links.
+- Each agency card embeds a live Google map iframe with a visible information overlay (`Agrandir le plan` / `Open larger map`) and functional `+ / -` zoom controls wired in `resources/js/app.js`.
+- The final agency-card actions intentionally omit call and directions buttons; only WhatsApp and booking remain.
+- Coverage: `tests/Feature/AgenciesPageTest.php`, `tests/Feature/LocaleRoutingTest.php`, `npm run build`, and desktop/mobile browser checks.
 
 ## About implementation notes
 
