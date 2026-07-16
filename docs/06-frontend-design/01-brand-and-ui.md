@@ -1,7 +1,7 @@
 # Brand and UI system — V1
 
 **System name:** GS Royal Safety Bands  
-**Version:** 1.3 · **Status:** Palette revised from centre photos · **Steps:** S029–S034  
+**Version:** 1.4 · **Status:** Palette revised from centre photos; homepage implemented · **Steps:** S029–S034 + S056
 **Code tokens:** [`../../resources/css/app.css`](../../resources/css/app.css)
 
 Inspired by the real centres: **royal blue + white + red bands + industrial grey**.
@@ -84,6 +84,15 @@ White header keeps logo/nav clean against strong blue signage elsewhere.
 - CTA: white or royal blue for contrast
 
 Until photos arrive: solid/gradient blue hero + text lockup (see placeholders).
+
+### Home page implementation (S056)
+
+- Hero carousel: `public/images/homepage/hero-1.png` through `hero-5.png`.
+- Overlay: deep-blue gradient with a thinner left-side weight so the building imagery stays visible.
+- Bottom ribbon: red/white/blue diagonal band in `resources/css/app.css`.
+- Primary content: centered copy block, two CTA buttons, compact trust row, and no planning card.
+- Section rhythm: homepage content sections use `py-9 sm:py-10 lg:py-12` to keep the page connected.
+- Content source: `lang/fr/home.php` and `lang/en/home.php`; view: `resources/views/pages/home.blade.php`.
 
 ### Cards (agency, service, article)
 

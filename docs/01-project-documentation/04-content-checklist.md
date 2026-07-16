@@ -10,12 +10,13 @@ Company facts: [00-company-data.md](00-company-data.md)
 
 | Item | Status | Notes |
 |------|--------|-------|
-| Logo (SVG/PNG) | ☐ | Prefer SVG; until then text lockup “GS AUTOBILAN” |
-| Favicon | ☐ | Temporary “GS” monogram OK |
+| Logo (SVG/PNG) | ☑ In use | `public/images/site_logo.png`; SVG still preferred later if supplied |
+| Favicon | ☑ In use | Generated from the GS mark in S034 |
 | Colours | ☑ Locked | **GS Royal Safety Bands** — see [brand-and-ui](../06-frontend-design/01-brand-and-ui.md); primary `#145DB3` · accent `#C8202F` |
 | Brand fonts | ☐ | Clean modern web fonts until specified |
-| Agency exteriors (×2) | ☐ | High priority |
-| Reception / inspection line | ☐ | Min. polished launch: 2 exteriors + reception + line |
+| Homepage hero images | ☑ In use | `public/images/homepage/hero-1.png` through `hero-5.png` |
+| Agency exteriors (×2) | ☑ In use | Home teaser uses `agency-1.png` and `agency-2.png` |
+| Reception / inspection line | ☑ In use | Homepage gallery/advice uses `agence-3.png` through `agence-6.png` plus article images |
 | Staff / vehicles | ☐ Optional | Consent; avoid identifiable plates if needed |
 
 Until photos: maps + colour blocks · gallery “Photos à venir”.
@@ -26,7 +27,7 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 
 | Item | Status | Notes |
 |------|--------|-------|
-| Official tariff table | ☐ | **Do not invent prices** |
+| Official tariff table | ☑ Supplied for homepage | Categories/prices/validities used in S056; reconfirm before full Tariffs page and launch |
 | Email spelling | ☐ Confirm | See company data |
 | Accreditation wording | ☐ Optional | |
 | DG GPS | ☐ Optional | Address known |
@@ -42,10 +43,11 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 | Services (×8) | ☐ | ☐ |
 | Visite Technique page | ☐ | ☐ |
 | FAQ (×12) | ☐ | ☐ |
-| Homepage hero | ☑ Draft — approve | ☐ |
+| Homepage hero | ☑ Implemented | ☑ Implemented |
+| Homepage sections | ☑ Implemented | ☑ Implemented |
 | Booking disclaimer | ☑ Locked in scope | ☑ Locked |
 
-**Articles (evergreen):** préparer le véhicule · documents · « suspendu » · freinage · éviter contre-visite · contrôles fréquents — ☐ write FR then EN.
+**Articles (evergreen):** homepage cards now cover préparer le véhicule · documents · contre-visite; full article bodies still need FR then EN content before News launch.
 
 **Testimonials:** prefer real quotes later; avoid fake placeholders.
 

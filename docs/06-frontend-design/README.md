@@ -1,6 +1,6 @@
 # Frontend design — V1
 
-**System:** GS Royal Safety Bands · **Version:** 1.3 · **Steps:** S029–S034  
+**System:** GS Royal Safety Bands · **Version:** 1.4 · **Steps:** S029–S034 + S056 home implementation
 
 Palette locked in [`../../resources/css/app.css`](../../resources/css/app.css) · detail: [01-brand-and-ui.md](01-brand-and-ui.md)
 
@@ -10,9 +10,14 @@ Palette locked in [`../../resources/css/app.css`](../../resources/css/app.css) �
 |------|---------|
 | [01-brand-and-ui.md](01-brand-and-ui.md) | Colours, chrome rules, type, components, page order |
 
-## Next (S031)
+## Current implementation
 
-Build strip + **white** header + banded footer per brand-and-ui §3.
+- Shared chrome, mobile menu, language switcher, sticky contact FABs, reusable cards, and favicon/logo treatment are complete through S034.
+- The S056 homepage applies the system with a photo carousel hero, blue overlay, red/white/blue ribbon, compact trust row, white/soft/wall section bands, and tightened section rhythm.
+
+## Next
+
+Continue public page design with **S057 Agencies page**, using the banded agency card pattern from the homepage teaser as the starting point.
 
 ## Acceptance
 

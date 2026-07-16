@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## 1.5 — 2026-07-16
+
+### Changed
+
+- **S056:** Home page completed with the FR/EN carousel hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery section, advice cards, final readiness CTA, homepage image assets, translations, and focused homepage feature coverage; S057 is now next.
+- Roadmap, step tracker, public website notes, frontend design notes, and content checklist updated to reflect the completed homepage and the next Agencies page step.
+
 ## 1.4 — 2026-07-12
 
 ### Changed

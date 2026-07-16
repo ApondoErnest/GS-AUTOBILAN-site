@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S056** (Build Home page)
+**Current next step:** **S057** (Build Agencies page)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -371,13 +371,13 @@
 Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About.
 
 ### S056 — Build Home page (all main sections)
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — homepage sections built and verified in FR/EN: carousel photo hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery block, advice cards, final readiness CTA, and tightened responsive section rhythm (2026-07-16)
 - **Detail:** [10-public-website/README.md](10-public-website/README.md)
 - **Depends on:** S055
 - **Done when:** Home shows agencies, services, CTAs, previews in FR (EN labels may still be partial until Block M).
 
 ### S057 — Build Agencies page (map + cards + actions)
-- [ ] **Pending**
+- [ ] **Pending** ← **do this next**
 - **Depends on:** S056
 - **Done when:** Both agencies show hours, call, WhatsApp, directions, book.
 
@@ -660,4 +660,4 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 55 · **Remaining:** 41 · **Next:** S056
+**Total steps:** 96 · **Completed:** 56 · **Remaining:** 40 · **Next:** S057
