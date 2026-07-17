@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## 1.7 — 2026-07-17
+
+### Changed
+
+- **S058:** Booking page shell completed with FR/EN compact expectation hero, non-auto-confirmation transparency notice, progressive intake command center, official-ticket-style live summary, document checklist, agency/service/vehicle/date/contact steps, custom branded calendar picker, client-side virtual receipt state, and focused Booking page coverage.
+- Roadmap, step tracker, public website notes, frontend design notes, content checklist, and booking module handoff updated so **S059 Tracking shell** is now the next step.
+
 ## 1.6 — 2026-07-16
 
 ### Changed

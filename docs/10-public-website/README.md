@@ -1,6 +1,6 @@
 # Public website implementation — V1
 
-**Steps:** S056–S065 · **Status:** S056, S057, and S065 complete; S058 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
+**Steps:** S056–S065 · **Status:** S056–S058 and S065 complete; S059 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
 
 ---
 
@@ -8,7 +8,7 @@
 
 1. Home · 2. Agencies · 3. Booking shell · 4. Tracking shell · 5. Services · 6. Tariffs · 7. Visite Technique · 8. Contact + FAQ · 9. News · 10. About  
 
-S065 About was completed early by user direction; continue the remaining public build from S058 Booking shell.
+S065 About was completed early by user direction; continue the remaining public build from S059 Tracking shell.
 
 *(Chrome: navy+red strip · white header · banded footer — Block F / S031.)*
 
@@ -20,7 +20,8 @@ S065 About was completed early by user direction; continue the remaining public 
 |------|------|--------|-------|
 | S056 | Home | Complete | Implemented in `resources/views/pages/home.blade.php` with FR/EN translations and homepage assets under `public/images/homepage/`. |
 | S057 | Agencies | Complete | Implemented in `resources/views/pages/agencies.blade.php` with FR/EN translations, `public/images/agencies/hero-agencies.png`, live Google map embeds, map overlays/zoom controls, WhatsApp + booking actions, and focused page/language-switch tests. |
-| S058 | Booking shell | Next | Add the public booking UI shell and non-auto-confirmation message; submit logic remains in Block K. |
+| S058 | Booking shell | Complete | Implemented in `resources/views/pages/booking.blade.php` with FR/EN translations, compact expectation hero, non-auto-confirmation notice, progressive booking command center, live ticket summary, custom calendar UI, and focused feature tests. Backend submit logic remains in Block K. |
+| S059 | Tracking shell | Next | Add the public tracking form shell and safe expectation copy; lookup logic remains in Block L. |
 | S065 | About | Complete (built early) | Implemented in `resources/views/pages/about.blade.php` with FR/EN translations, `public/images/aboutpage/hero-about.png`, `technician-about.png`, and focused page/language-switch tests. |
 
 ---
@@ -31,7 +32,7 @@ S065 About was completed early by user direction; continue the remaining public 
 |------|----------------|
 | Home | Complete: photo carousel hero (blue overlay) · trust row · agencies teaser · inspection/services preview · booking/tracking CTAs · tariff preview · why GS · agency gallery · advice/news cards · final readiness CTA · red/white/blue ribbon and compact section rhythm |
 | Agencies | Complete: centered photo hero · compact trust row · two agency cards · hours/phone info · live Google maps with info overlays and zoom controls · WhatsApp + book actions only · FR/EN |
-| Booking | Non-auto-confirm notice · form sections · success + reference (wired in Block K) |
+| Booking | Complete shell: non-auto-confirm notice · form sections · live ticket · custom date picker · client-side success/receipt state; real persistence wired in Block K |
 | Tracking | Explanation · lookup · safe error · result panel (wired in Block L) |
 | Services | Grid · who for · CTAs to booking/tariffs |
 | Tariffs | Table + mobile cards · filter · last updated · print · book CTA |
@@ -66,6 +67,19 @@ All public pages work FR/EN, mobile-friendly, DB-driven where required.
 - Each agency card embeds a live Google map iframe with a visible information overlay (`Agrandir le plan` / `Open larger map`) and functional `+ / -` zoom controls wired in `resources/js/app.js`.
 - The final agency-card actions intentionally omit call and directions buttons; only WhatsApp and booking remain.
 - Coverage: `tests/Feature/AgenciesPageTest.php`, `tests/Feature/LocaleRoutingTest.php`, `npm run build`, and desktop/mobile browser checks.
+
+## Booking shell implementation notes
+
+- The bilingual copy lives in `lang/fr/booking.php` and `lang/en/booking.php`; the view is `resources/views/pages/booking.blade.php`.
+- Routes now point `/fr/rendez-vous` and `/en/booking` to the booking page shell.
+- The hero is intentionally compact, uses the GS blue gradient, and keeps the transparency notice prominent without implying confirmed availability.
+- The command center uses a sticky live-ticket sidebar on desktop and a mobile summary drawer; unfilled fields show the localized empty state until selected.
+- Step 1 covers agency and service selection, including four service cards: periodic technical inspection, re-inspection, document verification, and information/guidance.
+- Step 2 covers vehicle category selection with distinct neutral SVG vehicle icons and accessible vehicle detail fields.
+- Step 3 covers preferred date, preferred period, identity/contact fields, review, and the required acknowledgement that an agent must confirm the request.
+- The date field uses a branded custom calendar instead of the native browser calendar. It prevents past dates, marks Nkolbisson Sundays unavailable, and keeps Obili Scalom Sunday periods at the shorter published hours.
+- The virtual receipt and generated reference shown after submit are client-side shell behavior only. Actual booking creation, persisted references, notifications, and document-readiness creation remain Block K.
+- Coverage: `tests/Feature/BookingPageTest.php`, `tests/Feature/LocaleRoutingTest.php`, `npm run build`, `node --check resources/js/app.js`, and PHP syntax checks for the booking locale files.
 
 ## About implementation notes
 

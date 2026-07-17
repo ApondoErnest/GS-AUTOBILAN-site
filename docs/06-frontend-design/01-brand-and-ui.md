@@ -1,7 +1,7 @@
 # Brand and UI system — V1
 
 **System name:** GS Royal Safety Bands  
-**Version:** 1.6 · **Status:** Palette revised from centre photos; homepage, agencies, and about implemented · **Steps:** S029–S034 + S056 + S057 + S065
+**Version:** 1.7 · **Status:** Palette revised from centre photos; homepage, agencies, booking shell, and about implemented · **Steps:** S029–S034 + S056 + S057 + S058 + S065
 **Code tokens:** [`../../resources/css/app.css`](../../resources/css/app.css)
 
 Inspired by the real centres: **royal blue + white + red bands + industrial grey**.
@@ -110,6 +110,16 @@ Until photos arrive: solid/gradient blue hero + text lockup (see placeholders).
 - Maps: live Google iframe embeds using confirmed GPS coordinates, visible information cards, `Agrandir le plan` / `Open larger map` links, and functional `+ / -` zoom controls wired through `resources/js/app.js`.
 - Actions: agency cards intentionally show only WhatsApp and booking actions; call and directions buttons are omitted from the final design.
 - Content source: `lang/fr/agencies.php` and `lang/en/agencies.php`; view: `resources/views/pages/agencies.blade.php`.
+
+### Booking shell implementation (S058)
+
+- Hero: compact deep-blue gradient with red appointment label, one-line desktop headline target, short supporting copy, and a reduced yellow transparency notice.
+- Intake layout: desktop uses a sticky live ticket/sidebar plus a progressive wizard; mobile keeps the wizard first and exposes the ticket through a summary drawer.
+- Live ticket: white/light-blue official-ticket treatment, blue title, small red accent band, checkmarks for selected values, and localized empty-state labels.
+- Wizard: Step 1 agency/service selection, Step 2 vehicle category/details, Step 3 preferred date/period and identity/contact fields.
+- Calendar: custom GS-styled popover replaces the browser-native date picker; past dates are unavailable, Nkolbisson Sundays are blocked, and Obili Scalom Sunday periods use shorter hours.
+- Boundary: receipt/reference display is a client-side shell state only until Block K wires `BookingService` persistence and admin notification flow.
+- Content source: `lang/fr/booking.php` and `lang/en/booking.php`; view: `resources/views/pages/booking.blade.php`; interactivity: `resources/js/app.js`.
 
 ### Cards (agency, service, article)
 

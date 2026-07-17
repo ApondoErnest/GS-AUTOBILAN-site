@@ -5,6 +5,14 @@
 
 ---
 
+## Public shell status
+
+S058 delivered the public booking interface at `/fr/rendez-vous` and `/en/booking`: compact expectation hero, non-auto-confirmation notice, live ticket summary, three-step intake wizard, custom date picker, review panel, and client-side virtual receipt.
+
+The S058 submit/receipt behavior is intentionally not the final booking workflow. S066 must replace the shell-only submit path with `BookingService`, persisted references, default document-readiness creation, and admin notification events.
+
+---
+
 ## Customer-side steps
 
 1. Open Booking  
