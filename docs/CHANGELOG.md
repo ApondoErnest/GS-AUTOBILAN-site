@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## 1.8 — 2026-07-21
+
+### Changed
+
+- **S059:** Tracking page shell completed with FR/EN compact clarity hero, no-real-time lane notice, secure lookup card, reference/phone/plate verification fields, static concierge result state, four-step timeline, confirmed appointment status, key information grid, dossier readiness, next action panel, and mobile two-column detail tiles.
+- Roadmap, step tracker, public website notes, frontend design notes, content checklist, and tracking module handoff updated so **S060 Services page** is now the next step.
+
 ## 1.7 — 2026-07-17
 
 ### Changed

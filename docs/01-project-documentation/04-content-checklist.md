@@ -52,6 +52,8 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 | About page sections | ☑ Implemented | ☑ Implemented |
 | Booking disclaimer | ☑ Implemented | ☑ Implemented |
 | Booking page shell | ☑ Implemented | ☑ Implemented |
+| Tracking no-real-time notice | ☑ Implemented | ☑ Implemented |
+| Tracking page shell | ☑ Implemented | ☑ Implemented |
 
 **Articles (evergreen):** homepage cards now cover préparer le véhicule · documents · contre-visite; full article bodies still need FR then EN content before News launch.
 

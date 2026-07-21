@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S059** (Add Tracking page shell)
+**Current next step:** **S060** (Build Services page)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -368,7 +368,7 @@
 
 ## Block J — Public website pages
 
-Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; continue from S059.
+Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; continue from S060.
 
 ### S056 — Build Home page (all main sections)
 - [x] **Completed** — homepage sections built and verified in FR/EN: carousel photo hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery block, advice cards, final readiness CTA, and tightened responsive section rhythm (2026-07-16)
@@ -387,12 +387,12 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** Booking page layout and non-auto-confirm message visible.
 
 ### S059 — Add Tracking page shell (UI only; logic in Block L)
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — Tracking page shell built and verified in FR/EN with compact clarity hero, no-real-time-lane-tracking notice, premium lookup card, reference/phone/plate verification fields, recovery/help links, static concierge result state, four-step request timeline, appointment status/details, dossier readiness panel, next-action panel, and mobile-optimized two-column detail tiles (2026-07-21). Real lookup, loading, not-found, and persisted result logic remain in Block L.
 - **Depends on:** S058
 - **Done when:** Tracking form UI visible.
 
 ### S060 — Build Services page
-- [ ] **Pending**
+- [ ] **Pending** ← **do this next**
 - **Depends on:** S059
 - **Done when:** All 8 services listed with CTA to booking.
 
@@ -417,7 +417,7 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** Published articles list and open by slug.
 
 ### S065 — Build About page
-- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S059 remains the next unchecked step.
+- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S060 remains the next unchecked step.
 - **Depends on:** S064 in the original sequence; completed early by user direction
 - **Done when:** Mission/vision/values/DG block present.
 
@@ -660,4 +660,4 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 59 · **Remaining:** 37 · **Next:** S059
+**Total steps:** 96 · **Completed:** 60 · **Remaining:** 36 · **Next:** S060

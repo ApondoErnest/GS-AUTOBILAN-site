@@ -1,7 +1,7 @@
 # Brand and UI system — V1
 
 **System name:** GS Royal Safety Bands  
-**Version:** 1.7 · **Status:** Palette revised from centre photos; homepage, agencies, booking shell, and about implemented · **Steps:** S029–S034 + S056 + S057 + S058 + S065
+**Version:** 1.8 · **Status:** Palette revised from centre photos; homepage, agencies, booking shell, tracking shell, and about implemented · **Steps:** S029–S034 + S056 + S057 + S058 + S059 + S065
 **Code tokens:** [`../../resources/css/app.css`](../../resources/css/app.css)
 
 Inspired by the real centres: **royal blue + white + red bands + industrial grey**.
@@ -120,6 +120,15 @@ Until photos arrive: solid/gradient blue hero + text lockup (see placeholders).
 - Calendar: custom GS-styled popover replaces the browser-native date picker; past dates are unavailable, Nkolbisson Sundays are blocked, and Obili Scalom Sunday periods use shorter hours.
 - Boundary: receipt/reference display is a client-side shell state only until Block K wires `BookingService` persistence and admin notification flow.
 - Content source: `lang/fr/booking.php` and `lang/en/booking.php`; view: `resources/views/pages/booking.blade.php`; interactivity: `resources/js/app.js`.
+
+### Tracking shell implementation (S059)
+
+- Hero: compact deep-blue gradient with a red tracking label, short page promise, and an information notice that avoids implying live inspection-lane tracking.
+- Lookup card: 256px desktop inset, white premium panel, subtle red accent, royal-blue focus states, and three verification fields: reference, phone/WhatsApp number, and vehicle registration.
+- Result state: one concierge-style panel with request timeline, confirmed status, appointment details, dossier readiness, and next action.
+- Mobile: horizontal timeline rail plus two-column detail tiles, avoiding a plain single-column stack of information.
+- Boundary: static shell only until Block L wires lookup/loading/not-found states through `TrackingService`.
+- Content source: `lang/fr/tracking.php` and `lang/en/tracking.php`; view: `resources/views/pages/tracking.blade.php`; coverage: `tests/Feature/TrackingPageTest.php`.
 
 ### Cards (agency, service, article)
 

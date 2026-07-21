@@ -1,6 +1,6 @@
 # Public website implementation — V1
 
-**Steps:** S056–S065 · **Status:** S056–S058 and S065 complete; S059 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
+**Steps:** S056–S065 · **Status:** S056–S059 and S065 complete; S060 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
 
 ---
 
@@ -8,7 +8,7 @@
 
 1. Home · 2. Agencies · 3. Booking shell · 4. Tracking shell · 5. Services · 6. Tariffs · 7. Visite Technique · 8. Contact + FAQ · 9. News · 10. About  
 
-S065 About was completed early by user direction; continue the remaining public build from S059 Tracking shell.
+S065 About was completed early by user direction; continue the remaining public build from S060 Services page.
 
 *(Chrome: navy+red strip · white header · banded footer — Block F / S031.)*
 
@@ -21,7 +21,8 @@ S065 About was completed early by user direction; continue the remaining public 
 | S056 | Home | Complete | Implemented in `resources/views/pages/home.blade.php` with FR/EN translations and homepage assets under `public/images/homepage/`. |
 | S057 | Agencies | Complete | Implemented in `resources/views/pages/agencies.blade.php` with FR/EN translations, `public/images/agencies/hero-agencies.png`, live Google map embeds, map overlays/zoom controls, WhatsApp + booking actions, and focused page/language-switch tests. |
 | S058 | Booking shell | Complete | Implemented in `resources/views/pages/booking.blade.php` with FR/EN translations, compact expectation hero, non-auto-confirmation notice, progressive booking command center, live ticket summary, custom calendar UI, and focused feature tests. Backend submit logic remains in Block K. |
-| S059 | Tracking shell | Next | Add the public tracking form shell and safe expectation copy; lookup logic remains in Block L. |
+| S059 | Tracking shell | Complete | Implemented in `resources/views/pages/tracking.blade.php` with FR/EN translations, compact clarity hero, secure lookup card, static concierge result state, mobile two-column detail tiles, and focused feature tests. Real lookup logic remains in Block L. |
+| S060 | Services | Next | Build the services page grid, service detail framing, and CTAs to booking/tariffs. |
 | S065 | About | Complete (built early) | Implemented in `resources/views/pages/about.blade.php` with FR/EN translations, `public/images/aboutpage/hero-about.png`, `technician-about.png`, and focused page/language-switch tests. |
 
 ---
@@ -33,7 +34,7 @@ S065 About was completed early by user direction; continue the remaining public 
 | Home | Complete: photo carousel hero (blue overlay) · trust row · agencies teaser · inspection/services preview · booking/tracking CTAs · tariff preview · why GS · agency gallery · advice/news cards · final readiness CTA · red/white/blue ribbon and compact section rhythm |
 | Agencies | Complete: centered photo hero · compact trust row · two agency cards · hours/phone info · live Google maps with info overlays and zoom controls · WhatsApp + book actions only · FR/EN |
 | Booking | Complete shell: non-auto-confirm notice · form sections · live ticket · custom date picker · client-side success/receipt state; real persistence wired in Block K |
-| Tracking | Explanation · lookup · safe error · result panel (wired in Block L) |
+| Tracking | Complete shell: no-real-time tracking notice · secure lookup card · reference/phone/plate fields · static result/timeline/status/dossier/next-action panels; real lookup wired in Block L |
 | Services | Grid · who for · CTAs to booking/tariffs |
 | Tariffs | Table + mobile cards · filter · last updated · print · book CTA |
 | Visite Technique | What/why · documents · prepare · procedure · checks · Accepté/Suspendu/Refusé (educational) · contre-visite · failures |
@@ -80,6 +81,17 @@ All public pages work FR/EN, mobile-friendly, DB-driven where required.
 - The date field uses a branded custom calendar instead of the native browser calendar. It prevents past dates, marks Nkolbisson Sundays unavailable, and keeps Obili Scalom Sunday periods at the shorter published hours.
 - The virtual receipt and generated reference shown after submit are client-side shell behavior only. Actual booking creation, persisted references, notifications, and document-readiness creation remain Block K.
 - Coverage: `tests/Feature/BookingPageTest.php`, `tests/Feature/LocaleRoutingTest.php`, `npm run build`, `node --check resources/js/app.js`, and PHP syntax checks for the booking locale files.
+
+## Tracking shell implementation notes
+
+- The bilingual copy lives in `lang/fr/tracking.php` and `lang/en/tracking.php`; the view is `resources/views/pages/tracking.blade.php`.
+- Routes now point `/fr/suivi-rendez-vous` and `/en/appointment-tracking` to the tracking page shell.
+- The hero is intentionally compact, uses the GS blue gradient, and clearly states that the page does not track a vehicle in real time on the inspection line.
+- The lookup card uses reference, phone/WhatsApp number, and registration fields, plus help and recovery links.
+- The static result state mirrors the final concierge structure: four-step timeline, confirmed status, key appointment details, dossier readiness, and next action.
+- Mobile result details intentionally use two-column tiles instead of a long plain stack.
+- This is shell behavior only. Real lookup, loading, not-found, persisted status, and error states from `TrackingService` remain Block L.
+- Coverage: `tests/Feature/TrackingPageTest.php`, `tests/Feature/LocaleRoutingTest.php`, `npm run build`, and PHP syntax checks for the tracking locale files.
 
 ## About implementation notes
 
