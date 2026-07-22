@@ -735,12 +735,198 @@ const initServiceVehicleSelectors = () => {
     });
 };
 
+const initTariffNavigators = () => {
+    document.querySelectorAll('[data-tariff-navigator]').forEach((root) => {
+        const tabs = [...root.querySelectorAll('[data-tariff-tab]')];
+        const panels = [...root.querySelectorAll('[data-tariff-panel]')];
+
+        if (!tabs.length || !panels.length) {
+            return;
+        }
+
+        const activeClasses = ['border-gs-primary', 'bg-gs-primary', 'text-white', 'shadow-md', 'shadow-gs-primary/20'];
+        const inactiveClasses = ['border-gs-primary/15', 'bg-white', 'text-gs-navy', 'hover:bg-gs-soft'];
+
+        const setActiveTariff = (slug, shouldFocus = false) => {
+            tabs.forEach((tab) => {
+                const isActive = tab.getAttribute('data-tariff-tab') === slug;
+
+                activeClasses.forEach((className) => tab.classList.toggle(className, isActive));
+                inactiveClasses.forEach((className) => tab.classList.toggle(className, !isActive));
+                tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                tab.setAttribute('tabindex', isActive ? '0' : '-1');
+
+                if (isActive && shouldFocus) {
+                    tab.focus();
+                }
+            });
+
+            panels.forEach((panel) => {
+                panel.classList.toggle('hidden', panel.getAttribute('data-tariff-panel') !== slug);
+            });
+        };
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                const slug = tab.getAttribute('data-tariff-tab');
+
+                if (slug) {
+                    setActiveTariff(slug);
+                }
+            });
+
+            tab.addEventListener('keydown', (event) => {
+                const keyMap = {
+                    ArrowLeft: index - 1,
+                    ArrowRight: index + 1,
+                    ArrowUp: index - 1,
+                    ArrowDown: index + 1,
+                    Home: 0,
+                    End: tabs.length - 1,
+                };
+
+                if (!(event.key in keyMap)) {
+                    return;
+                }
+
+                event.preventDefault();
+                const nextIndex = (keyMap[event.key] + tabs.length) % tabs.length;
+                const nextSlug = tabs[nextIndex]?.getAttribute('data-tariff-tab');
+
+                if (nextSlug) {
+                    setActiveTariff(nextSlug, true);
+                }
+            });
+        });
+
+        const initialTariff = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true')?.getAttribute('data-tariff-tab')
+            || tabs[0]?.getAttribute('data-tariff-tab');
+
+        if (initialTariff) {
+            setActiveTariff(initialTariff);
+        }
+    });
+};
+
+const initTariffMatrices = () => {
+    document.querySelectorAll('[data-tariff-matrix]').forEach((root) => {
+        const searchInput = root.querySelector('[data-tariff-matrix-search]');
+        const categoryFilter = root.querySelector('[data-tariff-matrix-category]');
+        const groupFilter = root.querySelector('[data-tariff-matrix-group]');
+        const resetButton = root.querySelector('[data-tariff-matrix-reset]');
+        const printButton = root.querySelector('[data-tariff-matrix-print]');
+        const downloadButton = root.querySelector('[data-tariff-matrix-download]');
+        const shareButton = root.querySelector('[data-tariff-matrix-share]');
+        const emptyState = root.querySelector('[data-tariff-matrix-empty]');
+        const rows = [...root.querySelectorAll('[data-tariff-matrix-row]')];
+        const cards = [...root.querySelectorAll('[data-tariff-matrix-card]')];
+        const detailLinks = [...root.querySelectorAll('[data-tariff-detail-link]')];
+        let searchTimer = null;
+
+        const getControls = () => ({
+            search: (searchInput?.value || '').trim().toLowerCase(),
+            category: categoryFilter?.value || '',
+            group: groupFilter?.value || '',
+        });
+
+        const matchesItem = (item, controls) => {
+            const categoryMatches = !controls.category || item.getAttribute('data-category') === controls.category;
+            const groupMatches = !controls.group || item.getAttribute('data-group') === controls.group;
+            const searchMatches = !controls.search || (item.getAttribute('data-search') || '').includes(controls.search);
+
+            return categoryMatches && groupMatches && searchMatches;
+        };
+
+        const updateResults = () => {
+            const controls = getControls();
+            let visibleRows = 0;
+
+            rows.forEach((row) => {
+                const isVisible = matchesItem(row, controls);
+                row.classList.toggle('hidden', !isVisible);
+
+                if (isVisible) {
+                    visibleRows += 1;
+                }
+            });
+
+            cards.forEach((card) => {
+                card.classList.toggle('hidden', !matchesItem(card, controls));
+            });
+
+            emptyState?.classList.toggle('hidden', visibleRows > 0);
+        };
+
+        const debouncedUpdate = () => {
+            window.clearTimeout(searchTimer);
+            searchTimer = window.setTimeout(updateResults, 300);
+        };
+
+        searchInput?.addEventListener('input', debouncedUpdate);
+        categoryFilter?.addEventListener('change', updateResults);
+        groupFilter?.addEventListener('change', updateResults);
+
+        resetButton?.addEventListener('click', () => {
+            if (searchInput) {
+                searchInput.value = '';
+            }
+
+            if (categoryFilter) {
+                categoryFilter.value = '';
+            }
+
+            if (groupFilter) {
+                groupFilter.value = '';
+            }
+
+            updateResults();
+        });
+
+        printButton?.addEventListener('click', () => window.print());
+        downloadButton?.addEventListener('click', () => window.print());
+        shareButton?.addEventListener('click', async () => {
+            const shareData = {
+                title: document.title,
+                url: window.location.href,
+            };
+
+            if (navigator.share) {
+                await navigator.share(shareData);
+                return;
+            }
+
+            await navigator.clipboard?.writeText(window.location.href);
+        });
+
+        detailLinks.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                const slug = link.getAttribute('data-tariff-detail-link');
+                const tab = slug ? document.getElementById(`tariff-tab-${slug}`) : null;
+                const panel = slug ? document.getElementById(`tariff-panel-${slug}`) : null;
+
+                if (!tab || !panel) {
+                    return;
+                }
+
+                event.preventDefault();
+                tab.click();
+                panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                window.history.replaceState(null, '', `#${panel.id}`);
+            });
+        });
+
+        updateResults();
+    });
+};
+
 const initFrontend = () => {
     initMobileMenu();
     initHeroCarousels();
     initAgencyMaps();
     initBookingIntakes();
     initServiceVehicleSelectors();
+    initTariffNavigators();
+    initTariffMatrices();
 };
 
 if (document.readyState === 'loading') {

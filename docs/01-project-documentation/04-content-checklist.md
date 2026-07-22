@@ -20,6 +20,7 @@ Company facts: [00-company-data.md](00-company-data.md)
 | Reception / inspection line | ☑ In use | Homepage gallery/advice uses `agence-3.png` through `agence-6.png` plus article images |
 | About page images | ☑ In use | `public/images/aboutpage/hero-about.png` and `technician-about.png` |
 | Services page images | ☑ In use | `public/images/servicespage/services-hero.png`, `light-vehicle.png`, `utility-vehicle.png`, `taxi-transport.png`, and `heavy-vehicle.png` |
+| Tariffs page images | ☑ In use | `public/images/tariffs/` vehicle category images |
 | Staff / vehicles | ☑ In use for About | Consent; avoid identifiable plates if future staff photos are supplied |
 
 Until photos: maps + colour blocks · gallery “Photos à venir”.
@@ -30,7 +31,7 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 
 | Item | Status | Notes |
 |------|--------|-------|
-| Official tariff table | ☑ Supplied for homepage | Categories/prices/validities used in S056; reconfirm before full Tariffs page and launch |
+| Official tariff table | ☑ Draft implemented on Tariffs | Public tariffs page uses the referenced official category/pricing table; reconfirm with GS AUTOBILAN before launch |
 | Agency GPS / maps | ☑ In use | S057 uses confirmed Nkolbisson and Obili Scalom coordinates for live Google map embeds |
 | Email spelling | ☐ Confirm | See company data |
 | Accreditation wording | ☐ Optional | |
@@ -45,6 +46,7 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 | Company short description | ☑ Draft implemented on About | ☑ Draft implemented on About |
 | Mission / vision / values | ☑ Draft implemented on About — approve | ☑ Draft implemented on About — approve |
 | Services (×8) | ☑ Draft implemented | ☑ Draft implemented |
+| Tariffs page | ☑ Draft implemented | ☑ Draft implemented |
 | Visite Technique page | ☐ | ☐ |
 | FAQ (×12) | ☐ | ☐ |
 | Homepage hero | ☑ Implemented | ☑ Implemented |
@@ -59,6 +61,8 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 **Articles (evergreen):** homepage cards now cover préparer le véhicule · documents · contre-visite; full article bodies still need FR then EN content before News launch.
 
 **Services:** services page draft now covers the service architecture, vehicle profiles, technical controls, and decision gate. Official service wording can still be refined before launch if GS AUTOBILAN provides preferred phrasing.
+
+**Tariffs:** tariffs page draft now covers the authority hero, category navigator, price passports, searchable matrix, mobile cards, clarification tiles, and booking category links. Website/PDF/database tariff parity remains a launch hardening point.
 
 **Testimonials:** prefer real quotes later; avoid fake placeholders.
 

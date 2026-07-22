@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## 1.10 — 2026-07-22
+
+### Changed
+
+- **S061:** Tariffs page completed with FR/EN compact authority hero, official tariff navigator, price passport panels, supplied tariff vehicle imagery, searchable/filterable official matrix, mobile tariff cards, print/download/share/reset hooks, clarification tiles, booking category query links, and focused Tariffs page coverage.
+- Roadmap, step tracker, public website notes, frontend design notes, content checklist, and root project docs updated so **S062 Visite Technique page** is now the next step.
+
 ## 1.9 — 2026-07-22
 
 ### Changed

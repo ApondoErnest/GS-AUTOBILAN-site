@@ -1,6 +1,6 @@
 # Public website implementation — V1
 
-**Steps:** S056–S065 · **Status:** S056–S060 and S065 complete; S061 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
+**Steps:** S056–S065 · **Status:** S056–S061 and S065 complete; S062 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
 
 ---
 
@@ -8,7 +8,7 @@
 
 1. Home · 2. Agencies · 3. Booking shell · 4. Tracking shell · 5. Services · 6. Tariffs · 7. Visite Technique · 8. Contact + FAQ · 9. News · 10. About  
 
-S065 About was completed early by user direction; continue the remaining public build from S061 Tariffs page.
+S065 About was completed early by user direction; continue the remaining public build from S062 Visite Technique page.
 
 *(Chrome: navy+red strip · white header · banded footer — Block F / S031.)*
 
@@ -23,6 +23,7 @@ S065 About was completed early by user direction; continue the remaining public 
 | S058 | Booking shell | Complete | Implemented in `resources/views/pages/booking.blade.php` with FR/EN translations, compact expectation hero, non-auto-confirmation notice, progressive booking command center, live ticket summary, custom calendar UI, and focused feature tests. Backend submit logic remains in Block K. |
 | S059 | Tracking shell | Complete | Implemented in `resources/views/pages/tracking.blade.php` with FR/EN translations, compact clarity hero, secure lookup card, static concierge result state, mobile two-column detail tiles, and focused feature tests. Real lookup logic remains in Block L. |
 | S060 | Services | Complete | Implemented in `resources/views/pages/services.blade.php` with FR/EN translations, centered compact photo hero, core service cards, vehicle profile selector, contextual vehicle panels, eight technical-control cards, decision gate, final action card, services page assets, and focused feature tests. |
+| S061 | Tariffs | Complete | Implemented in `resources/views/pages/tariffs.blade.php` with FR/EN translations, compact authority hero, official tariff navigator, price passport panels, matrix search/filter controls, desktop table, mobile tariff cards, print/download/share/reset hooks, clarification tiles, supplied tariff images, and focused feature tests. |
 | S065 | About | Complete (built early) | Implemented in `resources/views/pages/about.blade.php` with FR/EN translations, `public/images/aboutpage/hero-about.png`, `technician-about.png`, and focused page/language-switch tests. |
 
 ---
@@ -36,7 +37,7 @@ S065 About was completed early by user direction; continue the remaining public 
 | Booking | Complete shell: non-auto-confirm notice · form sections · live ticket · custom date picker · client-side success/receipt state; real persistence wired in Block K |
 | Tracking | Complete shell: no-real-time tracking notice · secure lookup card · reference/phone/plate fields · static result/timeline/status/dossier/next-action panels; real lookup wired in Block L |
 | Services | Complete: centered compact photo hero · three core service cards · vehicle profile selector · contextual vehicle panel · eight technical-control cards · decision gate · booking/tariff CTAs · FR/EN |
-| Tariffs | Table + mobile cards · filter · last updated · print · book CTA |
+| Tariffs | Complete: compact authority hero · official category navigator · price passports · searchable/filterable matrix · mobile cards · print/download/share/reset hooks · clarification tiles · booking category links · FR/EN |
 | Visite Technique | What/why · documents · prepare · procedure · checks · Accepté/Suspendu/Refusé (educational) · contre-visite · failures |
 | Contact | DG · agency cards · form · maps · FAQ · call/WhatsApp |
 | News | Listing · filters · detail · related · CTAs |
@@ -103,6 +104,16 @@ All public pages work FR/EN, mobile-friendly, DB-driven where required.
 - The technical matrix uses eight compact cards with custom line icons for braking, suspension, lighting, tyres, vehicle identification, visual inspection, alignment/ripage, and administrative coherence.
 - The decision gate combines customer-intent routing with a deep-blue final action card for booking, preparation, agencies, and tariffs.
 - Coverage: `tests/Feature/ServicesPageTest.php`, `npm run build`, and responsive implementation checks during the page build.
+
+## Tariffs implementation notes
+
+- The bilingual copy lives in `lang/fr/tariffs.php` and `lang/en/tariffs.php`; the view is `resources/views/pages/tariffs.blade.php`.
+- Routes now point `/fr/tarifs` and `/en/tariffs` to the tariffs page.
+- The hero uses the compact GS blue authority treatment with a centered red label, deep overlay, single-line desktop lead, and four proof points.
+- The tariff data is currently public-page copy sourced from the referenced official tariff table: A 4 900 FCFA, B 17 900 FCFA, B1 15 500 FCFA, C < 3,5T 15 500 FCFA, C 19 080 FCFA, D poids lourds 26 235 FCFA, and D autres engins 41 750 FCFA. Reconfirm with GS AUTOBILAN before launch.
+- The navigator includes six customer-facing categories, supplied images under `public/images/tariffs/`, price passport panels, effective date messaging, and booking links that pass `categorie=...`.
+- The official matrix includes desktop table controls, mobile cards, live client-side filtering/search, and print/download/share/reset hooks. A dedicated database-backed PDF template remains the future parity target when tariff publication is wired end to end.
+- Coverage: `tests/Feature/TariffsPageTest.php`, `npm run build`, and responsive implementation checks during the page build.
 
 ## About implementation notes
 

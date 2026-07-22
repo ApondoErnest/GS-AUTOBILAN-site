@@ -1,6 +1,6 @@
 # Frontend design — V1
 
-**System:** GS Royal Safety Bands · **Version:** 1.9 · **Steps:** S029–S034 + S056 home + S057 agencies + S058 booking shell + S059 tracking shell + S060 services page + S065 about implementation
+**System:** GS Royal Safety Bands · **Version:** 1.10 · **Steps:** S029–S034 + S056 home + S057 agencies + S058 booking shell + S059 tracking shell + S060 services page + S061 tariffs page + S065 about implementation
 
 Palette locked in [`../../resources/css/app.css`](../../resources/css/app.css) · detail: [01-brand-and-ui.md](01-brand-and-ui.md)
 
@@ -18,12 +18,13 @@ Palette locked in [`../../resources/css/app.css`](../../resources/css/app.css) �
 - The S058 Booking shell applies the system with a compact blue expectation hero, yellow transparency notice, official-ticket-inspired live summary, progressive three-step wizard, distinct vehicle-category icons, and a branded custom calendar picker.
 - The S059 Tracking shell applies the system with a compact clarity hero, premium lookup card, one-card concierge result state, horizontal mobile progress timeline, and two-column mobile detail tiles.
 - The S060 Services page applies the system with a centered compact photo hero, broad service cards, compact vehicle profile panels, custom technical-control icons, and a two-card decision gate.
+- The S061 Tariffs page applies the system with a compact authority hero, segmented tariff navigator, price passport panels, searchable official matrix, mobile cards, compact action controls, and four clarification tiles.
 - The S065 About page applies the same system with a photo hero, compact three-item trust row, white/soft content bands, mission/vision/value cards, technician imagery, agency/direction cards, and tighter section spacing.
 - The language switcher preserves the current page when a localized route counterpart exists.
 
 ## Next
 
-Continue public page design with **S061 Tariffs page**, keeping prices easy to scan, clearly provisional until officially confirmed, and tied to booking CTAs.
+Continue public page design with **S062 Visite Technique page**, keeping documents, preparation, procedure, and educational result states clear and scannable.
 
 ## Acceptance
 
