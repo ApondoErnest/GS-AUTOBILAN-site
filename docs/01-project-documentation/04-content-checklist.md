@@ -19,6 +19,7 @@ Company facts: [00-company-data.md](00-company-data.md)
 | Agency exteriors (×2) | ☑ In use | Home teaser uses `agency-1.png` and `agency-2.png` |
 | Reception / inspection line | ☑ In use | Homepage gallery/advice uses `agence-3.png` through `agence-6.png` plus article images |
 | About page images | ☑ In use | `public/images/aboutpage/hero-about.png` and `technician-about.png` |
+| Services page images | ☑ In use | `public/images/servicespage/services-hero.png`, `light-vehicle.png`, `utility-vehicle.png`, `taxi-transport.png`, and `heavy-vehicle.png` |
 | Staff / vehicles | ☑ In use for About | Consent; avoid identifiable plates if future staff photos are supplied |
 
 Until photos: maps + colour blocks · gallery “Photos à venir”.
@@ -43,7 +44,7 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 |------|----|----|
 | Company short description | ☑ Draft implemented on About | ☑ Draft implemented on About |
 | Mission / vision / values | ☑ Draft implemented on About — approve | ☑ Draft implemented on About — approve |
-| Services (×8) | ☐ | ☐ |
+| Services (×8) | ☑ Draft implemented | ☑ Draft implemented |
 | Visite Technique page | ☐ | ☐ |
 | FAQ (×12) | ☐ | ☐ |
 | Homepage hero | ☑ Implemented | ☑ Implemented |
@@ -56,6 +57,8 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 | Tracking page shell | ☑ Implemented | ☑ Implemented |
 
 **Articles (evergreen):** homepage cards now cover préparer le véhicule · documents · contre-visite; full article bodies still need FR then EN content before News launch.
+
+**Services:** services page draft now covers the service architecture, vehicle profiles, technical controls, and decision gate. Official service wording can still be refined before launch if GS AUTOBILAN provides preferred phrasing.
 
 **Testimonials:** prefer real quotes later; avoid fake placeholders.
 

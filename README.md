@@ -14,7 +14,7 @@ Bilingual public site + Filament admin for vehicle technical inspection in Camer
 | 2 | [docs/README.md](docs/README.md) | Steps → detail folders |
 | 3 | [plan.md](plan.md) | Master roadmap (reference) |
 
-**Next step:** **S060** — see [docs/STEPS.md](docs/STEPS.md)
+**Next step:** **S061** — see [docs/STEPS.md](docs/STEPS.md)
 
 ---
 
@@ -42,7 +42,7 @@ Bilingual public site + Filament admin for vehicle technical inspection in Camer
 | Database implementation | Complete through S039: schema, models, enums, relationships, and base seed data |
 | Backend implementation | Complete through S047: locale routes, services, policies, validation, events, and admin notification stubs |
 | Admin dashboard implementation | Complete through S055: all planned Filament admin resources are in place |
-| Public website implementation | In progress: S056 home, S057 agencies, S058 booking shell, S059 tracking shell, and S065 about complete; S060 services page is next |
+| Public website implementation | In progress: S056 home, S057 agencies, S058 booking shell, S059 tracking shell, S060 services page, and S065 about complete; S061 tariffs page is next |
 
 ---
 

@@ -664,11 +664,83 @@ const initBookingIntakes = () => {
     });
 };
 
+const initServiceVehicleSelectors = () => {
+    document.querySelectorAll('[data-service-vehicle-selector]').forEach((root) => {
+        const tabs = [...root.querySelectorAll('[data-vehicle-profile-tab]')];
+        const panels = [...root.querySelectorAll('[data-vehicle-profile-panel]')];
+
+        if (!tabs.length || !panels.length) {
+            return;
+        }
+
+        const activeClasses = ['border-gs-primary', 'bg-gs-primary', 'text-white', 'shadow-md', 'shadow-gs-primary/20'];
+        const inactiveClasses = ['border-gs-primary/20', 'bg-gs-soft', 'text-gs-bay', 'hover:bg-white'];
+
+        const setActiveProfile = (profile, shouldFocus = false) => {
+            tabs.forEach((tab) => {
+                const isActive = tab.getAttribute('data-vehicle-profile-tab') === profile;
+
+                activeClasses.forEach((className) => tab.classList.toggle(className, isActive));
+                inactiveClasses.forEach((className) => tab.classList.toggle(className, !isActive));
+                tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                tab.setAttribute('tabindex', isActive ? '0' : '-1');
+
+                if (isActive && shouldFocus) {
+                    tab.focus();
+                }
+            });
+
+            panels.forEach((panel) => {
+                panel.classList.toggle('hidden', panel.getAttribute('data-vehicle-profile-panel') !== profile);
+            });
+        };
+
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                const profile = tab.getAttribute('data-vehicle-profile-tab');
+
+                if (profile) {
+                    setActiveProfile(profile);
+                }
+            });
+
+            tab.addEventListener('keydown', (event) => {
+                const keyMap = {
+                    ArrowLeft: index - 1,
+                    ArrowRight: index + 1,
+                    Home: 0,
+                    End: tabs.length - 1,
+                };
+
+                if (!(event.key in keyMap)) {
+                    return;
+                }
+
+                event.preventDefault();
+                const nextIndex = (keyMap[event.key] + tabs.length) % tabs.length;
+                const nextProfile = tabs[nextIndex]?.getAttribute('data-vehicle-profile-tab');
+
+                if (nextProfile) {
+                    setActiveProfile(nextProfile, true);
+                }
+            });
+        });
+
+        const initialProfile = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true')?.getAttribute('data-vehicle-profile-tab')
+            || tabs[0]?.getAttribute('data-vehicle-profile-tab');
+
+        if (initialProfile) {
+            setActiveProfile(initialProfile);
+        }
+    });
+};
+
 const initFrontend = () => {
     initMobileMenu();
     initHeroCarousels();
     initAgencyMaps();
     initBookingIntakes();
+    initServiceVehicleSelectors();
 };
 
 if (document.readyState === 'loading') {

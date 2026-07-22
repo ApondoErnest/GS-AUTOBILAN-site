@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S060** (Build Services page)
+**Current next step:** **S061** (Build Tariffs page)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -368,7 +368,7 @@
 
 ## Block J — Public website pages
 
-Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; continue from S060.
+Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; continue from S061.
 
 ### S056 — Build Home page (all main sections)
 - [x] **Completed** — homepage sections built and verified in FR/EN: carousel photo hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery block, advice cards, final readiness CTA, and tightened responsive section rhythm (2026-07-16)
@@ -392,12 +392,12 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** Tracking form UI visible.
 
 ### S060 — Build Services page
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — Services page built and verified in FR/EN with a centered compact photo hero, three core service cards, vehicle profile selector, contextual vehicle panels, eight technical-control cards, decision gate, final action card, services page image assets, current-page language switching, and focused services page coverage (2026-07-22).
 - **Depends on:** S059
-- **Done when:** All 8 services listed with CTA to booking.
+- **Done when:** Core services, vehicle profiles, technical controls, and CTAs to booking/tariffs are visible.
 
 ### S061 — Build Tariffs page (table/cards, filter, print/PDF hook)
-- [ ] **Pending**
+- [ ] **Pending** ← **do this next**
 - **Depends on:** S060
 - **Done when:** Page works with placeholder or real tariff data.
 
@@ -417,7 +417,7 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** Published articles list and open by slug.
 
 ### S065 — Build About page
-- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S060 remains the next unchecked step.
+- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S061 remains the next unchecked step.
 - **Depends on:** S064 in the original sequence; completed early by user direction
 - **Done when:** Mission/vision/values/DG block present.
 
@@ -660,4 +660,4 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 60 · **Remaining:** 36 · **Next:** S060
+**Total steps:** 96 · **Completed:** 61 · **Remaining:** 35 · **Next:** S061

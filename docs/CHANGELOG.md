@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## 1.9 — 2026-07-22
+
+### Changed
+
+- **S060:** Services page completed with FR/EN centered compact photo hero, three core service cards, vehicle profile selector, contextual vehicle panels, eight technical-control cards, decision gate, final action card, custom services icon work, supplied vehicle/service imagery, and focused Services page coverage.
+- Roadmap, step tracker, public website notes, frontend design notes, content checklist, and root project docs updated so **S061 Tariffs page** is now the next step.
+
 ## 1.8 — 2026-07-21
 
 ### Changed

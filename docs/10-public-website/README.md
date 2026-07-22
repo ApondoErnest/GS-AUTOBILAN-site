@@ -1,6 +1,6 @@
 # Public website implementation — V1
 
-**Steps:** S056–S065 · **Status:** S056–S059 and S065 complete; S060 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
+**Steps:** S056–S065 · **Status:** S056–S060 and S065 complete; S061 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
 
 ---
 
@@ -8,7 +8,7 @@
 
 1. Home · 2. Agencies · 3. Booking shell · 4. Tracking shell · 5. Services · 6. Tariffs · 7. Visite Technique · 8. Contact + FAQ · 9. News · 10. About  
 
-S065 About was completed early by user direction; continue the remaining public build from S060 Services page.
+S065 About was completed early by user direction; continue the remaining public build from S061 Tariffs page.
 
 *(Chrome: navy+red strip · white header · banded footer — Block F / S031.)*
 
@@ -22,7 +22,7 @@ S065 About was completed early by user direction; continue the remaining public 
 | S057 | Agencies | Complete | Implemented in `resources/views/pages/agencies.blade.php` with FR/EN translations, `public/images/agencies/hero-agencies.png`, live Google map embeds, map overlays/zoom controls, WhatsApp + booking actions, and focused page/language-switch tests. |
 | S058 | Booking shell | Complete | Implemented in `resources/views/pages/booking.blade.php` with FR/EN translations, compact expectation hero, non-auto-confirmation notice, progressive booking command center, live ticket summary, custom calendar UI, and focused feature tests. Backend submit logic remains in Block K. |
 | S059 | Tracking shell | Complete | Implemented in `resources/views/pages/tracking.blade.php` with FR/EN translations, compact clarity hero, secure lookup card, static concierge result state, mobile two-column detail tiles, and focused feature tests. Real lookup logic remains in Block L. |
-| S060 | Services | Next | Build the services page grid, service detail framing, and CTAs to booking/tariffs. |
+| S060 | Services | Complete | Implemented in `resources/views/pages/services.blade.php` with FR/EN translations, centered compact photo hero, core service cards, vehicle profile selector, contextual vehicle panels, eight technical-control cards, decision gate, final action card, services page assets, and focused feature tests. |
 | S065 | About | Complete (built early) | Implemented in `resources/views/pages/about.blade.php` with FR/EN translations, `public/images/aboutpage/hero-about.png`, `technician-about.png`, and focused page/language-switch tests. |
 
 ---
@@ -35,7 +35,7 @@ S065 About was completed early by user direction; continue the remaining public 
 | Agencies | Complete: centered photo hero · compact trust row · two agency cards · hours/phone info · live Google maps with info overlays and zoom controls · WhatsApp + book actions only · FR/EN |
 | Booking | Complete shell: non-auto-confirm notice · form sections · live ticket · custom date picker · client-side success/receipt state; real persistence wired in Block K |
 | Tracking | Complete shell: no-real-time tracking notice · secure lookup card · reference/phone/plate fields · static result/timeline/status/dossier/next-action panels; real lookup wired in Block L |
-| Services | Grid · who for · CTAs to booking/tariffs |
+| Services | Complete: centered compact photo hero · three core service cards · vehicle profile selector · contextual vehicle panel · eight technical-control cards · decision gate · booking/tariff CTAs · FR/EN |
 | Tariffs | Table + mobile cards · filter · last updated · print · book CTA |
 | Visite Technique | What/why · documents · prepare · procedure · checks · Accepté/Suspendu/Refusé (educational) · contre-visite · failures |
 | Contact | DG · agency cards · form · maps · FAQ · call/WhatsApp |
@@ -92,6 +92,17 @@ All public pages work FR/EN, mobile-friendly, DB-driven where required.
 - Mobile result details intentionally use two-column tiles instead of a long plain stack.
 - This is shell behavior only. Real lookup, loading, not-found, persisted status, and error states from `TrackingService` remain Block L.
 - Coverage: `tests/Feature/TrackingPageTest.php`, `tests/Feature/LocaleRoutingTest.php`, `npm run build`, and PHP syntax checks for the tracking locale files.
+
+## Services implementation notes
+
+- The bilingual copy lives in `lang/fr/services.php` and `lang/en/services.php`; the view is `resources/views/pages/services.blade.php`.
+- Routes now point `/fr/services` and `/en/services` to the services page.
+- The hero uses `public/images/servicespage/services-hero.png` with a deep-blue overlay, centered content, a red `NOS SERVICES` label, compact height, focus chips, and no hero CTAs.
+- The service architecture starts with three core cards: periodic technical inspection, re-inspection, and orientation/preparation.
+- The vehicle profile selector covers light vehicle, utility, taxi/transport, and heavy vehicle with compact contextual panels, document notes, centre availability, booking action, and the four supplied vehicle images.
+- The technical matrix uses eight compact cards with custom line icons for braking, suspension, lighting, tyres, vehicle identification, visual inspection, alignment/ripage, and administrative coherence.
+- The decision gate combines customer-intent routing with a deep-blue final action card for booking, preparation, agencies, and tariffs.
+- Coverage: `tests/Feature/ServicesPageTest.php`, `npm run build`, and responsive implementation checks during the page build.
 
 ## About implementation notes
 
