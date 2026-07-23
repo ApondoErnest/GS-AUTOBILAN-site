@@ -183,7 +183,8 @@ Stay on **GS Royal Safety Bands** — avoid purple/cream “AI default” looks 
 |---------|-------|----------|---------|
 | Base chrome | `layouts/app` | strip · header · main · footer · FABs | All public |
 | **Home** | `layouts/home` | `hero` (navy/photo + red band) · `sections` · `final-cta` (`gs-soft`) | Accueil |
-| **Content** | `layouts/content` | heading on `gs-soft` · body on `gs-wall` | Visite Technique |
+| **Content** | `layouts/content` | heading on `gs-soft` · body on `gs-wall` | General content pages |
+| **Visite Technique** | custom page view | inspection-bay photo hero · white/soft bands · control grids · timeline cards · preparation cards | Visite Technique |
 | **About** | custom page view | photo hero · white/soft bands · mission cards · technician checklist · location cards | About |
 | **Listing** | `layouts/listing` | white header · `gs-wall` listing area | Services, News, Tariffs |
 | **Agencies** | custom page view | centered photo hero · live map cards · WhatsApp/RDV actions | Agencies |
@@ -205,7 +206,7 @@ Top strip · white header · mobile menu · language switcher · photo hero · C
 
 **Heroicons:** phone, envelope, map pin, clock, calendar, document, shield check, check circle, exclamation triangle, building office, truck, wrench, language, user, magnifying glass  
 
-**Custom SVG:** braking, suspension, emissions, headlight alignment, tyres, visual inspection, vehicle lane, chassis  
+**Custom SVG:** braking, suspension, lighting, tyres, steering/ripage, identification, visual inspection, documents, process steps, educational result outcomes, preparation/checklist icons  
 
 ---
 

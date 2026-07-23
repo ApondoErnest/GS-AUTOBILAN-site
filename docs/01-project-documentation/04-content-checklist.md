@@ -21,6 +21,7 @@ Company facts: [00-company-data.md](00-company-data.md)
 | About page images | ☑ In use | `public/images/aboutpage/hero-about.png` and `technician-about.png` |
 | Services page images | ☑ In use | `public/images/servicespage/services-hero.png`, `light-vehicle.png`, `utility-vehicle.png`, `taxi-transport.png`, and `heavy-vehicle.png` |
 | Tariffs page images | ☑ In use | `public/images/tariffs/` vehicle category images |
+| Visite Technique page assets | ☑ In use | `public/images/inspection/hero-inspection.png` plus custom control/process/result/preparation SVG icons |
 | Staff / vehicles | ☑ In use for About | Consent; avoid identifiable plates if future staff photos are supplied |
 
 Until photos: maps + colour blocks · gallery “Photos à venir”.
@@ -47,7 +48,7 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 | Mission / vision / values | ☑ Draft implemented on About — approve | ☑ Draft implemented on About — approve |
 | Services (×8) | ☑ Draft implemented | ☑ Draft implemented |
 | Tariffs page | ☑ Draft implemented | ☑ Draft implemented |
-| Visite Technique page | ☐ | ☐ |
+| Visite Technique page | ☑ Draft implemented | ☑ Draft implemented |
 | FAQ (×12) | ☐ | ☐ |
 | Homepage hero | ☑ Implemented | ☑ Implemented |
 | Homepage sections | ☑ Implemented | ☑ Implemented |
@@ -63,6 +64,8 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 **Services:** services page draft now covers the service architecture, vehicle profiles, technical controls, and decision gate. Official service wording can still be refined before launch if GS AUTOBILAN provides preferred phrasing.
 
 **Tariffs:** tariffs page draft now covers the authority hero, category navigator, price passports, searchable matrix, mobile cards, clarification tiles, and booking category links. Website/PDF/database tariff parity remains a launch hardening point.
+
+**Visite Technique:** page draft now covers why the inspection matters, principal control points, the customer passage flow, educational result outcomes, preparation documents/advice, and the non-auto-confirmation reminder. Review final wording with GS AUTOBILAN before launch.
 
 **Testimonials:** prefer real quotes later; avoid fake placeholders.
 

@@ -124,6 +124,19 @@
         background: #ffffff;
     }
 
+    .gs-inspection-caution-stripe {
+        height: clamp(1.25rem, 1.7vw, 2rem);
+        border-top: 1px solid rgba(255, 255, 255, 0.72);
+        background: repeating-linear-gradient(
+            135deg,
+            #ffffff 0,
+            #ffffff 1.05rem,
+            #c8202f 1.05rem,
+            #c8202f 2.1rem
+        );
+        box-shadow: 0 -8px 22px rgba(6, 42, 92, 0.16);
+    }
+
     @media (max-width: 639px) {
         .gs-hero-ribbon {
             height: 4.4rem;

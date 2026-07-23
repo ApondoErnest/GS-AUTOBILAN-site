@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## 1.11 — 2026-07-24
+
+### Changed
+
+- **S062:** Visite Technique page completed with FR/EN compact inspection-bay hero, why-it-matters section, custom SVG control-point grid, five-step passage timeline, educational result outcomes, preparation checklist cards, dark scope/confirmation card, bottom preparation notice strip, normalized `public/images/inspection/` assets, and focused Technical Inspection page coverage.
+- Roadmap, step tracker, public website notes, frontend design notes, content checklist, and root project docs updated so **S063 Contact page with FAQ accordion** is now the next step.
+
 ## 1.10 — 2026-07-22
 
 ### Changed
