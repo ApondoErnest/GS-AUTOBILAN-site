@@ -1,6 +1,6 @@
 # Routes and controllers — V1
 
-**Version:** 1.1 · **Steps:** S040+
+**Version:** 1.2 · **Steps:** S040+
 
 ---
 
@@ -41,10 +41,12 @@ login · dashboard · agencies · services · tariffs · bookings · document re
 | Page controllers | Load content; render views |
 | Booking | Show form; validate; call BookingService; confirmation |
 | Tracking | Show form; validate; call TrackingService; safe result/error |
-| Contact | Page + FAQs; validate; store; success |
+| Contact | Page + FAQs; agency slug preselection; validate; store; success |
 | Article | List; filter category; detail; locale slug |
 
 Prefer Livewire components for booking/tracking/contact where it improves UX; keep service calls identical.
+
+S063 implementation note: the public Contact form posts through `ContactMessageRequest` and `ContactMessageService`, accepts an agency slug from the page (`nkolbisson` / `obili-scalom`), resolves it to an active `Agency`, and stores the selected request type in the message subject context.
 
 ---
 

@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S063** (Build Contact page with FAQ accordion)
+**Current next step:** **S064** (Build News listing + article detail pages)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -368,7 +368,7 @@
 
 ## Block J — Public website pages
 
-Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; continue from S063.
+Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; continue from S064.
 
 ### S056 — Build Home page (all main sections)
 - [x] **Completed** — homepage sections built and verified in FR/EN: carousel photo hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery block, advice cards, final readiness CTA, and tightened responsive section rhythm (2026-07-16)
@@ -407,17 +407,17 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** Documents, preparation, procedure, educational result cards present.
 
 ### S063 — Build Contact page with FAQ accordion
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — Contact page built and verified in FR/EN with compact smart contact router, generated contact icons under `public/images/contacts/`, agency contact/map panels with live Google map embeds, Message Desk contact form, administrative Direction Générale — Bastos card, `?agence=` agency preselection, localized contact submit handling, compact FAQ accordion, and focused contact page coverage (2026-07-24).
 - **Depends on:** S062
 - **Done when:** Contact form + FAQ section + agency/DG details work.
 
 ### S064 — Build News listing + article detail pages
-- [ ] **Pending**
+- [ ] **Pending** ← **do this next**
 - **Depends on:** S063
 - **Done when:** Published articles list and open by slug.
 
 ### S065 — Build About page
-- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S063 is the next unchecked public-site step after S062 completion.
+- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S064 is the next unchecked public-site step after S063 completion.
 - **Depends on:** S064 in the original sequence; completed early by user direction
 - **Done when:** Mission/vision/values/DG block present.
 
@@ -660,4 +660,4 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 63 · **Remaining:** 33 · **Next:** S063
+**Total steps:** 96 · **Completed:** 64 · **Remaining:** 32 · **Next:** S064

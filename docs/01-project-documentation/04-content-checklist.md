@@ -22,6 +22,7 @@ Company facts: [00-company-data.md](00-company-data.md)
 | Services page images | ☑ In use | `public/images/servicespage/services-hero.png`, `light-vehicle.png`, `utility-vehicle.png`, `taxi-transport.png`, and `heavy-vehicle.png` |
 | Tariffs page images | ☑ In use | `public/images/tariffs/` vehicle category images |
 | Visite Technique page assets | ☑ In use | `public/images/inspection/hero-inspection.png` plus custom control/process/result/preparation SVG icons |
+| Contact page assets | ☑ In use | Generated smart-router SVG icons under `public/images/contacts/` |
 | Staff / vehicles | ☑ In use for About | Consent; avoid identifiable plates if future staff photos are supplied |
 
 Until photos: maps + colour blocks · gallery “Photos à venir”.
@@ -33,7 +34,7 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 | Item | Status | Notes |
 |------|--------|-------|
 | Official tariff table | ☑ Draft implemented on Tariffs | Public tariffs page uses the referenced official category/pricing table; reconfirm with GS AUTOBILAN before launch |
-| Agency GPS / maps | ☑ In use | S057 uses confirmed Nkolbisson and Obili Scalom coordinates for live Google map embeds |
+| Agency GPS / maps | ☑ In use | S057 and S063 use confirmed Nkolbisson and Obili Scalom coordinates for live Google map embeds |
 | Email spelling | ☐ Confirm | See company data |
 | Accreditation wording | ☐ Optional | |
 | DG GPS | ☐ Optional | Address known |
@@ -49,10 +50,11 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 | Services (×8) | ☑ Draft implemented | ☑ Draft implemented |
 | Tariffs page | ☑ Draft implemented | ☑ Draft implemented |
 | Visite Technique page | ☑ Draft implemented | ☑ Draft implemented |
-| FAQ (×12) | ☐ | ☐ |
+| FAQ (contact) | ☑ Draft implemented | ☑ Draft implemented |
 | Homepage hero | ☑ Implemented | ☑ Implemented |
 | Homepage sections | ☑ Implemented | ☑ Implemented |
 | Agencies page sections | ☑ Implemented | ☑ Implemented |
+| Contact page sections | ☑ Implemented | ☑ Implemented |
 | About page sections | ☑ Implemented | ☑ Implemented |
 | Booking disclaimer | ☑ Implemented | ☑ Implemented |
 | Booking page shell | ☑ Implemented | ☑ Implemented |
@@ -66,6 +68,8 @@ Until photos: maps + colour blocks · gallery “Photos à venir”.
 **Tariffs:** tariffs page draft now covers the authority hero, category navigator, price passports, searchable matrix, mobile cards, clarification tiles, and booking category links. Website/PDF/database tariff parity remains a launch hardening point.
 
 **Visite Technique:** page draft now covers why the inspection matters, principal control points, the customer passage flow, educational result outcomes, preparation documents/advice, and the non-auto-confirmation reminder. Review final wording with GS AUTOBILAN before launch.
+
+**Contact:** page draft now covers the smart contact router, agency contact/map panels, live Google maps, Message Desk form, administrative Direction Générale card, compact FAQ accordion, and mobile sticky contact actions. Review final phone/email wording and FAQ answers with GS AUTOBILAN before launch.
 
 **Testimonials:** prefer real quotes later; avoid fake placeholders.
 

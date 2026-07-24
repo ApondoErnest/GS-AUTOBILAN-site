@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## 1.12 — 2026-07-24
+
+### Changed
+
+- **S063:** Contact page completed with FR/EN compact smart contact router, generated contact icons, agency contact/map panels, live Google map embeds, Message Desk form, administrative Direction Générale — Bastos card, query-string agency preselection, localized contact submit handling, compact FAQ accordion, and focused Contact page coverage.
+- Roadmap, step tracker, public website notes, frontend design notes, content checklist, and root project docs updated so **S064 News listing + article detail pages** is now the next step.
+
 ## 1.11 — 2026-07-24
 
 ### Changed

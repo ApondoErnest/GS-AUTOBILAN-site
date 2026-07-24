@@ -1,7 +1,7 @@
 # Brand and UI system — V1
 
 **System name:** GS Royal Safety Bands  
-**Version:** 1.8 · **Status:** Palette revised from centre photos; homepage, agencies, booking shell, tracking shell, and about implemented · **Steps:** S029–S034 + S056 + S057 + S058 + S059 + S065
+**Version:** 1.9 · **Status:** Palette revised from centre photos; homepage, agencies, booking shell, tracking shell, services, tariffs, visite technique, contact, and about implemented · **Steps:** S029–S034 + S056 + S057 + S058 + S059 + S060 + S061 + S062 + S063 + S065
 **Code tokens:** [`../../resources/css/app.css`](../../resources/css/app.css)
 
 Inspired by the real centres: **royal blue + white + red bands + industrial grey**.
@@ -130,6 +130,15 @@ Until photos arrive: solid/gradient blue hero + text lockup (see placeholders).
 - Boundary: static shell only until Block L wires lookup/loading/not-found states through `TrackingService`.
 - Content source: `lang/fr/tracking.php` and `lang/en/tracking.php`; view: `resources/views/pages/tracking.blade.php`; coverage: `tests/Feature/TrackingPageTest.php`.
 
+### Contact page implementation (S063)
+
+- Router: compact digital-reception section with four intent cards, red section accent, and generated blue line icons stored in `public/images/contacts/`.
+- Mobile: router cards are two columns with icon-left/text-right composition and reduced internal spacing.
+- Agency panels: white banded cards with red edge, status pill, confirmed contact details, live Google map iframe embeds, WhatsApp, booking, and GPS actions.
+- Message Desk: 256px desktop inset with compact form controls, agency slug preselection from the URL, and a visually separate administrative Direction Générale — Bastos card.
+- FAQ: compact accordion with 128px desktop inset and no final deep-blue assistance CTA.
+- Content source: `lang/fr/contact.php` and `lang/en/contact.php`; view: `resources/views/pages/contact.blade.php`; coverage: `tests/Feature/ContactPageTest.php`.
+
 ### Cards (agency, service, article)
 
 - White background
@@ -189,7 +198,8 @@ Stay on **GS Royal Safety Bands** — avoid purple/cream “AI default” looks 
 | **Listing** | `layouts/listing` | white header · `gs-wall` listing area | Services, News, Tariffs |
 | **Agencies** | custom page view | centered photo hero · live map cards · WhatsApp/RDV actions | Agencies |
 | **Article** | `layouts/article` | white header · related on `gs-soft` | News detail |
-| **Form** | `layouts/form` | notice uses `gs-accent-soft` | Booking, Contact |
+| **Contact** | custom page view | smart router · agency panels · Message Desk · DG card · FAQ accordion | Contact |
+| **Form** | `layouts/form` | notice uses `gs-accent-soft` | Booking |
 | **Tracking** | `layouts/tracking` | white panels · `gs-concrete` borders | Appointment tracking |
 | **Error** | `layouts/error` | `gs-wall` | 404 / 500 |
 | Admin | Filament panel | — | `/admin` |
@@ -206,7 +216,7 @@ Top strip · white header · mobile menu · language switcher · photo hero · C
 
 **Heroicons:** phone, envelope, map pin, clock, calendar, document, shield check, check circle, exclamation triangle, building office, truck, wrench, language, user, magnifying glass  
 
-**Custom SVG:** braking, suspension, lighting, tyres, steering/ripage, identification, visual inspection, documents, process steps, educational result outcomes, preparation/checklist icons  
+**Custom SVG:** braking, suspension, lighting, tyres, steering/ripage, identification, visual inspection, documents, process steps, educational result outcomes, preparation/checklist icons, contact router icons
 
 ---
 

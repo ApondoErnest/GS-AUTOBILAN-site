@@ -2,18 +2,36 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Agency;
 use Illuminate\Validation\Rule;
 
 class ContactMessageRequest extends PublicFormRequest
 {
     protected function prepareForValidation(): void
     {
+        $agencySlug = $this->cleanedString($this->input('agency_slug'));
+        $agencyId = $this->input('agency_id');
+
+        if (! $agencyId && $agencySlug) {
+            $agencyId = Agency::query()
+                ->active()
+                ->where('slug', $agencySlug)
+                ->value('id');
+        }
+
+        $subject = $this->cleanedString($this->input('subject'));
+        $requestType = $this->cleanedString($this->input('request_type'));
+
+        if ($requestType) {
+            $subject = trim($requestType.' — '.$subject);
+        }
+
         $this->merge([
             'name' => $this->cleanedString($this->input('name')),
             'phone' => $this->normalizedPhone($this->input('phone')),
             'email' => $this->cleanedString($this->input('email')),
-            'agency_id' => $this->cleanedString($this->input('agency_id')),
-            'subject' => $this->cleanedString($this->input('subject')),
+            'agency_id' => $agencyId,
+            'subject' => $subject,
             'message' => $this->cleanedString($this->input('message')),
         ]);
     }

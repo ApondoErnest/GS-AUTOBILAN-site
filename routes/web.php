@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Requests\ContactMessageRequest;
+use App\Services\ContactMessageService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/fr/accueil');
@@ -15,7 +18,7 @@ $localizedPages = [
         ['uri' => 'rendez-vous', 'name' => 'booking', 'view' => 'pages.booking', 'title' => 'actions.book'],
         ['uri' => 'suivi-rendez-vous', 'name' => 'tracking', 'view' => 'pages.tracking', 'title' => 'tracking.meta_title'],
         ['uri' => 'actualites', 'name' => 'news', 'title' => 'nav.news'],
-        ['uri' => 'contact', 'name' => 'contact', 'title' => 'nav.contact'],
+        ['uri' => 'contact', 'name' => 'contact', 'view' => 'pages.contact', 'title' => 'contact.meta_title'],
     ],
     'en' => [
         ['uri' => 'home', 'name' => 'home', 'view' => 'pages.home', 'title' => 'chrome.home_title'],
@@ -27,7 +30,7 @@ $localizedPages = [
         ['uri' => 'booking', 'name' => 'booking', 'view' => 'pages.booking', 'title' => 'actions.book'],
         ['uri' => 'appointment-tracking', 'name' => 'tracking', 'view' => 'pages.tracking', 'title' => 'tracking.meta_title'],
         ['uri' => 'news', 'name' => 'news', 'title' => 'nav.news'],
-        ['uri' => 'contact', 'name' => 'contact', 'title' => 'nav.contact'],
+        ['uri' => 'contact', 'name' => 'contact', 'view' => 'pages.contact', 'title' => 'contact.meta_title'],
     ],
 ];
 
@@ -42,6 +45,14 @@ foreach ($localizedPages as $locale => $pages) {
                         'title' => __($page['title']),
                     ]);
                 })->name($page['name']);
+
+                if ($page['name'] === 'contact') {
+                    Route::post($page['uri'], function (ContactMessageRequest $request, ContactMessageService $messages): RedirectResponse {
+                        $messages->create($request->validated());
+
+                        return back()->with('contact_message_status', __('contact.desk.form.success'));
+                    })->name($page['name'].'.store');
+                }
             }
         });
 }
