@@ -18,4 +18,5 @@ return [
     'language_footer' => 'Langue footer',
     'language_mobile' => 'Langue mobile',
     'quick_actions' => 'Actions rapides',
+    'back_to_top' => 'Retour en haut',
 ];

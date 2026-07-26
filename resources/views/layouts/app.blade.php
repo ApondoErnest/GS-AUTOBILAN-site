@@ -21,6 +21,7 @@
     </main>
 
     @include('partials.footer')
+    @include('partials.back-to-top')
 
     @stack('scripts')
 </body>

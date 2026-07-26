@@ -51,7 +51,7 @@
 
         <div class="mx-auto flex min-h-[640px] w-full max-w-[1540px] items-center justify-center px-4 pb-24 pt-10 text-center sm:min-h-[720px] sm:px-8 sm:pb-32 sm:pt-16 lg:min-h-[760px] lg:px-14 xl:px-20">
             <div class="min-w-0 max-w-[82rem]">
-                <p class="text-xs font-black uppercase text-gs-accent sm:text-base lg:text-lg">
+                <p class="mx-auto inline-flex max-w-full items-center justify-center rounded-sm bg-gs-accent px-4 py-2 text-sm font-black uppercase leading-tight text-white shadow-lg shadow-gs-navy/20 sm:px-5 sm:text-lg lg:text-xl">
                     {{ __('home.hero.eyebrow') }}
                 </p>
                 <div class="mx-auto mt-2 h-1 w-60 max-w-full bg-gs-accent sm:mt-3 sm:w-96" aria-hidden="true"></div>

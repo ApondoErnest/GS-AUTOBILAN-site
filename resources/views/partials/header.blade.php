@@ -11,7 +11,7 @@
     ];
 @endphp
 
-<header class="gs-header w-full bg-gs-surface shadow-lg shadow-gs-navy/10">
+<header class="gs-header w-full bg-gs-surface shadow-lg shadow-gs-navy/10 lg:sticky lg:top-0 lg:z-40">
     <div class="hidden min-[1400px]:block">
         <div class="relative flex min-h-28 w-full items-center gap-6 border-b border-gs-concrete bg-white px-8">
             <a href="{{ route($routeLocale.'.home', [], false) }}" class="relative block h-20 w-64 shrink-0 overflow-hidden focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2" aria-label="{{ __('chrome.brand_home_label') }}">

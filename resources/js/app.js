@@ -129,6 +129,55 @@ const initHeroCarousels = () => {
     });
 };
 
+const initBackToTop = () => {
+    const button = document.querySelector('[data-back-to-top]');
+    const header = document.querySelector('.gs-header');
+
+    if (!(button instanceof HTMLButtonElement) || !(header instanceof HTMLElement)) {
+        return;
+    }
+
+    const mobileQuery = window.matchMedia('(max-width: 1023px)');
+    const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let ticking = false;
+
+    const getHeaderEnd = () => header.offsetTop + header.offsetHeight;
+
+    const setVisible = (isVisible) => {
+        button.classList.toggle('is-visible', isVisible);
+        button.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
+        button.tabIndex = isVisible ? 0 : -1;
+    };
+
+    const updateVisibility = () => {
+        const shouldShow = mobileQuery.matches && window.scrollY > getHeaderEnd();
+
+        setVisible(shouldShow);
+        ticking = false;
+    };
+
+    const requestVisibilityUpdate = () => {
+        if (ticking) {
+            return;
+        }
+
+        ticking = true;
+        window.requestAnimationFrame(updateVisibility);
+    };
+
+    button.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: reduceMotionQuery.matches ? 'auto' : 'smooth',
+        });
+    });
+
+    window.addEventListener('scroll', requestVisibilityUpdate, { passive: true });
+    window.addEventListener('resize', requestVisibilityUpdate);
+    mobileQuery.addEventListener('change', requestVisibilityUpdate);
+    updateVisibility();
+};
+
 const initAgencyMaps = () => {
     document.querySelectorAll('[data-agency-map]').forEach((map) => {
         const frame = map.querySelector('[data-agency-map-frame]');
@@ -922,6 +971,7 @@ const initTariffMatrices = () => {
 const initFrontend = () => {
     initMobileMenu();
     initHeroCarousels();
+    initBackToTop();
     initAgencyMaps();
     initBookingIntakes();
     initServiceVehicleSelectors();

@@ -65,6 +65,22 @@
         opacity: 1;
     }
 
+    .gs-back-to-top {
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(0.75rem) scale(0.96);
+        transition:
+            opacity 180ms ease,
+            transform 180ms ease,
+            background-color 180ms ease;
+    }
+
+    .gs-back-to-top.is-visible {
+        pointer-events: auto;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
     .gs-hero-ribbon {
         height: clamp(4.75rem, 5.4vw, 6rem);
     }

@@ -10,6 +10,9 @@ it('renders the French home page with French locale links', function () {
         ->assertSee('Votre sécurité', false)
         ->assertSee('href="/fr/rendez-vous"', false)
         ->assertSee('href="/fr/suivi-rendez-vous"', false)
+        ->assertSee('lg:sticky lg:top-0', false)
+        ->assertSee('data-back-to-top', false)
+        ->assertSee('Retour en haut', false)
         ->assertDontSee('gs-fabs', false)
         ->assertSee('href="/en/home"', false);
 });
