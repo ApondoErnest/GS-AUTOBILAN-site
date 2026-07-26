@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Requests\BookingRequest;
 use App\Http\Requests\ContactMessageRequest;
+use App\Models\Booking;
+use App\Services\BookingService;
 use App\Services\ContactMessageService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 
@@ -38,13 +42,67 @@ foreach ($localizedPages as $locale => $pages) {
     Route::prefix($locale)
         ->name($locale.'.')
         ->middleware('setLocale')
-        ->group(function () use ($pages): void {
+        ->group(function () use ($pages, $locale): void {
             foreach ($pages as $page) {
                 Route::get($page['uri'], function () use ($page) {
                     return view($page['view'] ?? 'pages.public-placeholder', [
                         'title' => __($page['title']),
                     ]);
                 })->name($page['name']);
+
+                if ($page['name'] === 'booking') {
+                    Route::post($page['uri'], function (BookingRequest $request, BookingService $bookings) use ($locale): RedirectResponse {
+                        $payload = $request->validated();
+                        $serviceLabel = collect(__('booking.command.step1.services'))
+                            ->firstWhere('slug', $payload['service_type'] ?? null);
+                        $vehicleLabel = collect(__('booking.command.step2.categories'))
+                            ->firstWhere('slug', $payload['vehicle_category'] ?? null);
+                        $serviceLabel = data_get($serviceLabel, 'name');
+                        $vehicleLabel = data_get($vehicleLabel, 'label') ?? ($payload['vehicle_category'] ?? null);
+                        $contactMode = $payload['contact_mode'] ?? null;
+
+                        $payload['customer_message'] = collect([
+                            filled($serviceLabel) ? __('booking.command.ticket.fields.service').': '.$serviceLabel : null,
+                            filled($contactMode) ? __('booking.command.ticket.fields.contact').': '.$contactMode : null,
+                            $payload['customer_message'] ?? null,
+                        ])->filter()->implode(PHP_EOL) ?: null;
+
+                        $booking = $bookings->create($payload)->loadMissing(['agency', 'service']);
+                        $localizedAgencyName = $locale === 'en'
+                            ? $booking->agency?->name_en
+                            : $booking->agency?->name_fr;
+                        $localizedServiceTitle = $locale === 'en'
+                            ? $booking->service?->title_en
+                            : $booking->service?->title_fr;
+
+                        return redirect()
+                            ->route($locale.'.booking')
+                            ->with('booking_confirmation', [
+                                'reference' => $booking->reference,
+                                'summary_url' => route($locale.'.booking.summary', [
+                                    'booking' => $booking->reference,
+                                ], false),
+                                'fields' => [
+                                    'agency' => $localizedAgencyName ?? $booking->agency?->name_fr,
+                                    'service' => $serviceLabel ?? $localizedServiceTitle ?? $booking->service?->title_fr,
+                                    'vehicle' => $vehicleLabel,
+                                    'date' => $booking->preferred_date?->toDateString(),
+                                    'period' => $booking->preferred_time_slot,
+                                    'contact' => $contactMode,
+                                ],
+                            ]);
+                    })->name($page['name'].'.store');
+
+                    Route::get($page['uri'].'/{booking:reference}/recapitulatif.pdf', function (Booking $booking) use ($locale) {
+                        $booking->loadMissing(['agency', 'service', 'documentReadiness']);
+
+                        return Pdf::loadView('pdf.booking-summary', [
+                            'booking' => $booking,
+                            'locale' => $locale,
+                        ])->setPaper('a5', 'portrait')
+                            ->download($booking->reference.'-recapitulatif.pdf');
+                    })->name($page['name'].'.summary');
+                }
 
                 if ($page['name'] === 'contact') {
                     Route::post($page['uri'], function (ContactMessageRequest $request, ContactMessageService $messages): RedirectResponse {

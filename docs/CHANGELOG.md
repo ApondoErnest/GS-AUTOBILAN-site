@@ -1,5 +1,12 @@
 # Documentation changelog
 
+## 1.13 — 2026-07-26
+
+### Changed
+
+- **S066:** Public booking form submit now posts through localized FR/EN routes, normalizes wizard fields into `BookingRequest`, persists bookings through `BookingService`, creates default document readiness, dispatches the existing booking-created event, shows the generated `GS-YEAR-SEQUENCE` reference in the server-backed receipt, guards wizard navigation with no-reload required-field highlighting, and downloads a dedicated booking-summary PDF instead of printing the full page.
+- Roadmap, step tracker, and booking module notes updated to show **S066 complete out of sequence** while **S064 News listing + article detail pages** remains the first unchecked step.
+
 ## 1.12 — 2026-07-24
 
 ### Changed

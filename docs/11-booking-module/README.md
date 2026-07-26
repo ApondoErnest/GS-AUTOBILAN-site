@@ -9,7 +9,7 @@
 
 S058 delivered the public booking interface at `/fr/rendez-vous` and `/en/booking`: compact expectation hero, non-auto-confirmation notice, live ticket summary, three-step intake wizard, custom date picker, review panel, and client-side virtual receipt.
 
-The S058 submit/receipt behavior is intentionally not the final booking workflow. S066 must replace the shell-only submit path with `BookingService`, persisted references, default document-readiness creation, and admin notification events.
+S066 replaced the shell-only submit path with localized POST routes, `BookingRequest` normalization for the wizard fields, `BookingService` persistence, generated references, default document-readiness creation, and the existing admin notification event. The receipt now displays the persisted `GS-YEAR-SEQUENCE` reference after redirect, links to a dedicated booking-summary PDF, and the wizard blocks forward navigation with no-reload required-field highlighting until each step is complete.
 
 ---
 

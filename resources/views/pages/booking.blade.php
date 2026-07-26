@@ -12,6 +12,11 @@
     $trackingHref = route($routeLocale.'.tracking', [], false);
     $agenciesHref = route($routeLocale.'.agencies', [], false);
     $today = now()->toDateString();
+    $bookingConfirmation = session('booking_confirmation');
+    $hasBookingConfirmation = is_array($bookingConfirmation);
+    $bookingConfirmationFields = $hasBookingConfirmation ? ($bookingConfirmation['fields'] ?? []) : [];
+    $bookingReference = $hasBookingConfirmation ? ($bookingConfirmation['reference'] ?? null) : null;
+    $bookingSummaryHref = $hasBookingConfirmation ? ($bookingConfirmation['summary_url'] ?? null) : null;
 @endphp
 
 @section('content')
@@ -45,7 +50,7 @@
         </div>
     </section>
 
-    <section class="bg-gs-wall px-3 pb-24 pt-3 sm:px-6 sm:pb-12 lg:px-16 lg:pt-3 xl:px-32 2xl:px-64" aria-labelledby="booking-command-title" data-booking-intake>
+    <section class="bg-gs-wall px-3 pb-24 pt-3 sm:px-6 sm:pb-12 lg:px-16 lg:pt-3 xl:px-32 2xl:px-64" aria-labelledby="booking-command-title" data-booking-intake data-ticket-empty="{{ $command['ticket']['empty'] }}" @if ($hasBookingConfirmation) data-booking-confirmed @endif>
         <h2 id="booking-command-title" class="sr-only">GS Smart Inspection Booking</h2>
 
         <div class="mx-auto max-w-[1120px]">
@@ -86,8 +91,8 @@
                                     <div>
                                         <p class="text-[0.68rem] font-black leading-tight text-gs-ink">{{ $label }}</p>
                                         <p class="mt-0.5 inline-flex items-center gap-1 text-xs font-bold leading-tight text-gs-primary">
-                                            <x-heroicon-o-check-circle class="hidden h-3.5 w-3.5 text-gs-primary" aria-hidden="true" data-ticket-check="{{ $field }}" />
-                                            <span data-ticket-field="{{ $field }}">{{ $command['ticket']['empty'] }}</span>
+                                            <x-heroicon-o-check-circle class="{{ filled($bookingConfirmationFields[$field] ?? null) ? '' : 'hidden' }} h-3.5 w-3.5 text-gs-primary" aria-hidden="true" data-ticket-check="{{ $field }}" />
+                                            <span data-ticket-field="{{ $field }}">{{ $bookingConfirmationFields[$field] ?? $command['ticket']['empty'] }}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -96,7 +101,7 @@
                             <div class="border-t border-dashed border-gs-primary/35 pt-4">
                                 <p class="flex items-center justify-between text-[0.68rem] font-bold text-gs-grey">
                                     <span>{{ $command['ticket']['reference'] }}</span>
-                                    <span class="tracking-[0.22em]" data-ticket-reference>{{ $command['ticket']['reference_pending'] }}</span>
+                                    <span class="tracking-[0.22em]" data-ticket-reference>{{ $bookingReference ?? $command['ticket']['reference_pending'] }}</span>
                                 </p>
                             </div>
                         </div>
@@ -146,7 +151,13 @@
                 </aside>
 
                 <div class="min-w-0 space-y-3" data-booking-workspace>
-                    <nav class="rounded-lg bg-gs-wall px-1 py-1.5 sm:px-3" aria-label="Progression de la demande">
+                    @if ($errors->any())
+                        <div class="rounded-lg border border-gs-danger/30 bg-red-50 px-4 py-3 text-sm font-bold text-gs-danger" role="alert">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
+
+                    <nav class="{{ $hasBookingConfirmation ? 'hidden ' : '' }}rounded-lg bg-gs-wall px-1 py-1.5 sm:px-3" aria-label="Progression de la demande">
                         <ol class="grid grid-cols-3 items-center gap-1.5">
                             @foreach ($command['steps'] as $index => $step)
                                 <li class="relative">
@@ -163,7 +174,8 @@
                         </ol>
                     </nav>
 
-                    <form class="rounded-lg border border-gs-concrete bg-white p-3 shadow-xl shadow-gs-navy/8 sm:p-5 lg:p-5" data-booking-form novalidate>
+                    <form method="POST" action="{{ route($routeLocale.'.booking.store', [], false) }}" class="{{ $hasBookingConfirmation ? 'hidden ' : '' }}rounded-lg border border-gs-concrete bg-white p-3 shadow-xl shadow-gs-navy/8 sm:p-5 lg:p-5" data-booking-form novalidate>
+                        @csrf
                         <section data-booking-step-panel="1" aria-labelledby="booking-step-1-title">
                             <div class="flex items-center gap-2.5">
                                 <x-heroicon-s-map-pin class="h-5 w-5 text-gs-navy" aria-hidden="true" />
@@ -173,7 +185,7 @@
                             <div class="mt-4 grid gap-3 lg:grid-cols-2">
                                 @foreach ($command['step1']['agencies'] as $agency)
                                     <label class="relative flex min-h-40 cursor-pointer gap-3 rounded-lg border border-gs-concrete bg-white p-4 shadow-sm shadow-gs-navy/5 transition hover:border-gs-primary/50 hover:bg-gs-soft/50" data-choice-card>
-                                        <input type="radio" name="agency" value="{{ $agency['slug'] }}" class="sr-only" required data-ticket-input data-ticket-target="agency" data-summary-label="{{ $agency['name'] }}" data-agency-slug="{{ $agency['slug'] }}">
+                                        <input type="radio" name="agency" value="{{ $agency['slug'] }}" class="sr-only" required data-ticket-input data-ticket-target="agency" data-summary-label="{{ $agency['name'] }}" data-agency-slug="{{ $agency['slug'] }}" @checked(old('agency') === $agency['slug'])>
                                         <span class="hidden absolute inset-y-4 left-0 w-1.5 rounded-r-sm bg-gs-accent" aria-hidden="true" data-choice-band></span>
                                         <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gs-soft text-gs-navy">
                                             <svg class="h-9 w-9" viewBox="0 0 48 48" fill="none" aria-hidden="true">
@@ -214,7 +226,7 @@
                             <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                                 @foreach ($command['step1']['services'] as $service)
                                     <label class="relative min-h-32 cursor-pointer rounded-lg border border-gs-concrete bg-white p-4 text-center shadow-sm shadow-gs-navy/5 transition hover:border-gs-primary/50 hover:bg-gs-soft/50" data-choice-card>
-                                        <input type="radio" name="service_type" value="{{ $service['slug'] }}" class="sr-only" required data-ticket-input data-ticket-target="service" data-summary-label="{{ $service['name'] }}">
+                                        <input type="radio" name="service_type" value="{{ $service['slug'] }}" class="sr-only" required data-ticket-input data-ticket-target="service" data-summary-label="{{ $service['name'] }}" @checked(old('service_type') === $service['slug'])>
                                         <span class="absolute right-3 top-3 hidden text-gs-primary" data-choice-check>
                                             <x-heroicon-s-check-circle class="h-6 w-6" aria-hidden="true" />
                                         </span>
@@ -261,7 +273,7 @@
                             <div class="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4">
                                 @foreach ($command['step2']['categories'] as $category)
                                     <label class="cursor-pointer rounded-lg border border-gs-concrete bg-white p-3 text-center shadow-sm shadow-gs-navy/5 transition hover:border-gs-primary/50 hover:bg-gs-soft/50" data-choice-card>
-                                        <input type="radio" name="vehicle_category" value="{{ $category['label'] }}" class="sr-only" required data-ticket-input data-ticket-target="vehicle" data-summary-label="{{ $category['label'] }}">
+                                        <input type="radio" name="vehicle_category" value="{{ $category['slug'] }}" class="sr-only" required data-ticket-input data-ticket-target="vehicle" data-summary-label="{{ $category['label'] }}" @checked(old('vehicle_category') === $category['slug'])>
                                         <span class="mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-gs-soft text-gs-navy">
                                             @switch($category['icon'])
                                                 @case('car')
@@ -320,27 +332,27 @@
                             <div class="mt-5 grid gap-3 sm:grid-cols-2">
                                 <label class="sm:col-span-2">
                                     <span class="text-xs font-black text-gs-ink">{{ $command['step2']['fields']['registration'] }}</span>
-                                    <input type="text" name="vehicle_registration" autocomplete="off" class="mt-1.5 h-12 w-full rounded-md border-2 border-gs-navy bg-white px-4 text-center text-lg font-black uppercase tracking-[0.2em] text-gs-navy shadow-inner shadow-gs-concrete focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" required data-ticket-input data-ticket-target="registration" placeholder="CE 123 AB">
+                                    <input type="text" name="vehicle_registration" value="{{ old('vehicle_registration') }}" autocomplete="off" class="mt-1.5 h-12 w-full rounded-md border-2 border-gs-navy bg-white px-4 text-center text-lg font-black uppercase tracking-[0.2em] text-gs-navy shadow-inner shadow-gs-concrete focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" required data-ticket-input data-ticket-target="registration" placeholder="CE 123 AB">
                                 </label>
 
                                 <label>
                                     <span class="text-xs font-black text-gs-ink">{{ $command['step2']['fields']['brand'] }}</span>
-                                    <input type="text" name="vehicle_brand" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
+                                    <input type="text" name="vehicle_brand" value="{{ old('vehicle_brand') }}" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
                                 </label>
 
                                 <label>
                                     <span class="text-xs font-black text-gs-ink">{{ $command['step2']['fields']['model'] }}</span>
-                                    <input type="text" name="vehicle_model" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
+                                    <input type="text" name="vehicle_model" value="{{ old('vehicle_model') }}" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
                                 </label>
 
                                 <label>
                                     <span class="text-xs font-black text-gs-ink">{{ $command['step2']['fields']['year'] }}</span>
-                                    <input type="number" name="vehicle_year" min="1950" max="{{ now()->year + 1 }}" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
+                                    <input type="number" name="vehicle_year" value="{{ old('vehicle_year') }}" min="1950" max="{{ now()->year + 1 }}" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
                                 </label>
 
                                 <label>
                                     <span class="text-xs font-black text-gs-ink">{{ $command['step2']['fields']['observation'] }}</span>
-                                    <input type="text" name="customer_message" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
+                                    <input type="text" name="customer_message" value="{{ old('customer_message') }}" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
                                 </label>
                             </div>
 
@@ -362,9 +374,9 @@
                             <div class="mt-4 grid gap-3 sm:grid-cols-2">
                                 <div class="relative" data-booking-date-picker data-min-date="{{ $today }}" data-calendar-locale="{{ $routeLocale === 'en' ? 'en-US' : 'fr-FR' }}" data-calendar-placeholder="{{ $command['step3']['calendar']['placeholder'] }}" data-calendar-closed-label="{{ $command['step3']['calendar']['closed'] }}">
                                     <span class="text-xs font-black text-gs-ink">{{ $command['step3']['fields']['date'] }}</span>
-                                    <input type="hidden" name="preferred_date" data-ticket-input data-ticket-target="date">
+                                    <input type="hidden" name="preferred_date" value="{{ old('preferred_date') }}" data-ticket-input data-ticket-target="date" @if (old('preferred_date')) data-summary-label="{{ old('preferred_date') }}" @endif>
                                     <button type="button" class="mt-1.5 flex h-10 w-full items-center justify-between rounded-md border border-gs-concrete bg-white px-3 text-left text-sm font-black text-gs-ink shadow-sm shadow-gs-navy/5 transition hover:border-gs-primary/50 focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" data-booking-date-display aria-haspopup="dialog" aria-expanded="false">
-                                        <span class="truncate text-gs-grey" data-booking-date-label>{{ $command['step3']['calendar']['placeholder'] }}</span>
+                                        <span class="truncate {{ old('preferred_date') ? 'text-gs-ink' : 'text-gs-grey' }}" data-booking-date-label>{{ old('preferred_date') ?: $command['step3']['calendar']['placeholder'] }}</span>
                                         <x-heroicon-o-calendar-days class="h-4 w-4 shrink-0 text-gs-primary" aria-hidden="true" />
                                     </button>
 
@@ -394,7 +406,7 @@
                                     <div class="mt-1.5 grid gap-1.5" data-period-group>
                                         @foreach ($command['step3']['periods'] as $period)
                                             <label class="cursor-pointer rounded-md border border-gs-concrete bg-white px-3 py-2 shadow-sm shadow-gs-navy/5 transition hover:border-gs-primary/50 hover:bg-gs-soft/50" data-choice-card data-period-option>
-                                                <input type="radio" name="preferred_time_slot" value="{{ $period['label'] }} — {{ $period['time'] }}" class="sr-only" required data-ticket-input data-ticket-target="period" data-summary-label="{{ $period['label'] }} — {{ $period['time'] }}">
+                                                <input type="radio" name="preferred_time_slot" value="{{ $period['label'] }} — {{ $period['time'] }}" class="sr-only" required data-ticket-input data-ticket-target="period" data-summary-label="{{ $period['label'] }} — {{ $period['time'] }}" @checked(old('preferred_time_slot') === $period['label'].' — '.$period['time'])>
                                                 <span class="block text-xs font-black text-gs-primary">{{ $period['label'] }}</span>
                                                 <span class="block text-xs font-bold text-gs-ink" data-period-time data-default-time="{{ $period['time'] }}" data-obili-sunday-time="{{ $period['sunday_time'] }}">{{ $period['time'] }}</span>
                                             </label>
@@ -412,23 +424,23 @@
 
                                 <label>
                                     <span class="text-xs font-black text-gs-ink">{{ $command['step3']['fields']['name'] }}</span>
-                                    <input type="text" name="customer_name" autocomplete="name" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" required>
+                                    <input type="text" name="customer_name" value="{{ old('customer_name') }}" autocomplete="name" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" required>
                                 </label>
 
                                 <label>
                                     <span class="text-xs font-black text-gs-ink">{{ $command['step3']['fields']['phone'] }}</span>
-                                    <input type="tel" name="phone" autocomplete="tel" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" required>
+                                    <input type="tel" name="phone" value="{{ old('phone') }}" autocomplete="tel" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" required>
                                 </label>
 
                                 <label>
                                     <span class="text-xs font-black text-gs-ink">{{ $command['step3']['fields']['whatsapp'] }}</span>
-                                    <input type="tel" name="whatsapp" autocomplete="tel" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
+                                    <input type="tel" name="whatsapp" value="{{ old('whatsapp') }}" autocomplete="tel" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
                                     <span class="mt-1.5 block text-[0.68rem] font-bold leading-snug text-gs-primary">{{ $command['step3']['whatsapp_note'] }}</span>
                                 </label>
 
                                 <label>
                                     <span class="text-xs font-black text-gs-ink">{{ $command['step3']['fields']['email'] }}</span>
-                                    <input type="email" name="email" autocomplete="email" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
+                                    <input type="email" name="email" value="{{ old('email') }}" autocomplete="email" class="mt-1.5 h-10 w-full rounded-md border border-gs-concrete px-3 text-sm font-semibold text-gs-ink focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20">
                                 </label>
                             </div>
 
@@ -437,7 +449,7 @@
                                 <div class="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
                                     @foreach ($command['step3']['contact_modes'] as $mode)
                                         <label class="cursor-pointer rounded-md border border-gs-concrete bg-white px-2.5 py-2.5 text-center text-xs font-black text-gs-primary shadow-sm shadow-gs-navy/5 transition hover:border-gs-primary/50 hover:bg-gs-soft/50" data-choice-card>
-                                            <input type="radio" name="contact_mode" value="{{ $mode }}" class="sr-only" required data-ticket-input data-ticket-target="contact" data-summary-label="{{ $mode }}">
+                                            <input type="radio" name="contact_mode" value="{{ $mode }}" class="sr-only" required data-ticket-input data-ticket-target="contact" data-summary-label="{{ $mode }}" @checked(old('contact_mode') === $mode)>
                                             {{ $mode }}
                                         </label>
                                     @endforeach
@@ -456,7 +468,7 @@
                                 </dl>
 
                                 <label class="mt-3 flex gap-2.5 text-xs font-bold leading-snug text-gs-ink">
-                                    <input type="checkbox" name="confirmation_understood" class="mt-0.5 h-4 w-4 rounded border-gs-concrete text-gs-primary focus:ring-gs-primary" required>
+                                    <input type="checkbox" name="confirmation_understood" value="1" class="mt-0.5 h-4 w-4 rounded border-gs-concrete text-gs-primary focus:ring-gs-primary" required @checked(old('confirmation_understood'))>
                                     <span>{{ $command['step3']['confirm'] }}</span>
                                 </label>
                             </div>
@@ -471,7 +483,7 @@
                         </section>
                     </form>
 
-                    <div class="grid gap-2" data-booking-collapsed-steps>
+                    <div class="{{ $hasBookingConfirmation ? 'hidden ' : '' }}grid gap-2" data-booking-collapsed-steps>
                         <button type="button" class="flex min-h-12 items-center justify-between rounded-lg border border-gs-concrete bg-white px-4 text-left text-sm font-black uppercase text-gs-primary shadow-lg shadow-gs-navy/5 transition hover:border-gs-primary/50 hover:bg-gs-soft focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2" data-booking-step-trigger="2">
                             <span class="inline-flex items-center gap-2.5">
                                 <x-heroicon-o-truck class="h-5 w-5 text-gs-navy" aria-hidden="true" />
@@ -489,7 +501,7 @@
                         </button>
                     </div>
 
-                    <div class="hidden rounded-lg border border-gs-concrete bg-white p-4 shadow-xl shadow-gs-navy/10 sm:p-5" data-booking-receipt>
+                    <div class="{{ $hasBookingConfirmation ? '' : 'hidden ' }}rounded-lg border border-gs-concrete bg-white p-4 shadow-xl shadow-gs-navy/10 sm:p-5" data-booking-receipt>
                         <div class="flex flex-col gap-3 border-b border-gs-concrete pb-4 sm:flex-row sm:items-center sm:justify-between">
                             <div>
                                 <p class="inline-flex rounded-md bg-gs-warning px-3 py-1 text-xs font-black uppercase text-gs-navy">{{ $command['receipt']['status'] }}</p>
@@ -497,7 +509,7 @@
                             </div>
                             <p class="text-right text-xs font-bold text-gs-grey">
                                 {{ $command['receipt']['reference'] }}<br>
-                                <span class="text-lg font-black text-gs-navy" data-receipt-reference>GS-2026-NK-48192</span>
+                                <span class="text-lg font-black text-gs-navy" data-receipt-reference>{{ $bookingReference ?? $command['ticket']['reference_pending'] }}</span>
                             </p>
                         </div>
 
@@ -505,7 +517,7 @@
                             @foreach (['agency', 'service', 'date', 'period'] as $field)
                                 <div class="rounded-md border border-gs-concrete p-3">
                                     <dt class="text-[0.68rem] font-black uppercase text-gs-grey">{{ $ticketFields[$field] }}</dt>
-                                    <dd class="mt-1 text-base font-black text-gs-ink" data-receipt-field="{{ $field }}">{{ $command['ticket']['empty'] }}</dd>
+                                    <dd class="mt-1 text-base font-black text-gs-ink" data-receipt-field="{{ $field }}">{{ $bookingConfirmationFields[$field] ?? $command['ticket']['empty'] }}</dd>
                                 </div>
                             @endforeach
                             <div class="rounded-md border border-gs-warning bg-yellow-50 p-3 sm:col-span-2">
@@ -521,41 +533,45 @@
                         <div class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
                             <a href="{{ $trackingHref }}" class="inline-flex min-h-10 items-center justify-center rounded-md bg-gs-primary px-3 text-xs font-black text-white transition hover:bg-gs-navy">{{ $command['receipt']['track'] }}</a>
                             <a href="{{ $whatsappHref }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-10 items-center justify-center rounded-md border border-gs-success px-3 text-xs font-black text-gs-success transition hover:bg-green-50">{{ $command['receipt']['whatsapp'] }}</a>
-                            <button type="button" class="inline-flex min-h-10 items-center justify-center rounded-md border border-gs-primary px-3 text-xs font-black text-gs-primary transition hover:bg-gs-soft" data-booking-print>{{ $command['receipt']['print'] }}</button>
+                            @if ($bookingSummaryHref)
+                                <a href="{{ $bookingSummaryHref }}" class="inline-flex min-h-10 items-center justify-center rounded-md border border-gs-primary px-3 text-center text-xs font-black text-gs-primary transition hover:bg-gs-soft">{{ $command['receipt']['print'] }}</a>
+                            @else
+                                <button type="button" class="inline-flex min-h-10 items-center justify-center rounded-md border border-gs-primary px-3 text-xs font-black text-gs-primary transition hover:bg-gs-soft" disabled>{{ $command['receipt']['print'] }}</button>
+                            @endif
                             <a href="{{ $homeHref }}" class="inline-flex min-h-10 items-center justify-center rounded-md border border-gs-concrete px-3 text-xs font-black text-gs-ink transition hover:bg-gs-wall">{{ $command['receipt']['home'] }}</a>
                         </div>
                     </div>
 
-                    <div class="lg:hidden" data-booking-mobile-ticket-panel>
-                        <div class="fixed inset-x-3 bottom-3 z-40">
-                            <button type="button" class="flex min-h-11 w-full items-center justify-between rounded-md bg-gs-navy px-4 text-xs font-black text-white shadow-xl shadow-gs-navy/25" data-booking-mobile-ticket-toggle aria-expanded="false">
+                    <div class="{{ $hasBookingConfirmation ? 'hidden ' : '' }}lg:hidden" data-booking-mobile-ticket-panel>
+                        <div class="fixed inset-x-3 bottom-2 z-40">
+                            <button type="button" class="flex min-h-10 w-full items-center justify-between rounded-md bg-gs-navy px-3 text-[0.72rem] font-black text-white shadow-xl shadow-gs-navy/25" data-booking-mobile-ticket-toggle aria-expanded="false">
                                 <span>{{ $command['mobile']['ticket_button'] }}</span>
                                 <x-heroicon-o-chevron-down class="h-5 w-5 transition" aria-hidden="true" data-booking-mobile-ticket-chevron />
                             </button>
 
-                            <div class="mt-2 hidden max-h-[55vh] overflow-y-auto rounded-lg border border-gs-concrete bg-white p-3 shadow-2xl shadow-gs-navy/25" data-booking-mobile-ticket>
-                                <h3 class="flex items-center gap-2 text-sm font-black uppercase text-gs-primary">
-                                    <x-heroicon-o-ticket class="h-5 w-5" aria-hidden="true" />
+                            <div class="mt-1.5 hidden max-h-[42vh] overflow-y-auto overscroll-contain rounded-md border border-gs-concrete bg-white p-2.5 shadow-2xl shadow-gs-navy/25" data-booking-mobile-ticket>
+                                <h3 class="flex items-center gap-1.5 text-xs font-black uppercase text-gs-primary">
+                                    <x-heroicon-o-ticket class="h-4 w-4" aria-hidden="true" />
                                     {{ $command['ticket']['title'] }}
                                 </h3>
 
-                                <dl class="mt-3 grid gap-2 text-xs">
+                                <dl class="mt-2 grid grid-cols-2 gap-1.5 text-[0.68rem]">
                                     @foreach ($ticketFields as $field => $label)
-                                        <div class="flex justify-between gap-3 border-b border-gs-concrete/70 pb-2">
-                                            <dt class="font-bold text-gs-grey">{{ $label }}</dt>
-                                            <dd class="text-right font-black text-gs-primary">
-                                                <span data-ticket-field="{{ $field }}">{{ $command['ticket']['empty'] }}</span>
+                                        <div class="min-w-0 rounded-md border border-gs-concrete/70 bg-gs-wall px-2 py-1.5">
+                                            <dt class="truncate text-[0.62rem] font-black leading-tight text-gs-grey">{{ $label }}</dt>
+                                            <dd class="mt-0.5 min-w-0 truncate font-black leading-tight text-gs-primary">
+                                                <span class="block truncate" data-ticket-field="{{ $field }}">{{ $bookingConfirmationFields[$field] ?? $command['ticket']['empty'] }}</span>
                                             </dd>
                                         </div>
                                     @endforeach
                                 </dl>
 
-                                <div class="mt-3 rounded-md bg-gs-soft p-3">
-                                    <p class="font-black text-gs-primary">{{ $command['documents']['title'] }}</p>
-                                    <ul class="mt-2 space-y-1 text-xs font-semibold text-gs-ink">
+                                <div class="mt-2 rounded-md bg-gs-soft px-2 py-2">
+                                    <p class="text-[0.68rem] font-black leading-tight text-gs-primary">{{ $command['documents']['title'] }}</p>
+                                    <ul class="mt-1.5 grid grid-cols-2 gap-x-2 gap-y-1 text-[0.64rem] font-semibold leading-tight text-gs-ink">
                                         @foreach ($command['documents']['items'] as $item)
-                                            <li class="flex gap-2">
-                                                <x-heroicon-o-check-circle class="mt-0.5 h-3.5 w-3.5 shrink-0 text-gs-success" aria-hidden="true" />
+                                            <li class="flex min-w-0 gap-1.5">
+                                                <x-heroicon-o-check-circle class="mt-px h-3 w-3 shrink-0 text-gs-success" aria-hidden="true" />
                                                 <span>{{ $item }}</span>
                                             </li>
                                         @endforeach

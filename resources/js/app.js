@@ -207,14 +207,17 @@ const initAgencyMaps = () => {
 const initBookingIntakes = () => {
     document.querySelectorAll('[data-booking-intake]').forEach((root) => {
         const form = root.querySelector('[data-booking-form]');
-        const receipt = root.querySelector('[data-booking-receipt]');
+
+        if (root.hasAttribute('data-booking-confirmed')) {
+            return;
+        }
+
         const mobileTicket = root.querySelector('[data-booking-mobile-ticket]');
         const mobileTicketToggles = root.querySelectorAll('[data-booking-mobile-ticket-toggle]');
         const mobileTicketChevrons = root.querySelectorAll('[data-booking-mobile-ticket-chevron]');
-        const emptyValue = root.querySelector('[data-ticket-field]')?.textContent?.trim() || 'A renseigner';
+        const emptyValue = root.getAttribute('data-ticket-empty') || root.querySelector('[data-ticket-field]')?.textContent?.trim() || 'A renseigner';
         const panels = [...root.querySelectorAll('[data-booking-step-panel]')];
         const triggers = [...root.querySelectorAll('[data-booking-step-trigger]')];
-        const ticketReference = root.querySelector('[data-ticket-reference]');
         const closedWarning = root.querySelector('[data-closed-warning]');
         const periodOptions = [...root.querySelectorAll('[data-period-option]')];
         const datePicker = root.querySelector('[data-booking-date-picker]');
@@ -253,6 +256,8 @@ const initBookingIntakes = () => {
 
         const selectedChoiceClasses = ['border-gs-primary', 'bg-gs-soft', 'shadow-md', 'shadow-gs-primary/10'];
         const unselectedChoiceClasses = ['border-gs-concrete', 'bg-white', 'shadow-sm', 'shadow-gs-navy/5'];
+        const invalidChoiceClasses = ['ring-2', 'ring-gs-danger/40', 'border-gs-danger', 'bg-red-50'];
+        const invalidFieldClasses = ['border-gs-danger', 'ring-2', 'ring-gs-danger/30', 'bg-red-50'];
 
         const getSelectedInput = (name) => form?.querySelector(`input[name="${name}"]:checked`) || null;
         const getSelectedAgencySlug = () => getSelectedInput('agency')?.dataset.agencySlug || '';
@@ -446,16 +451,158 @@ const initBookingIntakes = () => {
                 const check = card.querySelector('[data-choice-check]');
                 const selectedLabel = card.querySelector('[data-selected-label]');
                 const isSelected = input instanceof HTMLInputElement && input.checked;
+                const isInvalid = invalidChoiceClasses.some((className) => card.classList.contains(className));
 
-                card.classList.toggle('ring-2', isSelected);
-                card.classList.toggle('ring-gs-primary/20', isSelected);
-                selectedChoiceClasses.forEach((className) => card.classList.toggle(className, isSelected));
-                unselectedChoiceClasses.forEach((className) => card.classList.toggle(className, !isSelected));
+                card.classList.toggle('ring-2', isSelected || isInvalid);
+                card.classList.toggle('ring-gs-primary/20', isSelected && !isInvalid);
+                selectedChoiceClasses.forEach((className) => card.classList.toggle(className, isSelected && !isInvalid));
+                unselectedChoiceClasses.forEach((className) => card.classList.toggle(className, !isSelected && !isInvalid));
                 band?.classList.toggle('hidden', !isSelected);
                 check?.classList.toggle('hidden', !isSelected);
                 selectedLabel?.classList.toggle('hidden', !isSelected);
                 selectedLabel?.classList.toggle('inline-flex', isSelected);
             });
+        };
+
+        const clearInvalidState = (scope = root) => {
+            scope.querySelectorAll('[data-choice-card]').forEach((card) => {
+                invalidChoiceClasses.forEach((className) => card.classList.remove(className));
+            });
+
+            scope.querySelectorAll('input, select, textarea, [data-booking-date-display]').forEach((control) => {
+                invalidFieldClasses.forEach((className) => control.classList.remove(className));
+            });
+
+            scope.querySelectorAll('[data-booking-invalid-label]').forEach((label) => {
+                invalidChoiceClasses.forEach((className) => label.classList.remove(className));
+                label.removeAttribute('data-booking-invalid-label');
+            });
+
+            updateChoiceCards();
+        };
+
+        const markInvalidControl = (control) => {
+            if (!(control instanceof HTMLInputElement || control instanceof HTMLSelectElement || control instanceof HTMLTextAreaElement)) {
+                return null;
+            }
+
+            if (control.type === 'radio') {
+                const group = form ? [...form.querySelectorAll(`input[name="${control.name}"]`)] : [control];
+                let firstCard = null;
+
+                group.forEach((input) => {
+                    const card = input.closest('[data-choice-card]');
+
+                    if (!card) {
+                        return;
+                    }
+
+                    firstCard ??= card;
+                    invalidChoiceClasses.forEach((className) => card.classList.add(className));
+                });
+
+                return firstCard;
+            }
+
+            if (control.type === 'checkbox') {
+                const label = control.closest('label') || control;
+                invalidChoiceClasses.forEach((className) => label.classList.add(className));
+                label.setAttribute('data-booking-invalid-label', '');
+
+                return label;
+            }
+
+            if (control.name === 'preferred_date') {
+                invalidFieldClasses.forEach((className) => dateDisplay?.classList.add(className));
+
+                return dateDisplay;
+            }
+
+            invalidFieldClasses.forEach((className) => control.classList.add(className));
+
+            return control;
+        };
+
+        const focusInvalidTarget = (target) => {
+            if (!(target instanceof HTMLElement)) {
+                return;
+            }
+
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            window.setTimeout(() => {
+                if (target === dateDisplay) {
+                    dateDisplay?.focus();
+                    return;
+                }
+
+                const focusable = target.matches('input, select, textarea, button, a[href]')
+                    ? target
+                    : target.querySelector('input, select, textarea, button, a[href]');
+
+                if (focusable instanceof HTMLElement) {
+                    focusable.focus({ preventScroll: true });
+                }
+            }, 120);
+        };
+
+        const controlIsMissing = (control) => {
+            if (control instanceof HTMLInputElement && control.type === 'radio') {
+                return !getSelectedInput(control.name);
+            }
+
+            if (control instanceof HTMLInputElement && control.type === 'checkbox') {
+                return !control.checked;
+            }
+
+            if (control instanceof HTMLInputElement && control.name === 'preferred_date') {
+                const selectedDate = parseDate(control.value);
+
+                return !selectedDate || isDateDisabled(selectedDate);
+            }
+
+            return !String(control.value || '').trim();
+        };
+
+        const validateStep = (step, shouldFocus = true) => {
+            const panel = root.querySelector(`[data-booking-step-panel="${step}"]`);
+
+            if (!panel) {
+                return true;
+            }
+
+            clearInvalidState(panel);
+
+            const checkedGroups = new Set();
+            let firstInvalidTarget = null;
+
+            panel.querySelectorAll('input[required], select[required], textarea[required]').forEach((control) => {
+                if (!(control instanceof HTMLInputElement || control instanceof HTMLSelectElement || control instanceof HTMLTextAreaElement)) {
+                    return;
+                }
+
+                if (control instanceof HTMLInputElement && control.type === 'radio') {
+                    if (checkedGroups.has(control.name)) {
+                        return;
+                    }
+
+                    checkedGroups.add(control.name);
+                }
+
+                if (controlIsMissing(control)) {
+                    firstInvalidTarget ??= markInvalidControl(control);
+                }
+            });
+
+            if (firstInvalidTarget) {
+                if (shouldFocus) {
+                    focusInvalidTarget(firstInvalidTarget);
+                }
+
+                return false;
+            }
+
+            return true;
         };
 
         const updateTicket = () => {
@@ -575,16 +722,23 @@ const initBookingIntakes = () => {
 
         root.querySelectorAll('[data-ticket-input]').forEach((input) => {
             input.addEventListener('input', () => {
+                clearInvalidState(root);
                 updatePeriods();
                 updateChoiceCards();
                 updateTicket();
             });
 
             input.addEventListener('change', () => {
+                clearInvalidState(root);
                 updatePeriods();
                 updateChoiceCards();
                 updateTicket();
             });
+        });
+
+        form?.querySelectorAll('input:not([data-ticket-input]), select:not([data-ticket-input]), textarea:not([data-ticket-input])').forEach((control) => {
+            control.addEventListener('input', () => clearInvalidState(root));
+            control.addEventListener('change', () => clearInvalidState(root));
         });
 
         dateDisplay?.addEventListener('click', () => {
@@ -637,74 +791,89 @@ const initBookingIntakes = () => {
             }
         });
 
+        mobileTicketToggles.forEach((button) => {
+            button.addEventListener('click', () => toggleMobileTicket());
+        });
+
+        const goToStep = (nextStep) => {
+            const boundedStep = Math.min(3, Math.max(1, nextStep));
+
+            if (boundedStep <= activeStep) {
+                setStep(boundedStep);
+                return;
+            }
+
+            for (let step = activeStep; step < boundedStep; step += 1) {
+                if (!validateStep(step, step === activeStep)) {
+                    if (step !== activeStep) {
+                        setStep(step);
+                        window.setTimeout(() => validateStep(step), 0);
+                    }
+
+                    return;
+                }
+            }
+
+            setStep(boundedStep);
+        };
+
         triggers.forEach((trigger) => {
             trigger.addEventListener('click', () => {
-                setStep(Number.parseInt(trigger.getAttribute('data-booking-step-trigger') || '1', 10));
+                goToStep(Number.parseInt(trigger.getAttribute('data-booking-step-trigger') || '1', 10));
             });
         });
 
         root.querySelectorAll('[data-booking-next]').forEach((button) => {
-            button.addEventListener('click', () => setStep(activeStep + 1));
+            button.addEventListener('click', () => goToStep(activeStep + 1));
         });
 
         root.querySelectorAll('[data-booking-prev]').forEach((button) => {
             button.addEventListener('click', () => setStep(activeStep - 1));
         });
 
-        mobileTicketToggles.forEach((button) => {
-            button.addEventListener('click', () => toggleMobileTicket());
-        });
+        const enableAllPanelControls = () => {
+            panels.forEach((panel) => {
+                panel.querySelectorAll('input, select, textarea, button').forEach((control) => {
+                    if (!(control instanceof HTMLInputElement || control instanceof HTMLSelectElement || control instanceof HTMLTextAreaElement || control instanceof HTMLButtonElement)) {
+                        return;
+                    }
+
+                    control.disabled = false;
+                });
+            });
+        };
 
         form?.addEventListener('submit', (event) => {
-            event.preventDefault();
             updatePeriods();
 
-            const requiredPreviousSelections = [
-                ['agency', 1],
-                ['service_type', 1],
-                ['vehicle_category', 2],
-            ];
-            const missingPreviousSelection = requiredPreviousSelections.find(([name]) => !getSelectedInput(name));
-
-            if (missingPreviousSelection) {
-                setStep(missingPreviousSelection[1]);
-                return;
+            for (let step = 1; step <= 3; step += 1) {
+                if (!validateStep(step, false)) {
+                    event.preventDefault();
+                    setStep(step);
+                    window.setTimeout(() => validateStep(step), 0);
+                    return;
+                }
             }
 
-            const selectedDate = parseDate(dateField?.value);
-
-            if (!selectedDate || isDateDisabled(selectedDate)) {
-                setStep(3);
-                updatePeriods();
-                openCalendar();
-                dateDisplay?.focus();
-                return;
-            }
+            enableAllPanelControls();
 
             if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
+                event.preventDefault();
+
+                const invalidControl = form.querySelector(':invalid');
+                const invalidPanel = invalidControl?.closest('[data-booking-step-panel]');
+                const invalidStep = Number.parseInt(invalidPanel?.getAttribute('data-booking-step-panel') || String(activeStep), 10);
+
+                setStep(invalidStep);
+                window.setTimeout(() => {
+                    if (invalidControl instanceof HTMLInputElement || invalidControl instanceof HTMLSelectElement || invalidControl instanceof HTMLTextAreaElement) {
+                        markInvalidControl(invalidControl);
+                    }
+
+                    form.reportValidity();
+                }, 0);
             }
-
-            const agencySlug = getSelectedInput('agency')?.dataset.agencySlug === 'obili-scalom' ? 'OB' : 'NK';
-            const reference = `GS-${new Date().getFullYear()}-${agencySlug}-${Math.floor(10000 + Math.random() * 89999)}`;
-
-            if (ticketReference) {
-                ticketReference.textContent = reference;
-            }
-
-            updateTextTargets('[data-receipt-reference]', reference);
-            updateTicket();
-            form.classList.add('hidden');
-            triggers[0]?.closest('nav')?.classList.add('hidden');
-            root.querySelector('[data-booking-collapsed-steps]')?.classList.add('hidden');
-            root.querySelector('[data-booking-mobile-ticket-panel]')?.classList.add('hidden');
-            receipt?.classList.remove('hidden');
-            toggleMobileTicket(false);
-            receipt?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
-
-        root.querySelector('[data-booking-print]')?.addEventListener('click', () => window.print());
 
         setStep(1);
         updatePeriods();

@@ -426,7 +426,7 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block K — Booking module
 
 ### S066 — Wire booking form submit to BookingService
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Public booking submit now posts through localized FR/EN routes, normalizes the S058 wizard fields into `BookingRequest`, creates the booking through `BookingService`, creates default `not_reviewed` document readiness, dispatches the existing admin notification event, and renders the generated `GS-YEAR-SEQUENCE` reference in the server-backed receipt (2026-07-26). S064 remains the first unchecked public-site step.
 - **Detail:** [11-booking-module/README.md](11-booking-module/README.md)
 - **Depends on:** S057–S065 public pages complete (S065 is already complete out of sequence)
 - **Done when:** Valid submit creates booking + readiness + shows reference.
