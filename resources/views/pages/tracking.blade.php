@@ -6,8 +6,24 @@
     $routeLocale = app()->getLocale() === 'en' ? 'en' : 'fr';
     $lookup = trans('tracking.lookup');
     $result = trans('tracking.result');
-    $whatsappHref = 'https://wa.me/237678844791?text='.rawurlencode($result['next_action']['title']);
-    $callHref = 'tel:+237678844791';
+    $trackingPayload = isset($trackingResult) ? $trackingResult->toArray() : null;
+    $lookupPayload = isset($trackingLookup) && is_array($trackingLookup) ? $trackingLookup : [];
+    $prefillValue = function (string $key) use ($lookupPayload): string {
+        $value = old($key, $lookupPayload[$key] ?? request($key));
+
+        return is_scalar($value) ? (string) $value : '';
+    };
+    $prefillReference = $prefillValue('reference');
+    $prefillPhone = $prefillValue('phone');
+    $prefillRegistration = $prefillValue('vehicle_registration');
+    $formatDate = function (?string $date) use ($routeLocale, $result): string {
+        if (! filled($date)) {
+            return $result['empty'];
+        }
+
+        return \Illuminate\Support\Carbon::parse($date)->locale($routeLocale)->translatedFormat($routeLocale === 'fr' ? 'd/m/Y' : 'M j, Y');
+    };
+    $valueOrEmpty = fn (?string $value): string => filled($value) ? $value : $result['empty'];
 @endphp
 
 @section('content')
@@ -43,7 +59,8 @@
 
     <section class="bg-gs-wall px-3 pb-10 pt-3 sm:px-6 lg:px-64" aria-labelledby="tracking-lookup-title" data-tracking-lookup>
         <div class="mx-auto max-w-[122rem]">
-            <form action="{{ route($routeLocale.'.tracking', [], false) }}" method="get" class="relative overflow-hidden rounded-xl border border-gs-concrete bg-white px-4 py-5 shadow-xl shadow-gs-navy/8 sm:px-6 sm:py-6 lg:px-7 lg:py-7" data-tracking-lookup-form>
+            <form action="{{ route($routeLocale.'.tracking.lookup', [], false) }}" method="POST" class="relative overflow-hidden rounded-xl border border-gs-concrete bg-white px-4 py-5 shadow-xl shadow-gs-navy/8 sm:px-6 sm:py-6 lg:px-7 lg:py-7" data-tracking-lookup-form>
+                @csrf
                 <span class="absolute left-0 top-7 hidden h-16 w-1 rounded-r-full bg-gs-accent lg:block" aria-hidden="true"></span>
 
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -72,7 +89,7 @@
                     <label class="block">
                         <span class="text-sm font-black text-gs-ink">{{ $lookup['fields']['reference']['label'] }}</span>
                         <span class="relative mt-2 block">
-                            <input type="text" name="reference" autocomplete="off" class="h-12 w-full rounded-md border-2 border-gs-concrete bg-white px-4 pr-12 text-base font-bold text-gs-ink placeholder:text-gs-grey/70 shadow-sm shadow-gs-navy/5 transition focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" placeholder="{{ $lookup['fields']['reference']['placeholder'] }}">
+                            <input type="text" name="reference" value="{{ $prefillReference }}" autocomplete="off" class="h-12 w-full rounded-md border-2 border-gs-concrete bg-white px-4 pr-12 text-base font-bold text-gs-ink placeholder:text-gs-grey/70 shadow-sm shadow-gs-navy/5 transition focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" placeholder="{{ $lookup['fields']['reference']['placeholder'] }}">
                             <x-heroicon-o-ticket class="pointer-events-none absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2 text-gs-primary" aria-hidden="true" />
                         </span>
                     </label>
@@ -80,7 +97,7 @@
                     <label class="block">
                         <span class="text-sm font-black text-gs-ink">{{ $lookup['fields']['phone']['label'] }}</span>
                         <span class="relative mt-2 block">
-                            <input type="tel" name="phone" autocomplete="tel" class="h-12 w-full rounded-md border-2 border-gs-concrete bg-white px-4 pr-12 text-base font-bold text-gs-ink placeholder:text-gs-grey/70 shadow-sm shadow-gs-navy/5 transition focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" placeholder="{{ $lookup['fields']['phone']['placeholder'] }}">
+                            <input type="tel" name="phone" value="{{ $prefillPhone }}" autocomplete="tel" class="h-12 w-full rounded-md border-2 border-gs-concrete bg-white px-4 pr-12 text-base font-bold text-gs-ink placeholder:text-gs-grey/70 shadow-sm shadow-gs-navy/5 transition focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" placeholder="{{ $lookup['fields']['phone']['placeholder'] }}">
                             <x-heroicon-o-phone class="pointer-events-none absolute right-3 top-1/2 h-6 w-6 -translate-y-1/2 text-gs-primary" aria-hidden="true" />
                         </span>
                     </label>
@@ -88,11 +105,17 @@
                     <label class="block">
                         <span class="text-sm font-black text-gs-ink">{{ $lookup['fields']['registration']['label'] }}</span>
                         <span class="relative mt-2 block">
-                            <input type="text" name="vehicle_registration" autocomplete="off" class="h-12 w-full rounded-md border-2 border-gs-concrete bg-white px-4 pr-20 text-base font-bold uppercase text-gs-ink placeholder:normal-case placeholder:text-gs-grey/70 shadow-sm shadow-gs-navy/5 transition focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" placeholder="{{ $lookup['fields']['registration']['placeholder'] }}">
+                            <input type="text" name="vehicle_registration" value="{{ $prefillRegistration }}" autocomplete="off" class="h-12 w-full rounded-md border-2 border-gs-concrete bg-white px-4 pr-20 text-base font-bold uppercase text-gs-ink placeholder:normal-case placeholder:text-gs-grey/70 shadow-sm shadow-gs-navy/5 transition focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20" placeholder="{{ $lookup['fields']['registration']['placeholder'] }}">
                             <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded border-2 border-gs-primary/70 px-1.5 py-0.5 text-[0.64rem] font-black leading-none text-gs-primary" aria-hidden="true">ABC-123</span>
                         </span>
                     </label>
                 </div>
+
+                @if ($errors->any())
+                    <div class="mt-4 rounded-lg border border-gs-danger/25 bg-gs-danger/5 px-4 py-3 text-sm font-bold leading-snug text-gs-danger" role="alert" data-tracking-error>
+                        {{ $errors->first('tracking_lookup') ?: $lookup['errors']['validation'] }}
+                    </div>
+                @endif
 
                 <div class="mt-6 flex justify-center">
                     <button type="submit" class="inline-flex min-h-12 w-full max-w-[29rem] items-center justify-center gap-3 rounded-md bg-gs-primary px-5 text-sm font-black text-white shadow-lg shadow-gs-primary/20 transition hover:bg-gs-navy focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2 sm:text-base">
@@ -112,10 +135,78 @@
                 </div>
             </form>
 
+            @if ($trackingPayload)
+                @php
+                    $bookingStatus = $trackingPayload['booking_status'];
+                    $documentStatus = $trackingPayload['document_status'];
+                    $bookingStatusLabel = $result['status_labels'][$bookingStatus] ?? $bookingStatus;
+                    $documentStatusLabel = $result['document_labels'][$documentStatus] ?? $documentStatus;
+                    $agencyName = data_get($trackingPayload, "agency.name.{$routeLocale}") ?: data_get($trackingPayload, 'agency.name.fr') ?: data_get($trackingPayload, 'agency.name.en') ?: $result['empty'];
+                    $agencyAddress = data_get($trackingPayload, "agency.address.{$routeLocale}") ?: data_get($trackingPayload, 'agency.address.fr') ?: data_get($trackingPayload, 'agency.address.en');
+                    $requestedDate = $formatDate(data_get($trackingPayload, 'requested.date'));
+                    $requestedTime = $valueOrEmpty(data_get($trackingPayload, 'requested.time_slot'));
+                    $confirmedDate = $formatDate(data_get($trackingPayload, 'confirmed.date'));
+                    $confirmedTime = $valueOrEmpty(data_get($trackingPayload, 'confirmed.time_slot'));
+                    $bookingPublicMessage = data_get($trackingPayload, 'public_message.booking');
+                    $documentPublicMessage = data_get($trackingPayload, "public_message.document.{$routeLocale}") ?: data_get($trackingPayload, 'public_message.document.fr') ?: data_get($trackingPayload, 'public_message.document.en');
+                    $nextActionTitle = data_get($trackingPayload, "next_action.{$routeLocale}") ?: data_get($trackingPayload, 'next_action.fr') ?: data_get($trackingPayload, 'next_action.en') ?: $result['no_next_action'];
+                    $agencyPhone = collect(data_get($trackingPayload, 'agency.phones', []))->first();
+                    $agencyWhatsapp = data_get($trackingPayload, 'agency.whatsapp') ?: $agencyPhone;
+                    $callHref = filled($agencyPhone) ? 'tel:'.$agencyPhone : null;
+                    $whatsappHref = filled($agencyWhatsapp)
+                        ? 'https://wa.me/'.preg_replace('/\D+/', '', $agencyWhatsapp).'?text='.rawurlencode($nextActionTitle)
+                        : null;
+                    $summaryHref = route($routeLocale.'.booking.summary', ['booking' => $trackingPayload['reference']], false);
+                    $statusPillClass = match ($bookingStatus) {
+                        'confirmed', 'completed' => 'bg-gs-success shadow-gs-success/25',
+                        'cancelled', 'no_show' => 'bg-gs-danger shadow-gs-danger/25',
+                        'rescheduled' => 'bg-gs-warning text-gs-navy shadow-gs-warning/25',
+                        default => 'bg-gs-primary shadow-gs-primary/25',
+                    };
+                    $statusAccentClass = match ($bookingStatus) {
+                        'confirmed', 'completed' => 'bg-gs-success',
+                        'cancelled', 'no_show' => 'bg-gs-danger',
+                        'rescheduled' => 'bg-gs-warning',
+                        default => 'bg-gs-primary',
+                    };
+                    $timeline = [
+                        [
+                            'label' => $result['timeline'][0]['label'],
+                            'meta' => $requestedDate,
+                            'state' => 'completed',
+                        ],
+                        [
+                            'label' => $result['timeline'][1]['label'],
+                            'meta' => filled(data_get($trackingPayload, 'confirmed.date')) ? $confirmedDate : $bookingStatusLabel,
+                            'state' => in_array($bookingStatus, ['confirmed', 'completed', 'no_show'], true) ? 'completed' : 'current',
+                        ],
+                        [
+                            'label' => $result['timeline'][2]['label'],
+                            'meta' => $documentStatusLabel,
+                            'state' => in_array($documentStatus, ['complete', 'ready_for_visit'], true) ? 'completed' : 'current',
+                        ],
+                        [
+                            'label' => $result['timeline'][3]['label'],
+                            'meta' => filled(data_get($trackingPayload, 'confirmed.date')) ? $confirmedDate : $result['empty'],
+                            'state' => $bookingStatus === 'completed' ? 'completed' : ($bookingStatus === 'confirmed' ? 'current' : 'upcoming'),
+                        ],
+                    ];
+                    $details = [
+                        ['icon' => 'ticket', 'label' => $result['dynamic_details']['reference'], 'value' => $trackingPayload['reference']],
+                        ['icon' => 'map', 'label' => $result['dynamic_details']['agency'], 'value' => $agencyName],
+                        ['icon' => 'calendar', 'label' => $result['dynamic_details']['requested_date'], 'value' => $requestedDate],
+                        ['icon' => 'clock', 'label' => $result['dynamic_details']['requested_time'], 'value' => $requestedTime],
+                        ['icon' => 'calendar', 'label' => $result['dynamic_details']['confirmed_date'], 'value' => $confirmedDate],
+                        ['icon' => 'clock', 'label' => $result['dynamic_details']['confirmed_time'], 'value' => $confirmedTime],
+                        ['icon' => 'service', 'label' => $result['dynamic_details']['booking_status'], 'value' => $bookingStatusLabel],
+                        ['icon' => 'vehicle', 'label' => $result['dynamic_details']['document_status'], 'value' => $documentStatusLabel],
+                    ];
+                @endphp
+
             <article class="mt-4 overflow-hidden rounded-xl border border-gs-concrete bg-white px-3 py-4 shadow-xl shadow-gs-navy/8 sm:px-6 sm:py-6 lg:px-7 lg:py-7" data-tracking-result>
                 <div class="-mx-1 overflow-x-auto pb-2 sm:mx-0 sm:overflow-visible sm:pb-0">
-                    <ol class="grid min-w-[38rem] grid-cols-4 gap-2 rounded-xl bg-gs-soft/70 p-2.5 sm:min-w-0 sm:gap-4 sm:bg-transparent sm:p-0" aria-label="{{ $result['status']['title'] }}">
-                        @foreach ($result['timeline'] as $step)
+                    <ol class="grid min-w-[38rem] grid-cols-4 gap-2 rounded-xl bg-gs-soft/70 p-2.5 sm:min-w-0 sm:gap-4 sm:bg-transparent sm:p-0" aria-label="{{ $result['status_titles'][$bookingStatus] ?? $bookingStatusLabel }}">
+                        @foreach ($timeline as $step)
                             @php
                                 $isCompleted = $step['state'] === 'completed';
                                 $isCurrent = $step['state'] === 'current';
@@ -145,34 +236,34 @@
                     </ol>
                 </div>
 
-                <section class="relative mt-4 overflow-hidden rounded-xl border border-gs-concrete bg-gradient-to-br from-white via-white to-gs-success/5 p-3.5 shadow-sm shadow-gs-navy/5 sm:mt-6 sm:p-5 lg:p-6" aria-labelledby="tracking-status-title">
-                    <span class="absolute left-0 top-0 h-full w-1.5 bg-gs-success" aria-hidden="true"></span>
+                <section class="relative mt-4 overflow-hidden rounded-xl border border-gs-concrete bg-gradient-to-br from-white via-white to-gs-soft p-3.5 shadow-sm shadow-gs-navy/5 sm:mt-6 sm:p-5 lg:p-6" aria-labelledby="tracking-status-title">
+                    <span class="absolute left-0 top-0 h-full w-1.5 {{ $statusAccentClass }}" aria-hidden="true"></span>
 
                     <div class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
                         <div class="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
-                            <p class="inline-flex min-h-10 items-center gap-2 self-start rounded-full bg-gs-success px-4 text-xs font-black uppercase text-white shadow-lg shadow-gs-success/25 sm:min-h-12 sm:px-5 sm:text-base">
+                            <p class="inline-flex min-h-10 items-center gap-2 self-start rounded-full px-4 text-xs font-black uppercase text-white shadow-lg sm:min-h-12 sm:px-5 sm:text-base {{ $statusPillClass }}">
                                 <x-heroicon-o-check-circle class="h-6 w-6" aria-hidden="true" />
-                                {{ $result['status']['label'] }}
+                                {{ $bookingStatusLabel }}
                             </p>
 
                             <div class="min-w-0">
                                 <h2 id="tracking-status-title" class="text-lg font-black leading-tight text-gs-ink sm:text-2xl">
-                                    {{ $result['status']['title'] }}
+                                    {{ $result['status_titles'][$bookingStatus] ?? $bookingStatusLabel }}
                                 </h2>
                                 <p class="mt-1 text-sm font-semibold leading-snug text-gs-ink-muted sm:text-base">
-                                    {{ $result['status']['body'] }}
+                                    {{ $result['status_bodies'][$bookingStatus] ?? $result['status']['body'] }}
                                 </p>
                             </div>
                         </div>
 
-                        <button type="button" class="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-gs-primary/35 bg-white px-3 text-xs font-black text-gs-primary shadow-sm shadow-gs-navy/5 transition hover:bg-gs-soft focus:outline-none focus:ring-2 focus:ring-gs-primary/25 sm:min-h-11 sm:px-4 sm:text-sm">
+                        <a href="{{ $summaryHref }}" class="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-gs-primary/35 bg-white px-3 text-xs font-black text-gs-primary shadow-sm shadow-gs-navy/5 transition hover:bg-gs-soft focus:outline-none focus:ring-2 focus:ring-gs-primary/25 sm:min-h-11 sm:px-4 sm:text-sm">
                             <x-heroicon-o-arrow-down-tray class="h-5 w-5" aria-hidden="true" />
                             {{ $result['status']['download'] }}
-                        </button>
+                        </a>
                     </div>
 
                     <dl class="mt-5 grid grid-cols-2 gap-2.5 sm:mt-6 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-y-6">
-                        @foreach ($result['details'] as $item)
+                        @foreach ($details as $item)
                             <div class="grid min-w-0 grid-cols-[1.55rem_minmax(0,1fr)] gap-2 rounded-lg border border-gs-concrete/80 bg-white/85 p-2.5 shadow-sm shadow-gs-navy/5 sm:grid-cols-[2rem_1fr] sm:gap-3 sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none lg:pl-6 {{ $loop->iteration % 3 === 1 ? 'lg:pl-0' : 'lg:border-l lg:border-gs-concrete' }}">
                                 @switch($item['icon'])
                                     @case('ticket')
@@ -220,16 +311,17 @@
                             <div class="min-w-0">
                                 <p class="text-xs font-black uppercase text-gs-success sm:text-sm">{{ $result['dossier']['eyebrow'] }}</p>
                                 <h3 id="tracking-dossier-title" class="mt-1.5 text-lg font-black leading-tight text-gs-ink sm:mt-2 sm:text-2xl">
-                                    {{ $result['dossier']['title'] }}
+                                    {{ $documentStatusLabel }}
                                 </h3>
                                 <p class="mt-2 text-sm font-semibold leading-snug text-gs-ink-muted sm:text-base">
-                                    {{ $result['dossier']['body'] }}
+                                    {{ $documentPublicMessage ?: $result['messages']['fallback'] }}
                                 </p>
 
-                                <button type="button" class="mt-3 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-md border border-gs-primary/35 bg-white px-3 text-xs font-black text-gs-primary shadow-sm shadow-gs-navy/5 transition hover:bg-gs-soft focus:outline-none focus:ring-2 focus:ring-gs-primary/25 sm:mt-4 sm:min-h-11 sm:w-auto sm:px-4 sm:text-sm">
-                                    {{ $result['dossier']['action'] }}
-                                    <x-heroicon-o-arrow-right class="h-5 w-5" aria-hidden="true" />
-                                </button>
+                                @if ($agencyAddress)
+                                    <p class="mt-3 rounded-md bg-white px-3 py-2 text-xs font-bold leading-snug text-gs-primary">
+                                        {{ $agencyAddress }}
+                                    </p>
+                                @endif
                             </div>
                         </div>
                     </section>
@@ -243,28 +335,33 @@
                             <div class="min-w-0">
                                 <p class="text-xs font-black uppercase text-gs-primary sm:text-sm">{{ $result['next_action']['eyebrow'] }}</p>
                                 <h3 id="tracking-next-action-title" class="mt-1.5 text-lg font-black leading-tight text-gs-ink sm:mt-2 sm:text-2xl">
-                                    {{ $result['next_action']['title'] }}
+                                    {{ $nextActionTitle }}
                                 </h3>
                                 <p class="mt-2 text-sm font-semibold leading-snug text-gs-ink-muted sm:text-base">
-                                    {{ $result['next_action']['body'] }}
+                                    {{ $bookingPublicMessage ?: $result['next_action']['body'] }}
                                 </p>
 
                                 <div class="mt-3 grid grid-cols-2 gap-2.5 sm:mt-4 sm:gap-3">
-                                    <a href="{{ $whatsappHref }}" class="inline-flex min-h-10 items-center justify-center gap-2 rounded-md bg-gs-success px-3 text-xs font-black text-white shadow-lg shadow-gs-success/20 transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-gs-success focus:ring-offset-2 sm:min-h-11 sm:px-4 sm:text-sm">
-                                        <x-heroicon-o-phone class="h-5 w-5" aria-hidden="true" />
-                                        {{ $result['next_action']['whatsapp'] }}
-                                    </a>
+                                    @if ($whatsappHref)
+                                        <a href="{{ $whatsappHref }}" class="inline-flex min-h-10 items-center justify-center gap-2 rounded-md bg-gs-success px-3 text-xs font-black text-white shadow-lg shadow-gs-success/20 transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-gs-success focus:ring-offset-2 sm:min-h-11 sm:px-4 sm:text-sm">
+                                            <x-heroicon-o-phone class="h-5 w-5" aria-hidden="true" />
+                                            {{ $result['next_action']['whatsapp'] }}
+                                        </a>
+                                    @endif
 
-                                    <a href="{{ $callHref }}" class="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-gs-primary/35 bg-white px-3 text-xs font-black text-gs-primary shadow-sm shadow-gs-navy/5 transition hover:bg-gs-soft focus:outline-none focus:ring-2 focus:ring-gs-primary/25 sm:min-h-11 sm:px-4 sm:text-sm">
-                                        <x-heroicon-o-phone class="h-5 w-5" aria-hidden="true" />
-                                        {{ $result['next_action']['call'] }}
-                                    </a>
+                                    @if ($callHref)
+                                        <a href="{{ $callHref }}" class="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-gs-primary/35 bg-white px-3 text-xs font-black text-gs-primary shadow-sm shadow-gs-navy/5 transition hover:bg-gs-soft focus:outline-none focus:ring-2 focus:ring-gs-primary/25 sm:min-h-11 sm:px-4 sm:text-sm">
+                                            <x-heroicon-o-phone class="h-5 w-5" aria-hidden="true" />
+                                            {{ $result['next_action']['call'] }}
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </section>
                 </div>
             </article>
+            @endif
         </div>
     </section>
 @endsection

@@ -1,5 +1,16 @@
 <?php
 
+use App\Enums\BookingStatus;
+use App\Enums\DocumentReadinessStatus;
+use App\Models\Agency;
+use App\Models\Booking;
+use App\Models\DocumentReadiness;
+use App\Models\Service;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\RateLimiter;
+
+uses(RefreshDatabase::class);
+
 it('renders the tracking hero in French', function () {
     $this->get('/fr/suivi-rendez-vous')
         ->assertOk()
@@ -19,29 +30,7 @@ it('renders the tracking hero in French', function () {
         ->assertSee('Suivre ma demande', false)
         ->assertSee('Vous n’avez plus votre référence ?', false)
         ->assertSee('Nous vous aidons à la retrouver', false)
-        ->assertSee('data-tracking-result', false)
-        ->assertSee('Demande reçue', false)
-        ->assertSee('Rendez-vous confirmé', false)
-        ->assertSee('Dossier prêt', false)
-        ->assertSee('Passage prévu', false)
-        ->assertSee('Confirmé', false)
-        ->assertSee('Votre passage a été confirmé par l’agence.', false)
-        ->assertSee('Télécharger le récapitulatif', false)
-        ->assertSee('GS-2026-NK-48192', false)
-        ->assertSee('GS AUTOBILAN Nkolbisson', false)
-        ->assertSee('Visite technique périodique', false)
-        ->assertSee('Véhicule léger', false)
-        ->assertSee('LT-123-AB', false)
-        ->assertSee('15 août 2026', false)
-        ->assertSee('Matin (07h00 – 11h00)', false)
-        ->assertSee('+237 678 844 791', false)
-        ->assertSee('État du dossier', false)
-        ->assertSee('Dossier à compléter', false)
-        ->assertSee('Voir les éléments à compléter', false)
-        ->assertSee('Prochaine étape', false)
-        ->assertSee('Veuillez compléter votre dossier.', false)
-        ->assertSee('Écrire sur WhatsApp', false)
-        ->assertSee('Appeler l’agence', false);
+        ->assertDontSee('data-tracking-result', false);
 });
 
 it('renders the tracking hero in English', function () {
@@ -63,27 +52,198 @@ it('renders the tracking hero in English', function () {
         ->assertSee('Track my request', false)
         ->assertSee('No longer have your reference?', false)
         ->assertSee('We can help you find it', false)
-        ->assertSee('data-tracking-result', false)
-        ->assertSee('Request received', false)
-        ->assertSee('Appointment confirmed', false)
-        ->assertSee('File ready', false)
-        ->assertSee('Visit planned', false)
-        ->assertSee('Confirmed', false)
-        ->assertSee('Your visit has been confirmed by the agency.', false)
-        ->assertSee('Download the summary', false)
-        ->assertSee('GS-2026-NK-48192', false)
-        ->assertSee('GS AUTOBILAN Nkolbisson', false)
-        ->assertSee('Periodic technical inspection', false)
-        ->assertSee('Light vehicle', false)
-        ->assertSee('LT-123-AB', false)
-        ->assertSee('August 15, 2026', false)
-        ->assertSee('Morning (07:00 – 11:00)', false)
-        ->assertSee('+237 678 844 791', false)
-        ->assertSee('File status', false)
-        ->assertSee('File to complete', false)
-        ->assertSee('View items to complete', false)
-        ->assertSee('Next step', false)
-        ->assertSee('Please complete your file.', false)
-        ->assertSee('Message on WhatsApp', false)
-        ->assertSee('Call the agency', false);
+        ->assertDontSee('data-tracking-result', false);
 });
+
+it('prefills tracking credentials from a booking confirmation link', function () {
+    $this->get('/fr/suivi-rendez-vous?reference=GS-2026-000001&phone=%2B237699000000&vehicle_registration=CE123AB')
+        ->assertOk()
+        ->assertSee('name="reference" value="GS-2026-000001"', false)
+        ->assertSee('name="phone" value="+237699000000"', false)
+        ->assertSee('name="vehicle_registration" value="CE123AB"', false);
+});
+
+it('shows a compact generic error when tracking lookup validation fails', function () {
+    $this->followingRedirects()
+        ->post('/fr/suivi-rendez-vous', [
+            'reference' => '',
+            'phone' => '',
+            'vehicle_registration' => '',
+        ])
+        ->assertOk()
+        ->assertSee('data-tracking-error', false)
+        ->assertSee('Veuillez vérifier les trois informations de suivi puis réessayer.', false)
+        ->assertDontSee('data-tracking-result', false);
+});
+
+it('shows a compact generic error when no tracking record matches', function () {
+    $this->followingRedirects()
+        ->post('/fr/suivi-rendez-vous', [
+            'reference' => 'GS-2026-999999',
+            'phone' => '+237699999999',
+            'vehicle_registration' => 'CE999AB',
+        ])
+        ->assertOk()
+        ->assertSee('data-tracking-error', false)
+        ->assertSee('Aucune demande ne correspond à ces trois informations.', false)
+        ->assertDontSee('data-tracking-result', false);
+});
+
+it('rate limits repeated failed tracking lookups by requester', function () {
+    $ip = '203.0.113.70';
+
+    RateLimiter::clear('tracking-lookup|'.$ip);
+
+    foreach (range(1, 5) as $attempt) {
+        $this->withServerVariables(['REMOTE_ADDR' => $ip])
+            ->post('/fr/suivi-rendez-vous', [
+                'reference' => 'GS-2026-999999',
+                'phone' => '+237699999999',
+                'vehicle_registration' => 'CE999AB',
+            ])
+            ->assertRedirect('/fr/suivi-rendez-vous')
+            ->assertSessionHasErrors('tracking_lookup');
+    }
+
+    $this->withServerVariables(['REMOTE_ADDR' => $ip])
+        ->followingRedirects()
+        ->post('/fr/suivi-rendez-vous', [
+            'reference' => 'GS-2026-999999',
+            'phone' => '+237699999999',
+            'vehicle_registration' => 'CE999AB',
+        ])
+        ->assertOk()
+        ->assertSee('data-tracking-error', false)
+        ->assertSee('Trop de tentatives de suivi. Réessayez dans 15 min.', false)
+        ->assertDontSee('data-tracking-result', false);
+});
+
+it('clears failed tracking lookup attempts after a successful match', function () {
+    s069TrackingBooking();
+
+    $ip = '203.0.113.71';
+
+    RateLimiter::clear('tracking-lookup|'.$ip);
+
+    foreach (range(1, 4) as $attempt) {
+        $this->withServerVariables(['REMOTE_ADDR' => $ip])
+            ->post('/fr/suivi-rendez-vous', [
+                'reference' => 'GS-2026-999999',
+                'phone' => '+237699999999',
+                'vehicle_registration' => 'CE999AB',
+            ])
+            ->assertRedirect('/fr/suivi-rendez-vous')
+            ->assertSessionHasErrors('tracking_lookup');
+    }
+
+    $this->withServerVariables(['REMOTE_ADDR' => $ip])
+        ->post('/fr/suivi-rendez-vous', [
+            'reference' => 'GS-2026-069001',
+            'phone' => '+237699069000',
+            'vehicle_registration' => 'CE069AB',
+        ])
+        ->assertOk()
+        ->assertSee('data-tracking-result', false);
+
+    $this->withServerVariables(['REMOTE_ADDR' => $ip])
+        ->post('/fr/suivi-rendez-vous', [
+            'reference' => 'GS-2026-999999',
+            'phone' => '+237699999999',
+            'vehicle_registration' => 'CE999AB',
+        ])
+        ->assertRedirect('/fr/suivi-rendez-vous')
+        ->assertSessionHasErrors('tracking_lookup');
+});
+
+it('shows the public tracking result when all three credentials match', function () {
+    s069TrackingBooking();
+
+    $this->post('/fr/suivi-rendez-vous', [
+        'reference' => ' gs-2026-069001 ',
+        'phone' => '+237 699 069 000',
+        'vehicle_registration' => ' ce 069 ab ',
+    ])
+        ->assertOk()
+        ->assertSee('data-tracking-result', false)
+        ->assertSee('GS-2026-069001', false)
+        ->assertSee('GS AUTOBILAN Obili Scalom', false)
+        ->assertSee('31/07/2026', false)
+        ->assertSee('09h30-10h30', false)
+        ->assertSee('Confirmé', false)
+        ->assertSee('Prêt pour le passage', false)
+        ->assertSee('Présentez-vous avec les originaux.', false)
+        ->assertSee('Votre rendez-vous est confirmé.', false)
+        ->assertSee('Votre dossier est prêt.', false)
+        ->assertSee('href="/fr/rendez-vous/GS-2026-069001/recapitulatif.pdf"', false)
+        ->assertDontSee('Client Tracking', false)
+        ->assertDontSee('client-tracking@example.test', false)
+        ->assertDontSee('Internal tracking note', false)
+        ->assertDontSee('Private document note', false);
+});
+
+function s069TrackingBooking(): Booking
+{
+    $agency = Agency::query()->create([
+        'name_fr' => 'GS AUTOBILAN Obili Scalom',
+        'name_en' => 'GS AUTOBILAN Obili Scalom',
+        'slug' => 'obili-scalom',
+        'address_fr' => 'Obili Scalom',
+        'address_en' => 'Obili Scalom',
+        'city' => 'Yaounde',
+        'quarter' => 'Obili',
+        'phones' => ['+237678844791'],
+        'whatsapp' => '+237678844791',
+        'email' => 'obili@example.test',
+        'opening_hours_fr' => ['monday_saturday' => '07h00-19h00'],
+        'opening_hours_en' => ['monday_saturday' => '07:00-19:00'],
+        'latitude' => 3.862,
+        'longitude' => 11.495,
+        'status' => 'operational',
+        'sort_order' => 1,
+        'is_active' => true,
+    ]);
+
+    $service = Service::query()->create([
+        'title_fr' => 'Vehicules legers',
+        'title_en' => 'Light vehicles',
+        'slug_fr' => 'vehicules-legers',
+        'slug_en' => 'light-vehicles',
+        'short_description_fr' => 'Controle technique.',
+        'short_description_en' => 'Technical inspection.',
+        'sort_order' => 1,
+        'is_active' => true,
+    ]);
+
+    $booking = Booking::query()->create([
+        'reference' => 'GS-2026-069001',
+        'customer_name' => 'Client Tracking',
+        'phone' => '+237699069000',
+        'whatsapp' => '+237699069001',
+        'email' => 'client-tracking@example.test',
+        'agency_id' => $agency->id,
+        'service_id' => $service->id,
+        'vehicle_registration' => 'CE069AB',
+        'vehicle_type' => 'Car',
+        'vehicle_category' => 'light',
+        'vehicle_brand_model' => 'Toyota Corolla',
+        'preferred_date' => '2026-07-30',
+        'preferred_time_slot' => 'Matin - 07h00-11h00',
+        'confirmed_date' => '2026-07-31',
+        'confirmed_time_slot' => '09h30-10h30',
+        'status' => BookingStatus::Confirmed,
+        'public_message' => 'Votre rendez-vous est confirmé.',
+        'internal_notes' => 'Internal tracking note',
+    ]);
+
+    DocumentReadiness::query()->create([
+        'booking_id' => $booking->id,
+        'status' => DocumentReadinessStatus::ReadyForVisit,
+        'missing_information_note' => 'Private document note',
+        'next_action_fr' => 'Présentez-vous avec les originaux.',
+        'next_action_en' => 'Please come with the originals.',
+        'public_message_fr' => 'Votre dossier est prêt.',
+        'public_message_en' => 'Your file is ready.',
+    ]);
+
+    return $booking;
+}

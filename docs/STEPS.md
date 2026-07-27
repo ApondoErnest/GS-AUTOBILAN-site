@@ -432,12 +432,12 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** Valid submit creates booking + readiness + shows reference.
 
 ### S067 — Build booking confirmation screen + link to tracking
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Booking confirmation now shows a dedicated server-backed confirmation screen with the generated `GS-YEAR-SEQUENCE`, normalized registration, bilingual next-step guidance, tracking credentials, and a tracking link that pre-fills reference + phone + plate on the tracking page (2026-07-27). S064 remains the first unchecked public-site step.
 - **Depends on:** S066
 - **Done when:** User sees `GS-YEAR-SEQUENCE` and next steps.
 
 ### S068 — Verify admin can manage new booking end-to-end
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Added end-to-end admin coverage proving an assigned agency admin can open a public-created booking, see it in Filament, move it from New Request through Pending Confirmation, Confirmed, Rescheduled, Cancelled, Completed, and No-show, and preserve confirmed date/time plus public/internal messages (2026-07-27). S064 remains the first unchecked public-site step.
 - **Depends on:** S067
 - **Done when:** Staff can set Pending/Confirmed/etc. and confirmed datetime.
 
@@ -446,13 +446,13 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block L — Tracking module
 
 ### S069 — Wire tracking lookup (ref + phone + plate)
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Tracking form now posts through `TrackingLookupRequest`, calls `TrackingService`, shows compact generic feedback for invalid/unmatched submissions, and renders a real safe public status panel only when reference + phone + vehicle registration all match; blank tracking pages no longer show the static demo result (2026-07-27). S064 remains the first unchecked public-site step.
 - **Detail:** [12-tracking-module/README.md](12-tracking-module/README.md)
 - **Depends on:** S068
 - **Done when:** Correct combo shows public status panel.
 
 ### S070 — Add generic failure message + rate limiting
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Tracking failures now stay generic, invalid/unmatched submissions count against a requester-scoped five-attempt/15-minute limiter, throttled users receive compact localized feedback, and successful lookups clear prior failed attempts (2026-07-27). S064 remains the first unchecked public-site step.
 - **Depends on:** S069
 - **Done when:** Wrong combo fails safely; repeated attempts limited.
 

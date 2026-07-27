@@ -107,6 +107,7 @@ return [
             'note' => 'We reply by phone, WhatsApp or email depending on your preference.',
             'submit' => 'Send my request',
             'success' => 'Your message has been sent. Our team will reply quickly.',
+            'error' => 'Your message could not be sent. Check the fields and try again.',
         ],
         'head_office' => [
             'label' => 'Administration',

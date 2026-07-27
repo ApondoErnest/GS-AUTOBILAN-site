@@ -1,5 +1,33 @@
 # Documentation changelog
 
+## 1.17 — 2026-07-27
+
+### Changed
+
+- **S070:** Tracking lookup failures now use a requester-scoped limiter: invalid or unmatched submissions count toward five failed attempts in fifteen minutes, throttled users receive compact generic FR/EN feedback, and successful matches clear prior failed attempts.
+- Roadmap, step tracker, and tracking module notes updated to show **S069–S070 complete out of sequence** while **S064 News listing + article detail pages** remains the first unchecked step.
+
+## 1.16 — 2026-07-27
+
+### Changed
+
+- **S069:** Tracking lookup now posts through `TrackingLookupRequest`, resolves matches through `TrackingService`, shows compact generic feedback for invalid/unmatched submissions, and renders a real safe public result panel only when reference + phone + vehicle registration all match. Blank tracking pages no longer show the static demo result.
+- Roadmap, step tracker, and tracking module notes updated to show **S069 complete out of sequence** while **S064 News listing + article detail pages** remains the first unchecked step and **S070** remains for generic failed lookup/rate-limit hardening.
+
+## 1.15 — 2026-07-27
+
+### Changed
+
+- **S068:** Added end-to-end admin verification for public-created bookings: assigned agency staff can open the request in Filament, move it through every V1 booking status, set confirmed date/time, and save public/internal follow-up messages.
+- Roadmap, step tracker, and booking module notes updated to show **S066–S068 complete out of sequence** while **S064 News listing + article detail pages** remains the first unchecked step.
+
+## 1.14 — 2026-07-27
+
+### Changed
+
+- **S067:** Booking confirmation now presents a dedicated server-backed confirmation screen with the generated `GS-YEAR-SEQUENCE`, normalized registration, bilingual next-step guidance, tracking credentials, and a tracking link that pre-fills reference + phone + plate on the tracking page.
+- Roadmap, step tracker, and booking module notes updated to show **S067 complete out of sequence** while **S064 News listing + article detail pages** remains the first unchecked step.
+
 ## 1.13 — 2026-07-26
 
 ### Changed

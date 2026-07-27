@@ -46,7 +46,16 @@ it('submits the public booking form through BookingService and shows the generat
         ->assertSessionHas(
             'booking_confirmation',
             fn (array $confirmation): bool => $confirmation['reference'] === 'GS-2026-000001'
-                && $confirmation['summary_url'] === '/fr/rendez-vous/GS-2026-000001/recapitulatif.pdf',
+                && $confirmation['summary_url'] === '/fr/rendez-vous/GS-2026-000001/recapitulatif.pdf'
+                && str_contains($confirmation['tracking_url'], '/fr/suivi-rendez-vous?')
+                && str_contains($confirmation['tracking_url'], 'reference=GS-2026-000001')
+                && str_contains($confirmation['tracking_url'], 'phone=%2B237699000000')
+                && str_contains($confirmation['tracking_url'], 'vehicle_registration=CE123AB')
+                && $confirmation['tracking'] === [
+                    'reference' => 'GS-2026-000001',
+                    'phone' => '+237699000000',
+                    'vehicle_registration' => 'CE123AB',
+                ],
         );
 
     $booking = Booking::query()->firstOrFail();
@@ -75,8 +84,16 @@ it('submits the public booking form through BookingService and shows the generat
 
     $this->get('/fr/rendez-vous')
         ->assertOk()
+        ->assertSee('data-booking-confirmation-screen', false)
         ->assertSee('GS-2026-000001', false)
-        ->assertSee('Demande de passage enregistrée', false);
+        ->assertSee('Demande de passage enregistrée', false)
+        ->assertSee('Prochaines étapes', false)
+        ->assertSee('Conservez votre référence', false)
+        ->assertSee('Informations de suivi', false)
+        ->assertSee('Téléphone utilisé', false)
+        ->assertSee('+237699000000', false)
+        ->assertSee('CE123AB', false)
+        ->assertSee('href="/fr/suivi-rendez-vous?reference=GS-2026-000001&amp;phone=%2B237699000000&amp;vehicle_registration=CE123AB"', false);
 
     $pdfResponse = $this->get('/fr/rendez-vous/GS-2026-000001/recapitulatif.pdf');
 

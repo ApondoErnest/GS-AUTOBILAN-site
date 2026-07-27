@@ -17,12 +17,12 @@ return [
                 'icon' => 'images/contacts/contact-phone.svg',
             ],
             [
-                'label' => "Je veux trouver<br>l’itinéraire",
+                'label' => 'Je veux trouver<br>l’itinéraire',
                 'target' => 'directions',
                 'icon' => 'images/contacts/contact-map.svg',
             ],
             [
-                'label' => "J’ai une question<br>ou un problème",
+                'label' => 'J’ai une question<br>ou un problème',
                 'target' => 'question',
                 'icon' => 'images/contacts/contact-question.svg',
             ],
@@ -107,6 +107,7 @@ return [
             'note' => 'Nous vous répondons par téléphone, WhatsApp ou email selon votre préférence.',
             'submit' => 'Envoyer ma demande',
             'success' => 'Votre message a bien été envoyé. Notre équipe vous répondra rapidement.',
+            'error' => 'Votre message n’a pas pu être envoyé. Vérifiez les champs puis réessayez.',
         ],
         'head_office' => [
             'label' => 'Administration',
@@ -135,7 +136,7 @@ return [
                 'answer' => 'Préparez la carte grise originale, une pièce d’identité, l’assurance en cours de validité et l’ancien document de visite lorsqu’il est disponible.',
             ],
             [
-                'question' => "Comment se passe la confirmation d’un rendez-vous ?",
+                'question' => 'Comment se passe la confirmation d’un rendez-vous ?',
                 'answer' => 'Votre demande est enregistrée, puis l’équipe GS AUTOBILAN confirme le créneau par téléphone ou WhatsApp selon les disponibilités.',
             ],
             [

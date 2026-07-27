@@ -24,4 +24,12 @@ class TrackingLookupRequest extends PublicFormRequest
             'vehicle_registration' => ['required', 'string', 'max:32'],
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        $routeName = (string) $this->route()?->getName();
+        $locale = str_starts_with($routeName, 'en.') ? 'en' : 'fr';
+
+        return route($locale.'.tracking', [], false);
+    }
 }

@@ -2,10 +2,13 @@
 
 use App\Http\Requests\BookingRequest;
 use App\Http\Requests\ContactMessageRequest;
+use App\Http\Requests\TrackingLookupRequest;
 use App\Models\Booking;
 use App\Services\BookingService;
 use App\Services\ContactMessageService;
+use App\Services\TrackingService;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 
@@ -74,6 +77,11 @@ foreach ($localizedPages as $locale => $pages) {
                         $localizedServiceTitle = $locale === 'en'
                             ? $booking->service?->title_en
                             : $booking->service?->title_fr;
+                        $trackingUrl = route($locale.'.tracking', [
+                            'reference' => $booking->reference,
+                            'phone' => $booking->phone,
+                            'vehicle_registration' => $booking->vehicle_registration,
+                        ], false);
 
                         return redirect()
                             ->route($locale.'.booking')
@@ -82,10 +90,17 @@ foreach ($localizedPages as $locale => $pages) {
                                 'summary_url' => route($locale.'.booking.summary', [
                                     'booking' => $booking->reference,
                                 ], false),
+                                'tracking_url' => $trackingUrl,
+                                'tracking' => [
+                                    'reference' => $booking->reference,
+                                    'phone' => $booking->phone,
+                                    'vehicle_registration' => $booking->vehicle_registration,
+                                ],
                                 'fields' => [
                                     'agency' => $localizedAgencyName ?? $booking->agency?->name_fr,
                                     'service' => $serviceLabel ?? $localizedServiceTitle ?? $booking->service?->title_fr,
                                     'vehicle' => $vehicleLabel,
+                                    'registration' => $booking->vehicle_registration,
                                     'date' => $booking->preferred_date?->toDateString(),
                                     'period' => $booking->preferred_time_slot,
                                     'contact' => $contactMode,
@@ -105,11 +120,40 @@ foreach ($localizedPages as $locale => $pages) {
                 }
 
                 if ($page['name'] === 'contact') {
-                    Route::post($page['uri'], function (ContactMessageRequest $request, ContactMessageService $messages): RedirectResponse {
+                    Route::post($page['uri'], function (ContactMessageRequest $request, ContactMessageService $messages): JsonResponse|RedirectResponse {
                         $messages->create($request->validated());
+                        $message = __('contact.desk.form.success');
 
-                        return back()->with('contact_message_status', __('contact.desk.form.success'));
+                        if ($request->expectsJson()) {
+                            return response()->json(['message' => $message], 201);
+                        }
+
+                        return back()->with('contact_message_status', $message);
                     })->name($page['name'].'.store');
+                }
+
+                if ($page['name'] === 'tracking') {
+                    Route::post($page['uri'], function (TrackingLookupRequest $request, TrackingService $tracking) use ($page, $locale) {
+                        $payload = $request->validated();
+                        $result = $tracking->lookup(
+                            reference: $payload['reference'],
+                            phone: $payload['phone'],
+                            vehicleRegistration: $payload['vehicle_registration'],
+                        );
+
+                        if ($result === null) {
+                            return redirect()
+                                ->route($locale.'.tracking')
+                                ->withInput()
+                                ->withErrors(['tracking_lookup' => __('tracking.lookup.errors.not_found')]);
+                        }
+
+                        return view($page['view'] ?? 'pages.public-placeholder', [
+                            'title' => __($page['title']),
+                            'trackingResult' => $result,
+                            'trackingLookup' => $payload,
+                        ]);
+                    })->middleware('tracking.lookup.throttle')->name($page['name'].'.lookup');
                 }
             }
         });

@@ -17,6 +17,8 @@
     $bookingConfirmationFields = $hasBookingConfirmation ? ($bookingConfirmation['fields'] ?? []) : [];
     $bookingReference = $hasBookingConfirmation ? ($bookingConfirmation['reference'] ?? null) : null;
     $bookingSummaryHref = $hasBookingConfirmation ? ($bookingConfirmation['summary_url'] ?? null) : null;
+    $bookingTrackingHref = $hasBookingConfirmation ? ($bookingConfirmation['tracking_url'] ?? $trackingHref) : $trackingHref;
+    $bookingTrackingCredentials = $hasBookingConfirmation ? ($bookingConfirmation['tracking'] ?? []) : [];
 @endphp
 
 @section('content')
@@ -501,7 +503,7 @@
                         </button>
                     </div>
 
-                    <div class="{{ $hasBookingConfirmation ? '' : 'hidden ' }}rounded-lg border border-gs-concrete bg-white p-4 shadow-xl shadow-gs-navy/10 sm:p-5" data-booking-receipt>
+                    <div class="{{ $hasBookingConfirmation ? '' : 'hidden ' }}rounded-lg border border-gs-concrete bg-white p-4 shadow-xl shadow-gs-navy/10 sm:p-5" data-booking-receipt data-booking-confirmation-screen>
                         <div class="flex flex-col gap-3 border-b border-gs-concrete pb-4 sm:flex-row sm:items-center sm:justify-between">
                             <div>
                                 <p class="inline-flex rounded-md bg-gs-warning px-3 py-1 text-xs font-black uppercase text-gs-navy">{{ $command['receipt']['status'] }}</p>
@@ -514,7 +516,7 @@
                         </div>
 
                         <dl class="mt-4 grid gap-2.5 sm:grid-cols-2">
-                            @foreach (['agency', 'service', 'date', 'period'] as $field)
+                            @foreach (['agency', 'service', 'registration', 'date', 'period'] as $field)
                                 <div class="rounded-md border border-gs-concrete p-3">
                                     <dt class="text-[0.68rem] font-black uppercase text-gs-grey">{{ $ticketFields[$field] }}</dt>
                                     <dd class="mt-1 text-base font-black text-gs-ink" data-receipt-field="{{ $field }}">{{ $bookingConfirmationFields[$field] ?? $command['ticket']['empty'] }}</dd>
@@ -526,12 +528,48 @@
                             </div>
                         </dl>
 
+                        <div class="mt-4 grid gap-3 lg:grid-cols-[1fr_0.9fr]">
+                            <section class="rounded-lg border border-gs-primary/20 bg-gs-soft p-3" aria-labelledby="booking-receipt-next-steps-title">
+                                <div class="flex items-center gap-2">
+                                    <x-heroicon-o-list-bullet class="h-5 w-5 text-gs-primary" aria-hidden="true" />
+                                    <h4 id="booking-receipt-next-steps-title" class="text-sm font-black text-gs-primary">{{ $command['receipt']['next_steps_title'] }}</h4>
+                                </div>
+
+                                <ol class="mt-3 space-y-2">
+                                    @foreach ($command['receipt']['next_steps'] as $step)
+                                        <li class="grid grid-cols-[1.5rem_1fr] gap-2 text-xs font-bold leading-snug text-gs-ink">
+                                            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[0.68rem] font-black text-gs-primary shadow-sm shadow-gs-navy/5" aria-hidden="true">{{ $loop->iteration }}</span>
+                                            <span>{{ $step }}</span>
+                                        </li>
+                                    @endforeach
+                                </ol>
+                            </section>
+
+                            <section class="rounded-lg border border-gs-concrete bg-gs-wall p-3" aria-labelledby="booking-receipt-tracking-title">
+                                <div class="flex items-center gap-2">
+                                    <x-heroicon-o-magnifying-glass class="h-5 w-5 text-gs-primary" aria-hidden="true" />
+                                    <h4 id="booking-receipt-tracking-title" class="text-sm font-black text-gs-primary">{{ $command['receipt']['tracking_title'] }}</h4>
+                                </div>
+
+                                <p class="mt-2 text-xs font-semibold leading-snug text-gs-ink">{{ $command['receipt']['tracking_body'] }}</p>
+
+                                <dl class="mt-3 grid gap-1.5 text-xs">
+                                    @foreach (['reference', 'phone', 'vehicle_registration'] as $field)
+                                        <div class="flex items-center justify-between gap-3 rounded-md bg-white px-2.5 py-1.5">
+                                            <dt class="font-bold text-gs-grey">{{ $command['receipt']['tracking_fields'][$field] }}</dt>
+                                            <dd class="text-right font-black text-gs-navy">{{ $bookingTrackingCredentials[$field] ?? ($field === 'reference' ? $bookingReference : $command['ticket']['empty']) }}</dd>
+                                        </div>
+                                    @endforeach
+                                </dl>
+                            </section>
+                        </div>
+
                         <p class="mt-4 rounded-md bg-gs-soft p-3 text-xs font-semibold leading-snug text-gs-ink">
                             {{ $command['receipt']['message'] }}
                         </p>
 
                         <div class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-                            <a href="{{ $trackingHref }}" class="inline-flex min-h-10 items-center justify-center rounded-md bg-gs-primary px-3 text-xs font-black text-white transition hover:bg-gs-navy">{{ $command['receipt']['track'] }}</a>
+                            <a href="{{ $bookingTrackingHref }}" class="inline-flex min-h-10 items-center justify-center rounded-md bg-gs-primary px-3 text-xs font-black text-white transition hover:bg-gs-navy">{{ $command['receipt']['track'] }}</a>
                             <a href="{{ $whatsappHref }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-10 items-center justify-center rounded-md border border-gs-success px-3 text-xs font-black text-gs-success transition hover:bg-green-50">{{ $command['receipt']['whatsapp'] }}</a>
                             @if ($bookingSummaryHref)
                                 <a href="{{ $bookingSummaryHref }}" class="inline-flex min-h-10 items-center justify-center rounded-md border border-gs-primary px-3 text-center text-xs font-black text-gs-primary transition hover:bg-gs-soft">{{ $command['receipt']['print'] }}</a>

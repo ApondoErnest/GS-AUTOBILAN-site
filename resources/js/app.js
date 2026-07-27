@@ -204,6 +204,83 @@ const initAgencyMaps = () => {
     });
 };
 
+const initContactMessageForms = () => {
+    document.querySelectorAll('[data-contact-message-form]').forEach((form) => {
+        if (!(form instanceof HTMLFormElement)) {
+            return;
+        }
+
+        const status = form.querySelector('[data-contact-form-status]');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const submitLabel = submitButton?.querySelector('span');
+        const defaultSubmitText = submitLabel?.textContent || '';
+        const baseStatusClass = status?.getAttribute('data-contact-status-base-class') || '';
+        const successClass = status?.getAttribute('data-contact-success-class') || '';
+        const errorClass = status?.getAttribute('data-contact-error-class') || '';
+        const fallbackError = status?.getAttribute('data-contact-error-message') || 'Unable to send the message.';
+
+        const showStatus = (message, type) => {
+            if (!(status instanceof HTMLElement)) {
+                return;
+            }
+
+            status.className = `${baseStatusClass} ${type === 'success' ? successClass : errorClass}`;
+            status.textContent = message;
+            status.setAttribute('role', type === 'success' ? 'status' : 'alert');
+            status.focus({ preventScroll: true });
+        };
+
+        const setSubmitting = (isSubmitting) => {
+            form.setAttribute('aria-busy', isSubmitting ? 'true' : 'false');
+
+            if (submitButton instanceof HTMLButtonElement) {
+                submitButton.disabled = isSubmitting;
+                submitButton.classList.toggle('opacity-70', isSubmitting);
+                submitButton.classList.toggle('cursor-wait', isSubmitting);
+            }
+
+            if (submitLabel) {
+                submitLabel.textContent = isSubmitting ? `${defaultSubmitText}...` : defaultSubmitText;
+            }
+        };
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (!form.reportValidity()) {
+                return;
+            }
+
+            setSubmitting(true);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method || 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        Accept: 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                });
+                const payload = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    const validationMessage = payload?.message || Object.values(payload?.errors || {})[0]?.[0];
+                    showStatus(validationMessage || fallbackError, 'error');
+                    return;
+                }
+
+                showStatus(payload?.message || defaultSubmitText, 'success');
+                form.reset();
+            } catch (error) {
+                showStatus(fallbackError, 'error');
+            } finally {
+                setSubmitting(false);
+            }
+        });
+    });
+};
+
 const initBookingIntakes = () => {
     document.querySelectorAll('[data-booking-intake]').forEach((root) => {
         const form = root.querySelector('[data-booking-form]');
@@ -1142,6 +1219,7 @@ const initFrontend = () => {
     initHeroCarousels();
     initBackToTop();
     initAgencyMaps();
+    initContactMessageForms();
     initBookingIntakes();
     initServiceVehicleSelectors();
     initTariffNavigators();

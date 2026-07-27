@@ -16,6 +16,9 @@
     $inputClass = 'mt-1.5 '.$controlClass;
     $selectClass = $controlClass.' appearance-none pr-10';
     $textAreaClass = 'mt-1.5 min-h-16 w-full rounded-md border border-gs-concrete bg-white px-2.5 py-2 text-xs font-semibold leading-snug text-gs-ink shadow-sm shadow-gs-navy/5 transition placeholder:text-gs-grey/70 focus:border-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/20 sm:min-h-20 sm:px-3 sm:py-2.5 sm:text-sm';
+    $contactStatusBaseClass = 'mt-3 rounded-md border px-3 py-2 text-xs font-black leading-snug sm:mt-4 sm:text-sm';
+    $contactStatusSuccessClass = 'border-gs-success/25 bg-green-50 text-gs-success';
+    $contactStatusErrorClass = 'border-gs-danger/25 bg-red-50 text-gs-danger';
     $actionHrefMap = [
         'booking' => $bookingHref,
         'call' => '#contact-agencies',
@@ -217,12 +220,6 @@
                     {{ $desk['form']['title'] }}
                 </h2>
 
-                @if (session('contact_message_status'))
-                    <p class="mt-3 rounded-md border border-gs-success/25 bg-green-50 px-3 py-2 text-xs font-black text-gs-success sm:mt-4 sm:text-sm">
-                        {{ session('contact_message_status') }}
-                    </p>
-                @endif
-
                 <div class="mt-3 grid gap-2.5 sm:mt-4 sm:grid-cols-2 sm:gap-3">
                     <label>
                         <span class="text-xs font-black text-gs-ink">{{ $desk['form']['fields']['name'] }} <span class="text-gs-accent">*</span></span>
@@ -279,6 +276,20 @@
                 <p class="mt-3 flex items-start gap-2.5 text-xs font-semibold leading-snug text-gs-ink-muted sm:mt-4 sm:gap-3 sm:text-sm">
                     <x-heroicon-o-information-circle class="mt-0.5 h-4 w-4 shrink-0 text-gs-grey sm:h-5 sm:w-5" aria-hidden="true" />
                     <span>{{ $desk['form']['note'] }}</span>
+                </p>
+
+                <p
+                    class="{{ $contactStatusBaseClass }} {{ session('contact_message_status') ? $contactStatusSuccessClass : 'hidden '.$contactStatusSuccessClass }}"
+                    role="status"
+                    aria-live="polite"
+                    tabindex="-1"
+                    data-contact-form-status
+                    data-contact-status-base-class="{{ $contactStatusBaseClass }}"
+                    data-contact-success-class="{{ $contactStatusSuccessClass }}"
+                    data-contact-error-class="{{ $contactStatusErrorClass }}"
+                    data-contact-error-message="{{ $desk['form']['error'] }}"
+                >
+                    {{ session('contact_message_status') }}
                 </p>
 
                 <button type="submit" class="mt-3 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-md bg-gs-primary px-4 text-xs font-black text-white shadow-lg shadow-gs-primary/20 transition hover:bg-gs-navy focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2 sm:mt-4 sm:min-h-12 sm:gap-3 sm:px-5 sm:text-base">

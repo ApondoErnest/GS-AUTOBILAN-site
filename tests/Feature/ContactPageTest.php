@@ -23,8 +23,8 @@ it('renders the contact intro section in French', function () {
         ->assertSee('images/contacts/contact-question.svg', false)
         ->assertSee('Je veux prendre<br>rendez-vous', false)
         ->assertSee('Je veux appeler<br>une agence', false)
-        ->assertSee("Je veux trouver<br>l’itinéraire", false)
-        ->assertSee("J’ai une question<br>ou un problème", false)
+        ->assertSee('Je veux trouver<br>l’itinéraire', false)
+        ->assertSee('J’ai une question<br>ou un problème', false)
         ->assertSee('href="/fr/rendez-vous"', false)
         ->assertSee('href="#contact-agencies"', false)
         ->assertSee('href="/fr/nos-agences"', false)
@@ -65,6 +65,7 @@ it('renders the contact message desk and head office card in French', function (
         ->assertOk()
         ->assertSee('data-contact-desk', false)
         ->assertSee('data-contact-message-form', false)
+        ->assertSee('data-contact-form-status', false)
         ->assertSee('data-contact-head-office', false)
         ->assertSee('Envoyer un message', false)
         ->assertSee('Nom complet', false)
@@ -96,7 +97,7 @@ it('renders the contact FAQ section in French', function () {
         ->assertSee('data-contact-faq', false)
         ->assertSee('Questions fréquentes', false)
         ->assertSee('Quels documents dois-je apporter ?', false)
-        ->assertSee("Comment se passe la confirmation d’un rendez-vous ?", false)
+        ->assertSee('Comment se passe la confirmation d’un rendez-vous ?', false)
         ->assertSee('Êtes-vous ouverts les jours fériés ?', false)
         ->assertSee('Quelle agence choisir ?', false)
         ->assertSee('Comment suivre ma demande ?', false)
@@ -170,6 +171,7 @@ it('renders the contact message desk and head office card in English', function 
         ->assertOk()
         ->assertSee('data-contact-desk', false)
         ->assertSee('data-contact-message-form', false)
+        ->assertSee('data-contact-form-status', false)
         ->assertSee('data-contact-head-office', false)
         ->assertSee('Send a message', false)
         ->assertSee('Full name', false)
@@ -249,6 +251,38 @@ it('stores contact desk submissions with an agency slug', function () {
         ->agency_id->toBe($agency->id)
         ->subject->toBe('Question administrative — Renseignement')
         ->message->toBe('Je voudrais des informations.');
+});
+
+it('returns a json success response for no-reload contact form submissions', function () {
+    Notification::fake();
+    $this->withoutMiddleware([
+        ValidateCsrfToken::class,
+        VerifyCsrfToken::class,
+    ]);
+
+    $agency = contactPageAgency('obili-scalom');
+
+    $this->postJson('/en/contact', [
+        'name' => ' Async Contact ',
+        'phone' => ' +237 677 111 222 ',
+        'email' => '',
+        'agency_slug' => 'obili-scalom',
+        'subject' => ' Assistance ',
+        'request_type' => 'Other request',
+        'message' => ' Please call me back. ',
+    ])
+        ->assertCreated()
+        ->assertJsonPath('message', 'Your message has been sent. Our team will reply quickly.');
+
+    $message = ContactMessage::query()->firstOrFail();
+
+    expect($message)
+        ->name->toBe('Async Contact')
+        ->phone->toBe('+237677111222')
+        ->email->toBeNull()
+        ->agency_id->toBe($agency->id)
+        ->subject->toBe('Other request — Assistance')
+        ->message->toBe('Please call me back.');
 });
 
 function contactPageAgency(string $slug): Agency

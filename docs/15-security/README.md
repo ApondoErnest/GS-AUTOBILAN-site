@@ -12,7 +12,7 @@ Secure login · RBAC · protected routes · inactive user blocking · password r
 
 ## Tracking
 
-Require reference + phone + plate · never plate-only  
+Require reference + phone + plate · never plate-only · generic failure copy · five failed attempts per requester over fifteen minutes  
 
 ## Uploads
 
