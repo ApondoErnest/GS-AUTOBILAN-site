@@ -3,11 +3,9 @@
 use App\Enums\BookingStatus;
 use App\Enums\DocumentReadinessStatus;
 use App\Filament\Resources\BookingResource;
-use App\Filament\Resources\BookingResource\Pages\CreateBooking;
 use App\Filament\Resources\BookingResource\Pages\EditBooking;
 use App\Filament\Resources\BookingResource\Pages\ListBookings;
 use App\Filament\Resources\DocumentReadinessResource;
-use App\Filament\Resources\DocumentReadinessResource\Pages\CreateDocumentReadiness;
 use App\Filament\Resources\DocumentReadinessResource\Pages\EditDocumentReadiness;
 use App\Filament\Resources\DocumentReadinessResource\Pages\ListDocumentReadiness;
 use App\Models\Agency;
@@ -15,6 +13,7 @@ use App\Models\Booking;
 use App\Models\DocumentReadiness;
 use App\Models\Service;
 use App\Models\User;
+use App\Services\BookingService;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -39,17 +38,11 @@ it('registers the S053 booking and document readiness resources on the admin pan
         );
 });
 
-it('allows super admins to create bookings and update operational statuses', function () {
+it('allows super admins to manage public-origin bookings and operational statuses', function () {
     $agency = s053Agency('nkolbisson', 1);
     $service = s053Service('light-vehicles');
     $superAdmin = s053User('super_admin');
-
-    s053ActingAs($superAdmin);
-
-    Livewire::test(CreateBooking::class)
-        ->fillForm(s053BookingPayload($agency, $service))
-        ->call('create')
-        ->assertHasNoFormErrors();
+    $booking = app(BookingService::class)->create(s053BookingPayload($agency, $service));
 
     $booking = Booking::query()->where('customer_name', 'Client S053')->firstOrFail();
 
@@ -58,9 +51,11 @@ it('allows super admins to create bookings and update operational statuses', fun
         ->and($booking->documentReadiness)->toBeInstanceOf(DocumentReadiness::class)
         ->and($booking->documentReadiness->status)->toBe(DocumentReadinessStatus::NotReviewed);
 
+    s053ActingAs($superAdmin);
+
     Livewire::test(ListBookings::class)
         ->assertCanSeeTableRecords([$booking])
-        ->assertTableColumnFormattedStateSet('status', 'New request', $booking);
+        ->assertTableColumnFormattedStateSet('status', __('admin_bookings.statuses.booking.new_request'), $booking);
 
     Livewire::test(EditBooking::class, ['record' => $booking->id])
         ->fillForm([
@@ -101,25 +96,18 @@ it('allows super admins to create bookings and update operational statuses', fun
         ->updated_by->toBe($superAdmin->id);
 });
 
-it('allows creating document readiness records for bookings missing a review row', function () {
-    $agency = s053Agency('obili-scalom', 1);
-    $service = s053Service('utility-vehicles');
-    $booking = s053Booking($agency, $service, 'GS-2026-053777', BookingStatus::PendingConfirmation);
+it('does not expose admin creation for bookings or document readiness', function () {
+    $superAdmin = s053User('super_admin');
 
-    s053ActingAs(s053User('super_admin'));
+    s053ActingAs($superAdmin);
 
-    Livewire::test(CreateDocumentReadiness::class)
-        ->fillForm([
-            'booking_id' => $booking->id,
-            'status' => DocumentReadinessStatus::Complete->value,
-            'public_message_fr' => 'Dossier complet.',
-            'public_message_en' => 'File complete.',
-        ])
-        ->call('create')
-        ->assertHasNoFormErrors();
+    expect(BookingResource::canCreate())->toBeFalse()
+        ->and(DocumentReadinessResource::canCreate())->toBeFalse()
+        ->and($superAdmin->can('create', Booking::class))->toBeFalse()
+        ->and($superAdmin->can('create', DocumentReadiness::class))->toBeFalse();
 
-    expect($booking->fresh()->documentReadiness)
-        ->status->toBe(DocumentReadinessStatus::Complete);
+    $this->get('/admin/bookings/create')->assertNotFound();
+    $this->get('/admin/document-readiness/create')->assertNotFound();
 });
 
 it('scopes agency admins to their assigned booking and readiness records', function () {
@@ -134,11 +122,14 @@ it('scopes agency admins to their assigned booking and readiness records', funct
     s053ActingAs(s053User('agency_admin', $agency));
 
     $this->get('/admin/bookings')->assertOk();
-    $this->get('/admin/bookings/create')->assertOk();
+    $this->get('/admin/bookings/create')->assertNotFound();
+    $this->get('/admin/document-readiness/create')->assertNotFound();
     $this->get("/admin/bookings/{$booking->id}/edit")->assertOk();
     $this->get("/admin/bookings/{$otherBooking->id}/edit")->assertNotFound();
 
-    expect(BookingResource::getEloquentQuery()->pluck('id')->all())
+    expect(BookingResource::canCreate())->toBeFalse()
+        ->and(DocumentReadinessResource::canCreate())->toBeFalse()
+        ->and(BookingResource::getEloquentQuery()->pluck('id')->all())
         ->toBe([$booking->id])
         ->not->toContain($otherBooking->id);
 

@@ -73,7 +73,7 @@ it('lets assigned staff manage a public booking through every operational status
 
     Livewire::test(ListBookings::class)
         ->assertCanSeeTableRecords([$booking])
-        ->assertTableColumnFormattedStateSet('status', 'New request', $booking);
+        ->assertTableColumnFormattedStateSet('status', __('admin_bookings.statuses.booking.new_request'), $booking);
 
     Livewire::test(EditBooking::class, ['record' => $booking->id])
         ->fillForm([
@@ -120,7 +120,7 @@ it('lets assigned staff manage a public booking through every operational status
     }
 
     Livewire::test(ListBookings::class)
-        ->assertTableColumnFormattedStateSet('status', 'No-show', $booking->fresh());
+        ->assertTableColumnFormattedStateSet('status', __('admin_bookings.statuses.booking.no_show'), $booking->fresh());
 });
 
 function s068ActingAs(User $user): void

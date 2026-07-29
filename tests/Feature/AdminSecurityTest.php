@@ -9,7 +9,33 @@ it('redirects guests away from the admin dashboard', function () {
 });
 
 it('serves the admin login page', function () {
-    $this->get('/admin/login')->assertOk();
+    $this->get('/admin/login')
+        ->assertOk()
+        ->assertSee('gs-admin-login__grid')
+        ->assertSee('Bon retour')
+        ->assertSee('Connexion sécurisée');
+});
+
+it('lets staff choose their preferred admin login language', function () {
+    $this->get('/admin/login?locale=en')
+        ->assertOk()
+        ->assertSee('<html', false)
+        ->assertSee('lang="en"', false)
+        ->assertSee('Preferred language')
+        ->assertSee('Welcome back')
+        ->assertSee('Sign in securely');
+
+    $this->get('/admin/login')
+        ->assertOk()
+        ->assertSee('Welcome back')
+        ->assertSee('Sign in securely');
+
+    $this->get('/admin/login?locale=fr')
+        ->assertOk()
+        ->assertSee('lang="fr"', false)
+        ->assertSee('Langue préférée')
+        ->assertSee('Bon retour')
+        ->assertSee('Connexion sécurisée');
 });
 
 it('keeps auth and CSRF middleware on the Filament admin panel', function () {

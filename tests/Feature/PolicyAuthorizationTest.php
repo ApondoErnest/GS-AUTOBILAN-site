@@ -38,7 +38,8 @@ it('allows super admins to manage every protected backend model', function () {
 
     expect($superAdmin->can('viewAny', Agency::class))->toBeTrue();
     expect($superAdmin->can('update', $entities['agency']))->toBeTrue();
-    expect($superAdmin->can('create', Booking::class))->toBeTrue();
+    expect($superAdmin->can('create', Booking::class))->toBeFalse();
+    expect($superAdmin->can('create', DocumentReadiness::class))->toBeFalse();
     expect($superAdmin->can('delete', $entities['booking']))->toBeTrue();
     expect($superAdmin->can('update', $entities['documentReadiness']))->toBeTrue();
     expect($superAdmin->can('update', $entities['contactMessage']))->toBeTrue();
@@ -65,7 +66,7 @@ it('scopes agency admins to their own agency operations only', function () {
     expect($agencyAdmin->can('update', $entities['agency']))->toBeFalse();
 
     expect($agencyAdmin->can('viewAny', Booking::class))->toBeTrue();
-    expect($agencyAdmin->can('create', Booking::class))->toBeTrue();
+    expect($agencyAdmin->can('create', Booking::class))->toBeFalse();
     expect($agencyAdmin->can('view', $entities['booking']))->toBeTrue();
     expect($agencyAdmin->can('update', $entities['booking']))->toBeTrue();
     expect($agencyAdmin->can('delete', $entities['booking']))->toBeFalse();
@@ -73,6 +74,7 @@ it('scopes agency admins to their own agency operations only', function () {
     expect($agencyAdmin->can('update', $entities['otherBooking']))->toBeFalse();
 
     expect($agencyAdmin->can('viewAny', DocumentReadiness::class))->toBeTrue();
+    expect($agencyAdmin->can('create', DocumentReadiness::class))->toBeFalse();
     expect($agencyAdmin->can('view', $entities['documentReadiness']))->toBeTrue();
     expect($agencyAdmin->can('update', $entities['documentReadiness']))->toBeTrue();
     expect($agencyAdmin->can('view', $entities['otherDocumentReadiness']))->toBeFalse();

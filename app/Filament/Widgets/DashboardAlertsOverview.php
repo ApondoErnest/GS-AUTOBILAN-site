@@ -14,16 +14,22 @@ class DashboardAlertsOverview extends StatsOverviewWidget
 
     protected static ?int $sort = 30;
 
-    protected ?string $heading = 'Alerts and content pulse';
-
-    protected ?string $description = 'Operational follow-ups and recently publishable content signals.';
-
     public static function canView(): bool
     {
         $user = Filament::auth()->user();
 
         return $user instanceof User
             && (DashboardMetrics::canViewOperations($user) || DashboardMetrics::canViewContent($user));
+    }
+
+    protected function getHeading(): ?string
+    {
+        return (string) __('admin_dashboard.widgets.alerts.heading');
+    }
+
+    protected function getDescription(): ?string
+    {
+        return (string) __('admin_dashboard.widgets.alerts.description');
     }
 
     /**
@@ -37,23 +43,23 @@ class DashboardAlertsOverview extends StatsOverviewWidget
         $stats = [];
 
         if (DashboardMetrics::canViewOperations($user)) {
-            $stats[] = Stat::make('Missing information', number_format($counts['missing_info']))
-                ->description('Document readiness alerts')
+            $stats[] = Stat::make((string) __('admin_dashboard.widgets.alerts.missing_info.label'), number_format($counts['missing_info']))
+                ->description((string) __('admin_dashboard.widgets.alerts.missing_info.description'))
                 ->icon('heroicon-o-document-magnifying-glass')
                 ->color('warning');
-            $stats[] = Stat::make('Contact agency', number_format($counts['contact_agency']))
-                ->description('Client should call or visit')
+            $stats[] = Stat::make((string) __('admin_dashboard.widgets.alerts.contact_agency.label'), number_format($counts['contact_agency']))
+                ->description((string) __('admin_dashboard.widgets.alerts.contact_agency.description'))
                 ->icon('heroicon-o-phone-arrow-up-right')
                 ->color('danger');
-            $stats[] = Stat::make('New contact messages', number_format($counts['new_contacts']))
-                ->description('Unprocessed public messages')
+            $stats[] = Stat::make((string) __('admin_dashboard.widgets.alerts.new_contacts.label'), number_format($counts['new_contacts']))
+                ->description((string) __('admin_dashboard.widgets.alerts.new_contacts.description'))
                 ->icon('heroicon-o-envelope')
                 ->color('info');
         }
 
         if (DashboardMetrics::canViewContent($user)) {
-            $stats[] = Stat::make('Published articles', number_format($counts['latest_articles']))
-                ->description('Visible news and advice')
+            $stats[] = Stat::make((string) __('admin_dashboard.widgets.alerts.published_articles.label'), number_format($counts['latest_articles']))
+                ->description((string) __('admin_dashboard.widgets.alerts.published_articles.description'))
                 ->icon('heroicon-o-newspaper')
                 ->color('success');
         }

@@ -37,18 +37,18 @@ final class AdminNavigation
     }
 
     /**
-     * @return list<NavigationGroup>
+     * @return array<string, NavigationGroup>
      */
     public static function groups(): array
     {
         return [
-            NavigationGroup::make(self::GROUP_DASHBOARD),
-            NavigationGroup::make(self::GROUP_OPERATIONS),
-            NavigationGroup::make(self::GROUP_CONTENT),
-            NavigationGroup::make(self::GROUP_AGENCIES_SERVICES),
-            NavigationGroup::make(self::GROUP_TARIFFS),
-            NavigationGroup::make(self::GROUP_COMMUNICATION),
-            NavigationGroup::make(self::GROUP_USERS_SETTINGS),
+            self::GROUP_DASHBOARD => NavigationGroup::make(fn (): string => (string) __('admin_chrome.groups.dashboard')),
+            self::GROUP_OPERATIONS => NavigationGroup::make(fn (): string => (string) __('admin_chrome.groups.operations')),
+            self::GROUP_CONTENT => NavigationGroup::make(fn (): string => (string) __('admin_chrome.groups.content')),
+            self::GROUP_AGENCIES_SERVICES => NavigationGroup::make(fn (): string => (string) __('admin_chrome.groups.agencies_services')),
+            self::GROUP_TARIFFS => NavigationGroup::make(fn (): string => (string) __('admin_chrome.groups.tariffs')),
+            self::GROUP_COMMUNICATION => NavigationGroup::make(fn (): string => (string) __('admin_chrome.groups.communication')),
+            self::GROUP_USERS_SETTINGS => NavigationGroup::make(fn (): string => (string) __('admin_chrome.groups.users_settings')),
         ];
     }
 }

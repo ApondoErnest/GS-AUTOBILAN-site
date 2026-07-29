@@ -14,15 +14,21 @@ class BookingAgencyBreakdown extends StatsOverviewWidget
 
     protected static ?int $sort = 20;
 
-    protected ?string $heading = 'Bookings by agency';
-
-    protected ?string $description = 'Breakdown follows the same agency scope as the KPI cards.';
-
     public static function canView(): bool
     {
         $user = Filament::auth()->user();
 
         return $user instanceof User && DashboardMetrics::canViewOperations($user);
+    }
+
+    protected function getHeading(): ?string
+    {
+        return (string) __('admin_dashboard.widgets.agency.heading');
+    }
+
+    protected function getDescription(): ?string
+    {
+        return (string) __('admin_dashboard.widgets.agency.description');
     }
 
     /**
@@ -35,7 +41,7 @@ class BookingAgencyBreakdown extends StatsOverviewWidget
 
         return DashboardMetrics::agencyBookingBreakdown($user)
             ->map(fn (array $agency): Stat => Stat::make($agency['label'], number_format($agency['count']))
-                ->description('Visible bookings')
+                ->description((string) __('admin_dashboard.widgets.agency.visible_bookings'))
                 ->icon('heroicon-o-building-office-2')
                 ->color('primary'))
             ->all();

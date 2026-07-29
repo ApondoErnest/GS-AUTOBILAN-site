@@ -1,38 +1,62 @@
 @php
+    use App\Filament\Support\DashboardMetrics;
+
     $showsBothColumns = $canViewOperations && $canViewContent;
+    $statusLabels = trans('admin_dashboard.statuses');
+    $statusLabels = is_array($statusLabels) ? $statusLabels : [];
 @endphp
 
-<x-filament-widgets::widget>
+<x-filament-widgets::widget class="gs-dashboard-activity-widget">
     <x-filament::section
-        heading="Latest activity"
-        description="Recent contact and content signals for the current staff scope."
+        class="gs-dashboard-activity"
+        heading="{{ __('admin_dashboard.widgets.activity.heading') }}"
+        description="{{ __('admin_dashboard.widgets.activity.description') }}"
     >
         <div
             @class([
-                'grid gap-6',
-                'md:grid-cols-2' => $showsBothColumns,
+                'gs-dashboard-activity__grid',
+                'gs-dashboard-activity__grid--split' => $showsBothColumns,
             ])
         >
             @if ($canViewOperations)
-                <section class="space-y-3">
-                    <h3 class="text-sm font-semibold text-gray-950 dark:text-white">
-                        Latest contact messages
-                    </h3>
+                <section class="gs-dashboard-activity__column" aria-labelledby="gs-dashboard-contact-title">
+                    <div class="gs-dashboard-activity__column-heading">
+                        <span class="gs-dashboard-activity__column-icon" aria-hidden="true">
+                            <x-heroicon-o-inbox />
+                        </span>
 
-                    <div class="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 bg-white dark:divide-white/10 dark:border-white/10 dark:bg-white/5">
+                        <h3 id="gs-dashboard-contact-title">
+                            {{ __('admin_dashboard.widgets.activity.contacts_heading') }}
+                        </h3>
+                    </div>
+
+                    <div class="gs-dashboard-activity__feed">
                         @forelse ($contactMessages as $message)
-                            <div class="space-y-1 px-4 py-3">
-                                <p class="truncate text-sm font-medium text-gray-950 dark:text-white">
-                                    {{ $message->subject }}
-                                </p>
+                            <article class="gs-dashboard-activity__item">
+                                <span class="gs-dashboard-activity__item-icon" aria-hidden="true">
+                                    <x-heroicon-o-envelope />
+                                </span>
 
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
-                                    {{ $message->agency?->name_fr ?? 'General' }} · {{ $message->created_at?->diffForHumans() }}
-                                </p>
-                            </div>
+                                <div class="gs-dashboard-activity__item-body">
+                                    <p class="gs-dashboard-activity__item-title">
+                                        {{ filled($message->subject) ? $message->subject : __('admin_dashboard.widgets.activity.subject_fallback') }}
+                                    </p>
+
+                                    <p class="gs-dashboard-activity__item-meta">
+                                        <span>
+                                            {{ DashboardMetrics::localizedAgencyName($message->agency) ?? __('admin_dashboard.scopes.general') }}
+                                        </span>
+
+                                        @if ($message->created_at)
+                                            <span>{{ $message->created_at->diffForHumans() }}</span>
+                                        @endif
+                                    </p>
+                                </div>
+                            </article>
                         @empty
-                            <p class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
-                                No contact messages yet.
+                            <p class="gs-dashboard-activity__empty">
+                                <x-heroicon-o-check-circle aria-hidden="true" />
+                                <span>{{ __('admin_dashboard.widgets.activity.empty_contacts') }}</span>
                             </p>
                         @endforelse
                     </div>
@@ -40,25 +64,51 @@
             @endif
 
             @if ($canViewContent)
-                <section class="space-y-3">
-                    <h3 class="text-sm font-semibold text-gray-950 dark:text-white">
-                        Latest articles
-                    </h3>
+                <section class="gs-dashboard-activity__column" aria-labelledby="gs-dashboard-articles-title">
+                    <div class="gs-dashboard-activity__column-heading">
+                        <span class="gs-dashboard-activity__column-icon" aria-hidden="true">
+                            <x-heroicon-o-newspaper />
+                        </span>
 
-                    <div class="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 bg-white dark:divide-white/10 dark:border-white/10 dark:bg-white/5">
+                        <h3 id="gs-dashboard-articles-title">
+                            {{ __('admin_dashboard.widgets.activity.articles_heading') }}
+                        </h3>
+                    </div>
+
+                    <div class="gs-dashboard-activity__feed">
                         @forelse ($articles as $article)
-                            <div class="space-y-1 px-4 py-3">
-                                <p class="truncate text-sm font-medium text-gray-950 dark:text-white">
-                                    {{ $article->title_fr }}
-                                </p>
+                            @php
+                                $statusValue = $article->status?->value;
+                                $statusLabel = filled($statusValue)
+                                    ? ($statusLabels[$statusValue] ?? str($statusValue)->headline())
+                                    : null;
+                            @endphp
 
-                                <p class="text-xs text-gray-500 dark:text-gray-400">
-                                    {{ str($article->status->value)->headline() }} · {{ $article->updated_at?->diffForHumans() }}
-                                </p>
-                            </div>
+                            <article class="gs-dashboard-activity__item">
+                                <span class="gs-dashboard-activity__item-icon" aria-hidden="true">
+                                    <x-heroicon-o-document-text />
+                                </span>
+
+                                <div class="gs-dashboard-activity__item-body">
+                                    <p class="gs-dashboard-activity__item-title">
+                                        {{ DashboardMetrics::localizedArticleTitle($article) }}
+                                    </p>
+
+                                    <p class="gs-dashboard-activity__item-meta">
+                                        @if ($statusLabel)
+                                            <span>{{ $statusLabel }}</span>
+                                        @endif
+
+                                        @if ($article->updated_at)
+                                            <span>{{ $article->updated_at->diffForHumans() }}</span>
+                                        @endif
+                                    </p>
+                                </div>
+                            </article>
                         @empty
-                            <p class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
-                                No articles yet.
+                            <p class="gs-dashboard-activity__empty">
+                                <x-heroicon-o-check-circle aria-hidden="true" />
+                                <span>{{ __('admin_dashboard.widgets.activity.empty_articles') }}</span>
                             </p>
                         @endforelse
                     </div>

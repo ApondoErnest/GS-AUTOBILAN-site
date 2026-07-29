@@ -139,11 +139,14 @@ it('enforces S084 booking and document-readiness authorization by staff role', f
     $contentManager = s084StaffUser('content_manager');
 
     expect($superAdmin->can('viewAny', Booking::class))->toBeTrue();
+    expect($superAdmin->can('create', Booking::class))->toBeFalse();
+    expect($superAdmin->can('create', DocumentReadiness::class))->toBeFalse();
     expect($superAdmin->can('update', $booking))->toBeTrue();
     expect($superAdmin->can('update', $otherDocumentReadiness))->toBeTrue();
 
     expect($agencyAdmin->can('viewAny', Booking::class))->toBeTrue();
-    expect($agencyAdmin->can('create', Booking::class))->toBeTrue();
+    expect($agencyAdmin->can('create', Booking::class))->toBeFalse();
+    expect($agencyAdmin->can('create', DocumentReadiness::class))->toBeFalse();
     expect($agencyAdmin->can('view', $booking))->toBeTrue();
     expect($agencyAdmin->can('update', $booking))->toBeTrue();
     expect($agencyAdmin->can('delete', $booking))->toBeFalse();

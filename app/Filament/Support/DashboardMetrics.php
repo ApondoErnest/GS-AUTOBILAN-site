@@ -50,7 +50,7 @@ class DashboardMetrics
                 ->ordered()
                 ->get()
                 ->map(fn (Agency $agency): array => [
-                    'label' => $agency->name_fr,
+                    'label' => self::localizedAgencyName($agency) ?? (string) __('admin_dashboard.scopes.general'),
                     'count' => (int) $agency->bookings_count,
                 ]);
         }
@@ -61,7 +61,7 @@ class DashboardMetrics
                 ->withCount('bookings')
                 ->get()
                 ->map(fn (Agency $agency): array => [
-                    'label' => $agency->name_fr,
+                    'label' => self::localizedAgencyName($agency) ?? (string) __('admin_dashboard.scopes.general'),
                     'count' => (int) $agency->bookings_count,
                 ]);
         }
@@ -130,6 +130,32 @@ class DashboardMetrics
     public static function canViewContent(User $user): bool
     {
         return $user->hasAnyRole(['super_admin', 'content_manager']);
+    }
+
+    public static function localizedAgencyName(?Agency $agency): ?string
+    {
+        if (! $agency) {
+            return null;
+        }
+
+        $locale = app()->getLocale() === 'en' ? 'en' : 'fr';
+        $localizedName = $agency->getAttribute("name_{$locale}")
+            ?: $agency->name_fr
+            ?: $agency->name_en;
+
+        return filled($localizedName) ? (string) $localizedName : null;
+    }
+
+    public static function localizedArticleTitle(Article $article): string
+    {
+        $locale = app()->getLocale() === 'en' ? 'en' : 'fr';
+        $localizedTitle = $article->getAttribute("title_{$locale}")
+            ?: $article->title_fr
+            ?: $article->title_en;
+
+        return filled($localizedTitle)
+            ? (string) $localizedTitle
+            : (string) __('admin_dashboard.widgets.activity.article_fallback');
     }
 
     public static function bookingQuery(User $user): Builder

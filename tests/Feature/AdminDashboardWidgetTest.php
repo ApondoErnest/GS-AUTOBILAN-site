@@ -46,10 +46,26 @@ it('renders the S050 dashboard widgets for super admins', function () {
 
     $this
         ->actingAs($superAdmin)
-        ->get('/admin')
+        ->get('/admin?locale=en')
         ->assertOk()
-        ->assertSee('Booking KPIs')
+        ->assertSee('Admin dashboard')
+        ->assertSee('Protected access')
+        ->assertSee('Operations overview')
         ->assertSee('Latest activity');
+});
+
+it('renders the admin dashboard in French when selected', function () {
+    s050SeedDashboardData();
+    $superAdmin = s050User('super_admin');
+
+    $this
+        ->actingAs($superAdmin)
+        ->get('/admin?locale=fr')
+        ->assertOk()
+        ->assertSee('Tableau de bord admin')
+        ->assertSee('Accès protégé')
+        ->assertSee('Vue opérationnelle')
+        ->assertSee('Dernière activité');
 });
 
 it('counts booking KPIs across all agencies for super admins', function () {

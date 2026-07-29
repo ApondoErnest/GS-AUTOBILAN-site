@@ -20,9 +20,18 @@ class DocumentReadinessPolicy
         return $this->ownsAgency($user, $documentReadiness->booking?->agency_id);
     }
 
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($ability === 'create') {
+            return null;
+        }
+
+        return $this->isSuperAdmin($user) ? true : null;
+    }
+
     public function create(User $user): bool
     {
-        return $this->isAgencyAdmin($user) && $user->assigned_agency_id !== null;
+        return false;
     }
 
     public function update(User $user, DocumentReadiness $documentReadiness): bool

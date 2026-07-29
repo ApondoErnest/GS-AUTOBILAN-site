@@ -96,7 +96,7 @@ it('passes the S080 public booking to admin confirmation to tracking happy path'
 
     Livewire::test(ListBookings::class)
         ->assertCanSeeTableRecords([$booking])
-        ->assertTableColumnFormattedStateSet('status', 'New request', $booking);
+        ->assertTableColumnFormattedStateSet('status', __('admin_bookings.statuses.booking.new_request'), $booking);
 
     Livewire::test(EditBooking::class, ['record' => $booking->id])
         ->fillForm([
