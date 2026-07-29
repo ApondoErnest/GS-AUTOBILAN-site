@@ -1,5 +1,12 @@
 <?php
 
+use App\Enums\ArticleStatus;
+use App\Models\Article;
+use App\Models\ArticleCategory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
+
 it('renders per-page bilingual SEO metadata with canonicals and hreflang alternates', function () {
     foreach (s074SeoPages() as $pageName => $page) {
         foreach (['fr', 'en'] as $locale) {
@@ -54,23 +61,56 @@ it('renders per-page bilingual SEO metadata with canonicals and hreflang alterna
     }
 });
 
-it('renders SEO metadata on placeholder article routes until S064 builds article pages', function () {
-    $routes = [
-        'fr' => '/fr/actualites/preparer-sa-visite',
-        'en' => '/en/news/prepare-your-visit',
-    ];
+it('renders SEO metadata on S064 published article detail routes', function () {
+    $category = ArticleCategory::query()->create([
+        'name_fr' => 'Conseils',
+        'name_en' => 'Advice',
+        'slug_fr' => 'conseils',
+        'slug_en' => 'advice',
+        'sort_order' => 1,
+        'is_active' => true,
+    ]);
 
-    foreach ($routes as $locale => $uri) {
-        $html = $this->get($uri)
+    Article::query()->create([
+        'category_id' => $category->id,
+        'title_fr' => 'Préparer sa visite',
+        'title_en' => 'Prepare your visit',
+        'slug_fr' => 'preparer-sa-visite',
+        'slug_en' => 'prepare-your-visit',
+        'summary_fr' => 'Résumé public.',
+        'summary_en' => 'Public summary.',
+        'content_fr' => 'Contenu public.',
+        'content_en' => 'Public content.',
+        'meta_title_fr' => 'Préparer sa visite · GS AUTOBILAN',
+        'meta_title_en' => 'Prepare your visit · GS AUTOBILAN',
+        'meta_description_fr' => 'Conseils pour préparer votre visite technique.',
+        'meta_description_en' => 'Advice to prepare your technical inspection.',
+        'status' => ArticleStatus::Published,
+        'published_at' => now()->subDay(),
+    ]);
+
+    foreach ([
+        'fr' => [
+            'uri' => '/fr/actualites/preparer-sa-visite',
+            'title' => 'Préparer sa visite · GS AUTOBILAN',
+            'description' => 'Conseils pour préparer votre visite technique.',
+            'alternate' => url('/en/news/prepare-your-visit'),
+        ],
+        'en' => [
+            'uri' => '/en/news/prepare-your-visit',
+            'title' => 'Prepare your visit · GS AUTOBILAN',
+            'description' => 'Advice to prepare your technical inspection.',
+            'alternate' => url('/fr/actualites/preparer-sa-visite'),
+        ],
+    ] as $locale => $page) {
+        $html = $this->get($page['uri'])
             ->assertOk()
             ->getContent();
 
-        $title = trans('news.article_meta_title', [], $locale);
-        $description = trans('news.article_meta_description', [], $locale);
-
-        $this->assertStringContainsString('<title>'.e($title).'</title>', $html);
-        $this->assertStringContainsString('<meta name="description" content="'.e($description).'">', $html);
-        $this->assertStringContainsString('<link rel="canonical" href="'.url($uri).'">', $html);
+        $this->assertStringContainsString('<title>'.e($page['title']).'</title>', $html);
+        $this->assertStringContainsString('<meta name="description" content="'.e($page['description']).'">', $html);
+        $this->assertStringContainsString('<link rel="canonical" href="'.url($page['uri']).'">', $html);
+        $this->assertStringContainsString('<link rel="alternate" hreflang="'.($locale === 'fr' ? 'en' : 'fr').'" href="'.$page['alternate'].'">', $html);
     }
 });
 

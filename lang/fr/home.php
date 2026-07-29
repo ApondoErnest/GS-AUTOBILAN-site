@@ -3,7 +3,7 @@
 return [
     'hero' => [
         'eyebrow' => 'Bienvenue chez GS AUTOBILAN',
-        'title' => "Votre sécurité,<br>c'est notre métier.",
+        'title' => 'Votre sécurité,<br>c’est notre métier.',
         'lead' => 'Centres professionnels de visite technique automobile à Yaoundé, avec un service rapide, transparent et orienté sécurité.',
         'trust_items' => [
             [

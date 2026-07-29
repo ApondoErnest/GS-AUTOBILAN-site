@@ -7,19 +7,23 @@ use App\Models\ArticleCategory;
 use App\Models\Faq;
 use App\Models\GalleryItem;
 use App\Models\Testimonial;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ContentService
 {
     /**
      * @return EloquentCollection<int, Article>
      */
-    public function publishedArticles(int $limit = 6): EloquentCollection
+    public function publishedArticles(int $limit = 6, ?ArticleCategory $category = null): EloquentCollection
     {
         return Article::query()
             ->with('category')
             ->published()
+            ->when($category, fn (Builder $query): Builder => $query->where('category_id', $category->id))
             ->latest('published_at')
             ->limit($limit)
             ->get();
@@ -40,6 +44,51 @@ class ContentService
                 ->published()
                 ->where("slug_{$fallbackLocale}", $slug)
                 ->first();
+    }
+
+    public function articleCategoryBySlug(string $slug, ?string $locale = null): ?ArticleCategory
+    {
+        $locale = $this->normalizeLocale($locale);
+        $fallbackLocale = $this->fallbackLocale();
+
+        return ArticleCategory::query()
+            ->active()
+            ->where("slug_{$locale}", $slug)
+            ->first()
+            ?? ArticleCategory::query()
+                ->active()
+                ->where("slug_{$fallbackLocale}", $slug)
+                ->first();
+    }
+
+    /**
+     * @return EloquentCollection<int, Article>
+     */
+    public function relatedArticles(Article $article, int $limit = 3): EloquentCollection
+    {
+        return Article::query()
+            ->with('category')
+            ->published()
+            ->whereKeyNot($article->id)
+            ->when($article->category_id, fn (Builder $query): Builder => $query->where('category_id', $article->category_id))
+            ->latest('published_at')
+            ->limit($limit)
+            ->get();
+    }
+
+    public function publicImageUrl(?string $path, string $fallback): string
+    {
+        $path = trim((string) $path);
+
+        if ($path === '') {
+            return $fallback;
+        }
+
+        if (Str::startsWith($path, ['http://', 'https://', '//', 'images/', '/images/', 'storage/', '/storage/'])) {
+            return $path;
+        }
+
+        return Storage::disk('public')->url($path);
     }
 
     /**

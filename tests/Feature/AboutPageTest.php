@@ -8,7 +8,7 @@ it('renders the about page hero in French', function () {
         ->assertSee('data-about-hero', false)
         ->assertSee('images/aboutpage/hero-about.png', false)
         ->assertSee('À propos de GS AUTOBILAN', false)
-        ->assertSee("Votre sécurité,<br>c'est notre métier.", false)
+        ->assertSee('Votre sécurité,<br>c’est notre métier.', false)
         ->assertSee('GS AUTOBILAN accompagne les automobilistes', false)
         ->assertSee('2 agences<br>opérationnelles', false)
         ->assertSee('Ouvert<br>les jours fériés', false)

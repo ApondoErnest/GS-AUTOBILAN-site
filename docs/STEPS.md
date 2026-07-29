@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S064** (Build News listing + article detail pages)
+**Current next step:** **S087** (Write Docker Compose stack)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -368,7 +368,7 @@
 
 ## Block J — Public website pages
 
-Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; continue from S064.
+Build order (modern plan): Home → Agencies → Booking shell → Tracking shell → Services → Tariffs → Visite Technique → Contact → News → About. S065 About was completed early by user direction; S064 News is now complete.
 
 ### S056 — Build Home page (all main sections)
 - [x] **Completed** — homepage sections built and verified in FR/EN: carousel photo hero, compact trust row, agency teaser cards, inspection/services preview, tariffs/why/gallery block, advice cards, final readiness CTA, and tightened responsive section rhythm (2026-07-16)
@@ -412,12 +412,12 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** Contact form + FAQ section + agency/DG details work.
 
 ### S064 — Build News listing + article detail pages
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — News listing and article detail pages are now live in FR/EN with published-article filtering, localized category query switching, localized detail slugs, article-specific SEO canonicals/alternates, related articles, public CTAs, and focused S064 coverage (2026-07-29).
 - **Depends on:** S063
 - **Done when:** Published articles list and open by slug.
 
 ### S065 — Build About page
-- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S064 is the next unchecked public-site step after S063 completion.
+- [x] **Completed out of sequence** — About page built and verified in FR/EN with photo hero, compact three-item trust row, mission/vision/values section, technician checklist section, agencies + direction cards without a call button, about image assets, tighter section rhythm, and current-page language switching (2026-07-16). S064 was later completed during S086.
 - **Depends on:** S064 in the original sequence; completed early by user direction
 - **Done when:** Mission/vision/values/DG block present.
 
@@ -426,18 +426,18 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block K — Booking module
 
 ### S066 — Wire booking form submit to BookingService
-- [x] **Completed out of sequence** — Public booking submit now posts through localized FR/EN routes, normalizes the S058 wizard fields into `BookingRequest`, creates the booking through `BookingService`, creates default `not_reviewed` document readiness, dispatches the existing admin notification event, and renders the generated `GS-YEAR-SEQUENCE` reference in the server-backed receipt (2026-07-26). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Public booking submit now posts through localized FR/EN routes, normalizes the S058 wizard fields into `BookingRequest`, creates the booking through `BookingService`, creates default `not_reviewed` document readiness, dispatches the existing admin notification event, and renders the generated `GS-YEAR-SEQUENCE` reference in the server-backed receipt (2026-07-26). S064 was later completed during S086.
 - **Detail:** [11-booking-module/README.md](11-booking-module/README.md)
 - **Depends on:** S057–S065 public pages complete (S065 is already complete out of sequence)
 - **Done when:** Valid submit creates booking + readiness + shows reference.
 
 ### S067 — Build booking confirmation screen + link to tracking
-- [x] **Completed out of sequence** — Booking confirmation now shows a dedicated server-backed confirmation screen with the generated `GS-YEAR-SEQUENCE`, normalized registration, bilingual next-step guidance, tracking credentials, and a tracking link that pre-fills reference + phone + plate on the tracking page (2026-07-27). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Booking confirmation now shows a dedicated server-backed confirmation screen with the generated `GS-YEAR-SEQUENCE`, normalized registration, bilingual next-step guidance, tracking credentials, and a tracking link that pre-fills reference + phone + plate on the tracking page (2026-07-27). S064 was later completed during S086.
 - **Depends on:** S066
 - **Done when:** User sees `GS-YEAR-SEQUENCE` and next steps.
 
 ### S068 — Verify admin can manage new booking end-to-end
-- [x] **Completed out of sequence** — Added end-to-end admin coverage proving an assigned agency admin can open a public-created booking, see it in Filament, move it from New Request through Pending Confirmation, Confirmed, Rescheduled, Cancelled, Completed, and No-show, and preserve confirmed date/time plus public/internal messages (2026-07-27). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Added end-to-end admin coverage proving an assigned agency admin can open a public-created booking, see it in Filament, move it from New Request through Pending Confirmation, Confirmed, Rescheduled, Cancelled, Completed, and No-show, and preserve confirmed date/time plus public/internal messages (2026-07-27). S064 was later completed during S086.
 - **Depends on:** S067
 - **Done when:** Staff can set Pending/Confirmed/etc. and confirmed datetime.
 
@@ -446,13 +446,13 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block L — Tracking module
 
 ### S069 — Wire tracking lookup (ref + phone + plate)
-- [x] **Completed out of sequence** — Tracking form now posts through `TrackingLookupRequest`, calls `TrackingService`, shows compact generic feedback for invalid/unmatched submissions, and renders a real safe public status panel only when reference + phone + vehicle registration all match; blank tracking pages no longer show the static demo result (2026-07-27). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Tracking form now posts through `TrackingLookupRequest`, calls `TrackingService`, shows compact generic feedback for invalid/unmatched submissions, and renders a real safe public status panel only when reference + phone + vehicle registration all match; blank tracking pages no longer show the static demo result (2026-07-27). S064 was later completed during S086.
 - **Detail:** [12-tracking-module/README.md](12-tracking-module/README.md)
 - **Depends on:** S068
 - **Done when:** Correct combo shows public status panel.
 
 ### S070 — Add generic failure message + rate limiting
-- [x] **Completed out of sequence** — Tracking failures now stay generic, invalid/unmatched submissions count against a requester-scoped five-attempt/15-minute limiter, throttled users receive compact localized feedback, and successful lookups clear prior failed attempts (2026-07-27). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Tracking failures now stay generic, invalid/unmatched submissions count against a requester-scoped five-attempt/15-minute limiter, throttled users receive compact localized feedback, and successful lookups clear prior failed attempts (2026-07-27). S064 was later completed during S086.
 - **Depends on:** S069
 - **Done when:** Wrong combo fails safely; repeated attempts limited.
 
@@ -461,19 +461,19 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block M — Bilingual completion
 
 ### S071 — Complete `lang/fr` and `lang/en` UI translation files
-- [x] **Completed out of sequence** — FR/EN UI translation files now have matching key coverage, inspection hero title keys are aligned, and Laravel validation dictionaries localize public form errors and field labels for booking, tracking, and contact submissions (2026-07-29). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — FR/EN UI translation files now have matching key coverage, inspection hero title keys are aligned, and Laravel validation dictionaries localize public form errors and field labels for booking, tracking, and contact submissions (2026-07-29). S064 was later completed during S086.
 - **Foundation note:** shared chrome strings started early before S033 using structured PHP files under `lang/fr/` and `lang/en/`; S071 completed the full forms/statuses/errors review.
 - **Detail:** [13-bilingual/README.md](13-bilingual/README.md)
 - **Depends on:** S070
 - **Done when:** Nav, buttons, forms, statuses translate.
 
 ### S072 — Audit all CMS `_fr` / `_en` content fields
-- [x] **Completed out of sequence** — `CmsBilingualAuditService` now checks active/published CMS records and bilingual settings JSON for empty required FR/EN public content fields, with feature coverage for passing live content, missing live fields, ignored draft/inactive records, and seeded base data (2026-07-29). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — `CmsBilingualAuditService` now checks active/published CMS records and bilingual settings JSON for empty required FR/EN public content fields, with feature coverage for passing live content, missing live fields, ignored draft/inactive records, and seeded base data (2026-07-29). S064 was later completed during S086.
 - **Depends on:** S071
 - **Done when:** No empty required EN/FR fields on published content.
 
 ### S073 — Manual bilingual review pass
-- [x] **Completed out of sequence** — Completed public pages were reviewed in FR/EN with a documented review log and repeatable smoke coverage for locale-specific page copy, document `lang`, placeholder absence, and unresolved translation-key leaks; S064 News remains pending and will need its own review when implemented (2026-07-29). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Completed public pages were reviewed in FR/EN with a documented review log and repeatable smoke coverage for locale-specific page copy, document `lang`, placeholder absence, and unresolved translation-key leaks; News was later included after the S064 implementation during S086 (2026-07-29).
 - **Depends on:** S072
 - **Done when:** Reviewer confirms no half-translated public pages.
 
@@ -482,18 +482,18 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block N — SEO and performance
 
 ### S074 — Add per-page meta titles/descriptions + hreflang
-- [x] **Completed out of sequence** — Public FR/EN routes now pass page-specific SEO payloads through `SEOService`, the shared layout renders title, meta description, canonical, OpenGraph, `hreflang`, and `x-default` tags, and coverage verifies bilingual metadata/alternates for all public page skeletons plus placeholder article metadata until S064 builds real article pages (2026-07-29). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Public FR/EN routes now pass page-specific SEO payloads through `SEOService`, the shared layout renders title, meta description, canonical, OpenGraph, `hreflang`, and `x-default` tags, and coverage verifies bilingual metadata/alternates for all public page skeletons plus content-specific article metadata after S064 built real article pages (2026-07-29). S064 was later completed during S086.
 - **Detail:** [14-seo-performance/README.md](14-seo-performance/README.md)
 - **Depends on:** S073
 - **Done when:** Each public page has bilingual meta + alternates.
 
 ### S075 — Add sitemap.xml, robots.txt, JSON-LD LocalBusiness
-- [x] **Completed out of sequence** — `/sitemap.xml` now generates localized public URLs with FR/EN/x-default alternates and published article URLs when present, `/robots.txt` disallows `/admin` and points to the sitemap, and the Agencies page renders per-agency LocalBusiness JSON-LD for Nkolbisson and Obili Scalom (2026-07-29). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — `/sitemap.xml` now generates localized public URLs with FR/EN/x-default alternates and published article URLs when present, `/robots.txt` disallows `/admin` and points to the sitemap, and the Agencies page renders per-agency LocalBusiness JSON-LD for Nkolbisson and Obili Scalom (2026-07-29). S064 was later completed during S086.
 - **Depends on:** S074
 - **Done when:** Sitemap generated; `/admin` disallowed; agency schema present.
 
 ### S076 — Optimize images and public asset loading
-- [x] **Completed out of sequence** — Public raster assets now ship WebP siblings while retaining PNG fallbacks, shared Blade image rendering outputs WebP `<source>` elements with lazy/async loading by default, public page heroes use eager loading with high fetch priority, the tariffs CSS background uses `image-set()`, and coverage guards WebP usage plus the lightweight non-SPA frontend entry (2026-07-29). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Public raster assets now ship WebP siblings while retaining PNG fallbacks, shared Blade image rendering outputs WebP `<source>` elements with lazy/async loading by default, public page heroes use eager loading with high fetch priority, the tariffs CSS background uses `image-set()`, and coverage guards WebP usage plus the lightweight non-SPA frontend entry (2026-07-29). S064 was later completed during S086.
 - **Depends on:** S075
 - **Done when:** Lazy loading / WebP (or equivalent) in place; no heavy SPA.
 
@@ -502,18 +502,18 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block O — Security
 
 ### S077 — Apply honeypot + rate limits on public forms
-- [x] **Completed out of sequence** — Booking, tracking, and contact forms now render hidden honeypot fields and submit through explicit spam-protection middleware; booking/contact submissions are limited to five attempts per requester over fifteen minutes with localized generic feedback, and tracking keeps the S070 failed-lookup limiter behind the same honeypot protection (2026-07-29). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Booking, tracking, and contact forms now render hidden honeypot fields and submit through explicit spam-protection middleware; booking/contact submissions are limited to five attempts per requester over fifteen minutes with localized generic feedback, and tracking keeps the S070 failed-lookup limiter behind the same honeypot protection (2026-07-29). S064 was later completed during S086.
 - **Detail:** [15-security/README.md](15-security/README.md)
 - **Depends on:** S076
 - **Done when:** Booking, tracking, contact protected.
 
 ### S078 — Harden uploads and confirm audit logging
-- [x] **Completed out of sequence** — Admin image uploads now share a hardened FileUpload configuration with JPEG/PNG/WebP MIME allow-listing, `jpg/jpeg/png/webp` extension validation, a 2 MB size cap, public-disk scoped directories, and server-generated UUID filenames; key admin workflow/content/settings/staff changes now emit Spatie activity logs with tracked changes in `attribute_changes` and password fields excluded from user audit payloads (2026-07-29). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Admin image uploads now share a hardened FileUpload configuration with JPEG/PNG/WebP MIME allow-listing, `jpg/jpeg/png/webp` extension validation, a 2 MB size cap, public-disk scoped directories, and server-generated UUID filenames; key admin workflow/content/settings/staff changes now emit Spatie activity logs with tracked changes in `attribute_changes` and password fields excluded from user audit payloads (2026-07-29). S064 was later completed during S086.
 - **Depends on:** S077
 - **Done when:** Upload mime/size rules work; key admin actions logged.
 
 ### S079 — Write and test backup restore procedure (local/docs)
-- [x] **Completed out of sequence** — Added a local backup/restore procedure covering database, public uploaded media, environment references, SQLite restore, and future MySQL restore shape; added and ran `scripts/backup-restore-smoke.sh`, which migrated/seeded a disposable SQLite database, backed up the database plus sample media, damaged the source, restored into a separate target, and verified restored agencies/settings/media (2026-07-29). S064 remains the first unchecked public-site step.
+- [x] **Completed out of sequence** — Added a local backup/restore procedure covering database, public uploaded media, environment references, SQLite restore, and future MySQL restore shape; added and ran `scripts/backup-restore-smoke.sh`, which migrated/seeded a disposable SQLite database, backed up the database plus sample media, damaged the source, restored into a separate target, and verified restored agencies/settings/media (2026-07-29). S064 was later completed during S086.
 - **Depends on:** S078
 - **Done when:** Backup steps documented and restore tested at least once.
 
@@ -522,33 +522,33 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block P — Testing
 
 ### S080 — Run booking workflow test (submit → admin → tracking)
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Added and ran the S080 booking workflow smoke test: a public French booking submission creates `GS-2026-000001`, assigned Agency Admin staff confirm the booking and document readiness through Filament, and the customer tracking lookup returns the appointment/document public state while hiding customer/private/internal fields (2026-07-29). S064 was later completed during S086.
 - **Detail:** [16-testing/README.md](16-testing/README.md)
 - **Depends on:** S079
 - **Done when:** Full happy path passes manually.
 
 ### S081 — Run tracking security tests (wrong fields + rate limit)
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Added and ran the S081 tracking security smoke test: wrong reference, wrong phone, and wrong vehicle registration all return generic failed lookup feedback without rendering a tracking result or private/customer/internal fields, and the sixth failed lookup from one requester is throttled with retry/rate-limit headers (2026-07-29). S064 was later completed during S086.
 - **Depends on:** S080
 - **Done when:** Failures are safe; rate limit triggers.
 
 ### S082 — Run role isolation tests (Agency Admin)
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Added and ran the S082 Agency Admin role isolation smoke test: assigned Agency Admin users only see their agency's Filament agency, booking, document-readiness, contact-message, select-option, direct-edit, and dashboard booking-metric records; other-agency/unassigned records stay unavailable, and unassigned Agency Admin users are forbidden from scoped operational resources (2026-07-29). S064 was later completed during S086.
 - **Depends on:** S081
 - **Done when:** Agency Admin cannot see other agency records.
 
 ### S083 — Run bilingual + responsive + browser smoke tests
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Added and ran the S083 bilingual responsive browser smoke: completed public pages render in FR/EN, a browser matrix passed 36 page/locale/viewport checks at 390 × 844 and 1440 × 900 with no horizontal overflow or console errors, the mobile menu opened/closed, and a repeatable Pest companion now guards locale, viewport meta, mobile-nav hooks, language alternates, placeholder absence, and untranslated-key leakage (2026-07-29). S064 News was later implemented and included in the repeatable guard during S086.
 - **Depends on:** S082
 - **Done when:** FR/EN and mobile/desktop smoke checks pass.
 
 ### S084 — Add Pest tests (reference uniqueness, tracking, authorization)
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Added S084 critical workflow Pest coverage for booking reference uniqueness when stored sequence state trails existing rows, public tracking success/failure through service and route behavior, and booking/document-readiness authorization across Super Admin, assigned Agency Admin, unassigned Agency Admin, and Content Manager roles (2026-07-29). S064 was later completed during S086.
 - **Depends on:** S083
 - **Done when:** Automated tests pass in CI/local.
 
 ### S085 — Verify all public contact content (phones, addresses, hours, slogan)
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Verified and corrected public contact content against the confirmed company-data source of truth: agency phones/emails, Direction Générale address/BP/phone/email links, footer secondary phone prefixes, compact Obili Sunday hours, French slogan punctuation, and seeded agency/settings data now have repeatable Pest coverage (2026-07-29). S064 was later completed during S086.
 - **Depends on:** S084
 - **Done when:** Content matches confirmed company data.
 
@@ -557,7 +557,7 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block Q — Local stabilization
 
 ### S086 — Complete local stabilization checklist
-- [ ] **Pending**
+- [x] **Completed** — Phase 17 local stabilization checklist is complete: all public pages including News render, admin/workflow/form/security/role guards passed, the public link crawl has no 404/500 internal links, assets build successfully, and the full Pest suite passes locally (2026-07-29).
 - **Detail:** [17-local-stabilization/README.md](17-local-stabilization/README.md)
 - **Depends on:** S085
 - **Done when:** All checklist items in Phase 17 README are checked.
@@ -647,17 +647,17 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | G Database | S035–S039 | Completed |
 | H Backend | S040–S047 | Completed |
 | I Admin | S048–S055 | Completed |
-| J Public pages | S056–S065 | In progress |
-| K Booking | S066–S068 | Locked |
-| L Tracking | S069–S070 | Locked |
+| J Public pages | S056–S065 | Completed |
+| K Booking | S066–S068 | Completed |
+| L Tracking | S069–S070 | Completed |
 | M Bilingual | S071–S073 | Completed |
 | N SEO | S074–S076 | Completed |
 | O Security | S077–S079 | Completed |
-| P Testing | S080–S085 | Locked |
-| Q Stabilize | S086 | Locked |
-| R Docker | S087–S088 | Locked |
+| P Testing | S080–S085 | Completed |
+| Q Stabilize | S086 | Completed |
+| R Docker | S087–S088 | In progress |
 | S VPS | S089–S091 | Locked |
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 73 · **Remaining:** 23 · **Next:** S064
+**Total steps:** 96 · **Completed:** 81 · **Remaining:** 15 · **Next:** S087

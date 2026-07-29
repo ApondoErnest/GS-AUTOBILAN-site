@@ -178,6 +178,13 @@
                         <span>{{ $desk['head_office']['address'] }}</span>
                     </p>
 
+                    @if (filled($desk['head_office']['box'] ?? null))
+                        <p class="flex gap-3 sm:gap-4">
+                            <x-heroicon-o-building-office-2 class="mt-0.5 h-4 w-4 shrink-0 text-gs-grey sm:h-6 sm:w-6" aria-hidden="true" />
+                            <span>{{ $desk['head_office']['box'] }}</span>
+                        </p>
+                    @endif
+
                     <p class="flex gap-3 sm:gap-4">
                         <x-heroicon-s-phone class="mt-0.5 h-4 w-4 shrink-0 text-gs-grey sm:h-6 sm:w-6" aria-hidden="true" />
                         <span>{{ $desk['head_office']['phone'] }}</span>

@@ -4,51 +4,49 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-it('renders completed public pages in each locale without half-translated review leaks', function () {
+it('keeps S083 completed public pages bilingual and responsive-ready', function (string $pageName, array $localizedPages) {
     $translationKeyPattern = '/(?<![\w-])(?:about|actions|agencies|booking|chrome|contact|footer|home|inspection|nav|news|services|tariffs|tracking|validation)\.[A-Za-z0-9_.-]+(?![\w-])/';
 
-    foreach (s073ReviewedPublicPages() as $pageName => $localizedPages) {
-        foreach (['fr', 'en'] as $locale) {
-            $otherLocale = $locale === 'fr' ? 'en' : 'fr';
-            $page = $localizedPages[$locale];
-            $otherPage = $localizedPages[$otherLocale];
-            $html = $this->get($page['uri'])
-                ->assertOk()
-                ->getContent();
+    foreach (['fr', 'en'] as $locale) {
+        $page = $localizedPages[$locale];
+        $otherLocale = $locale === 'fr' ? 'en' : 'fr';
+        $otherPage = $localizedPages[$otherLocale];
+        $html = $this->get($page['uri'])
+            ->assertOk()
+            ->getContent();
 
-            $this->assertStringContainsString(
-                '<html lang="'.$locale.'"',
-                $html,
-                "{$pageName} did not render with the {$locale} document locale.",
-            );
-            $this->assertStringContainsString(
-                $page['expected'],
-                $html,
-                "{$pageName} did not render its expected {$locale} review copy.",
-            );
-            $this->assertStringNotContainsString(
-                $otherPage['expected'],
-                $html,
-                "{$pageName} leaked the {$otherLocale} review copy on the {$locale} page.",
-            );
-            $this->assertStringNotContainsString(
-                'Placeholder for home modules.',
-                $html,
-                "{$pageName} rendered a placeholder shell.",
-            );
-            $this->assertDoesNotMatchRegularExpression(
-                $translationKeyPattern,
-                $html,
-                "{$pageName} rendered an untranslated key on the {$locale} page.",
-            );
-        }
+        expect($html)
+            ->toContain('<html lang="'.$locale.'"')
+            ->toContain('<meta name="viewport" content="width=device-width, initial-scale=1">')
+            ->toContain('id="gs-mobile-menu"')
+            ->toContain('data-mobile-menu-open')
+            ->toContain('data-mobile-menu-close')
+            ->toContain($page['expected'])
+            ->toContain('href="'.$page['uri'].'"')
+            ->toContain('href="'.$otherPage['uri'].'"')
+            ->not->toContain('Placeholder for home modules.');
+
+        expect(strip_tags($html))
+            ->not->toMatch($translationKeyPattern, "{$pageName} rendered an untranslated key on the {$locale} page.");
     }
-});
+})->with(s083CompletedPublicPageDataset());
+
+/**
+ * @return array<string, array{0: string, 1: array{fr: array{uri: string, expected: string}, en: array{uri: string, expected: string}}}>
+ */
+function s083CompletedPublicPageDataset(): array
+{
+    return collect(s083CompletedPublicPages())
+        ->mapWithKeys(fn (array $localizedPages, string $pageName): array => [
+            $pageName => [$pageName, $localizedPages],
+        ])
+        ->all();
+}
 
 /**
  * @return array<string, array{fr: array{uri: string, expected: string}, en: array{uri: string, expected: string}}>
  */
-function s073ReviewedPublicPages(): array
+function s083CompletedPublicPages(): array
 {
     return [
         'home' => [
@@ -64,11 +62,11 @@ function s073ReviewedPublicPages(): array
         'about' => [
             'fr' => [
                 'uri' => '/fr/a-propos',
-                'expected' => 'Notre mission',
+                'expected' => 'À propos de GS AUTOBILAN',
             ],
             'en' => [
                 'uri' => '/en/about',
-                'expected' => 'Our mission',
+                'expected' => 'About GS AUTOBILAN',
             ],
         ],
         'agencies' => [

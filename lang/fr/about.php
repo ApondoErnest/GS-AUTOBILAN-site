@@ -5,7 +5,7 @@ return [
     'meta_description' => 'Découvrez la mission, les valeurs et les agences GS AUTOBILAN dédiées à la visite technique automobile à Yaoundé.',
     'hero' => [
         'eyebrow' => 'À propos de GS AUTOBILAN',
-        'title' => "Votre sécurité,<br>c'est notre métier.",
+        'title' => 'Votre sécurité,<br>c’est notre métier.',
         'lead' => 'GS AUTOBILAN accompagne les automobilistes, transporteurs, chauffeurs professionnels et entreprises dans leurs démarches de visite technique automobile à Yaoundé, avec un contrôle sérieux, une organisation claire et un service accessible.',
         'stats' => [
             [
@@ -28,7 +28,7 @@ return [
             'GS AUTOBILAN met à la disposition des usagers un cadre professionnel pour la visite technique automobile.',
             "Notre approche repose sur la sécurité, la clarté du processus et l'accompagnement des conducteurs avant, pendant et après leur passage au centre.",
         ],
-        'signature' => "Votre sécurité,<br>c'est notre métier.",
+        'signature' => 'Votre sécurité,<br>c’est notre métier.',
         'cards' => [
             [
                 'title' => 'Notre mission',

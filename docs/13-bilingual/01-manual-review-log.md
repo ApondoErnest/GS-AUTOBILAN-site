@@ -16,6 +16,7 @@
 | Technical inspection | `/fr/visite-technique` | `/en/technical-inspection` | Passed |
 | Booking | `/fr/rendez-vous` | `/en/booking` | Passed |
 | Tracking | `/fr/suivi-rendez-vous` | `/en/appointment-tracking` | Passed |
+| News | `/fr/actualites` | `/en/news` | Passed via S086 guard |
 | Contact | `/fr/contact` | `/en/contact` | Passed |
 
 ## Checks performed
@@ -30,5 +31,5 @@
 
 ## Notes
 
-- S064 News listing and article detail pages are still pending, so the future News UI must be reviewed when S064 is implemented.
+- S064 News listing and article detail pages were added during S086; `BilingualPublicPageReviewTest`, `BilingualResponsiveBrowserSmokeTest`, `NewsPageTest`, and `LocalStabilizationChecklistTest` now cover the FR/EN News listing, localized filters, localized article slugs, and article detail alternates.
 - Intentional bilingual labels such as `FR / EN`, brand names, agency names, phone numbers, URLs, and Cameroon-specific terms were treated as shared content, not translation leaks.

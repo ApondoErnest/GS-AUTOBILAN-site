@@ -1,12 +1,12 @@
 # Bilingual implementation — V1
 
-**Version:** 1.2 · **Steps:** S071–S073
+**Version:** 1.3 · **Steps:** S071–S073
 
 - Default: **French** · Secondary: **English**  
 - URLs: `/fr` · `/en` with localized slugs  
 - CMS: `_fr` / `_en` fields  
 - UI: structured PHP translation files under `lang/fr/` · `lang/en/`  
-- Language switcher: preserve the matching localized route when available, e.g. `/fr/a-propos` ↔ `/en/about`; fall back to the locale home only when a page has no counterpart.
+- Language switcher: preserve the matching localized route when available, e.g. `/fr/a-propos` ↔ `/en/about`; localized article slugs and News category query slugs switch to their FR/EN counterparts; fall back to the locale home only when a page has no counterpart.
 - Translate: menus, buttons, forms, validation, statuses, FAQ, footer, SEO, tracking errors  
 - Manual review before launch — avoid machine-only translation  
 
@@ -26,7 +26,7 @@
 ## S073 status
 
 - Manual review recorded in [01-manual-review-log.md](01-manual-review-log.md) for Home, About, Agencies, Services, Tariffs, Technical inspection, Booking, Tracking, and Contact in FR/EN.
-- `BilingualPublicPageReviewTest` renders each completed public page in both locales and checks locale-specific copy, document `lang`, placeholder absence, and unresolved translation-key leaks.
-- S064 News remains pending and must receive its own bilingual review when the listing/detail UI is implemented.
+- `BilingualPublicPageReviewTest` renders each completed public page, including News after S064, in both locales and checks locale-specific copy, document `lang`, placeholder absence, and unresolved translation-key leaks.
+- S064 added News listing/detail bilingual coverage for localized category filters, article slugs, language-switch alternates, and article detail SEO.
 
 **Acceptance:** Every public page and public message available in FR and EN.

@@ -1,5 +1,12 @@
 <?php
 
+use App\Enums\ArticleStatus;
+use App\Models\Article;
+use App\Models\ArticleCategory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
+
 it('redirects the root path to the default French home page', function () {
     $this->get('/')->assertRedirect('/fr/accueil');
 });
@@ -76,6 +83,29 @@ it('keeps French and English UI translation files structurally aligned', functio
 });
 
 it('registers the localized public route skeletons', function () {
+    $category = ArticleCategory::query()->create([
+        'name_fr' => 'Conseils',
+        'name_en' => 'Advice',
+        'slug_fr' => 'conseils',
+        'slug_en' => 'advice',
+        'sort_order' => 1,
+        'is_active' => true,
+    ]);
+
+    Article::query()->create([
+        'category_id' => $category->id,
+        'title_fr' => 'Préparer sa visite',
+        'title_en' => 'Prepare your visit',
+        'slug_fr' => 'preparer-sa-visite',
+        'slug_en' => 'prepare-your-visit',
+        'summary_fr' => 'Résumé public.',
+        'summary_en' => 'Public summary.',
+        'content_fr' => 'Contenu public.',
+        'content_en' => 'Public content.',
+        'status' => ArticleStatus::Published,
+        'published_at' => now()->subDay(),
+    ]);
+
     $this->get('/fr/contact')->assertOk()->assertSee('Contact', false);
     $this->get('/en/contact')->assertOk()->assertSee('Contact', false);
     $this->get('/fr/actualites/preparer-sa-visite')->assertOk();

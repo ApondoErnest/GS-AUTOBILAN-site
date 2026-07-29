@@ -1,6 +1,6 @@
 # Public website implementation — V1
 
-**Steps:** S056–S065 · **Status:** S056–S063 and S065 complete; S064 next · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
+**Steps:** S056–S065 · **Status:** Complete · Sitemap: [../01-project-documentation/03-sitemap.md](../01-project-documentation/03-sitemap.md)
 
 ---
 
@@ -8,7 +8,7 @@
 
 1. Home · 2. Agencies · 3. Booking shell · 4. Tracking shell · 5. Services · 6. Tariffs · 7. Visite Technique · 8. Contact + FAQ · 9. News · 10. About  
 
-S065 About was completed early by user direction; continue the remaining public build from S064 News page.
+S065 About was completed early by user direction; S064 News was completed during the S086 stabilization pass.
 
 *(Chrome: navy+red strip · white header · banded footer — Block F / S031.)*
 
@@ -26,7 +26,7 @@ S065 About was completed early by user direction; continue the remaining public 
 | S061 | Tariffs | Complete | Implemented in `resources/views/pages/tariffs.blade.php` with FR/EN translations, compact authority hero, official tariff navigator, price passport panels, matrix search/filter controls, desktop table, mobile tariff cards, print/download/share/reset hooks, clarification tiles, supplied tariff images, and focused feature tests. |
 | S062 | Visite Technique | Complete | Implemented in `resources/views/pages/technical-inspection.blade.php` with FR/EN translations, compact inspection-bay hero, why-it-matters cards, control-point grid, passage process, educational result outcomes, preparation cards, normalized inspection assets, and focused feature tests. |
 | S063 | Contact + FAQ | Complete | Implemented in `resources/views/pages/contact.blade.php` with FR/EN translations, compact smart router, generated contact icons, agency contact/map panels, live Google map embeds, Message Desk form, Direction Générale — Bastos card, query-string agency preselection, contact POST handling, compact FAQ accordion, and focused feature tests. |
-| S064 | News | Next | Build published article listing, filtering, localized detail pages, related content, and public CTAs from article data. |
+| S064 | News | Complete | Implemented in `resources/views/pages/news.blade.php` and `resources/views/pages/article-show.blade.php` with published article listing, category filtering, localized detail pages, related content, article SEO, localized query switching, and focused feature tests. |
 | S065 | About | Complete (built early) | Implemented in `resources/views/pages/about.blade.php` with FR/EN translations, `public/images/aboutpage/hero-about.png`, `technician-about.png`, and focused page/language-switch tests. |
 
 ---
@@ -43,7 +43,7 @@ S065 About was completed early by user direction; continue the remaining public 
 | Tariffs | Complete: compact authority hero · official category navigator · price passports · searchable/filterable matrix · mobile cards · print/download/share/reset hooks · clarification tiles · booking category links · FR/EN |
 | Visite Technique | Complete: compact photo hero · what/why · principal checks · passage procedure · educational result outcomes · documents/preparation checklist · no lane-data tracking · FR/EN |
 | Contact | Complete: smart contact router · agency contact/map panels · live Google maps · Message Desk form · administrative DG Bastos card · FAQ accordion · mobile sticky actions · FR/EN |
-| News | Listing · filters · detail · related · CTAs |
+| News | Complete: published article listing · category filters · localized detail slugs · related articles · article SEO · booking/contact CTAs · FR/EN |
 | About | Complete: photo hero · three-item trust row · mission/vision/values · technician checklist · agencies/direction cards · FR/EN |
 
 ---
@@ -139,6 +139,15 @@ All public pages work FR/EN, mobile-friendly, DB-driven where required.
 - The Message Desk section uses a 256px desktop inset, compact mobile spacing, agency preselection from `?agence=nkolbisson` or `?agence=obili-scalom`, and the administrative Direction Générale — Bastos card without a booking CTA.
 - The FAQ section uses a compact accordion, removes the quick assistance CTA, and uses a 128px desktop inset.
 - Coverage: `tests/Feature/ContactPageTest.php`, `npm run build`, and responsive implementation checks during the page build.
+
+## News implementation notes
+
+- The bilingual copy lives in `lang/fr/news.php` and `lang/en/news.php`; the views are `resources/views/pages/news.blade.php` and `resources/views/pages/article-show.blade.php`.
+- Routes now point `/fr/actualites` and `/en/news` to the published article listing, with optional localized `category` filtering.
+- Article detail routes use localized slugs at `/fr/actualites/{slug}` and `/en/news/{slug}`, with language switching mapped to the matching translated slug.
+- Article detail pages render category/date/title/summary/body, a featured image fallback, booking/contact CTAs, related published articles from the same category, and content-specific canonical/hreflang/OpenGraph metadata.
+- Filtered listing language switching localizes query slugs, for example `/fr/actualites?category=conseils` ↔ `/en/news?category=advice`.
+- Coverage: `tests/Feature/NewsPageTest.php`, `tests/Feature/PublicSeoMetadataTest.php`, `tests/Feature/LocaleRoutingTest.php`, `tests/Feature/BilingualPublicPageReviewTest.php`, `tests/Feature/BilingualResponsiveBrowserSmokeTest.php`, and `tests/Feature/LocalStabilizationChecklistTest.php`.
 
 ## About implementation notes
 

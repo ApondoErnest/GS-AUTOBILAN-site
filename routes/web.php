@@ -6,12 +6,15 @@ use App\Http\Requests\TrackingLookupRequest;
 use App\Models\Booking;
 use App\Services\BookingService;
 use App\Services\ContactMessageService;
+use App\Services\ContentService;
 use App\Services\SEOService;
 use App\Services\TrackingService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 Route::redirect('/', '/fr/accueil');
 
@@ -35,7 +38,7 @@ $localizedPages = [
         ['uri' => 'visite-technique', 'name' => 'technical_inspection', 'view' => 'pages.technical-inspection', 'title' => 'inspection.meta_title', 'description' => 'inspection.meta_description'],
         ['uri' => 'rendez-vous', 'name' => 'booking', 'view' => 'pages.booking', 'title' => 'booking.meta_title', 'description' => 'booking.meta_description'],
         ['uri' => 'suivi-rendez-vous', 'name' => 'tracking', 'view' => 'pages.tracking', 'title' => 'tracking.meta_title', 'description' => 'tracking.meta_description'],
-        ['uri' => 'actualites', 'name' => 'news', 'title' => 'news.meta_title', 'description' => 'news.meta_description'],
+        ['uri' => 'actualites', 'name' => 'news', 'view' => 'pages.news', 'title' => 'news.meta_title', 'description' => 'news.meta_description'],
         ['uri' => 'contact', 'name' => 'contact', 'view' => 'pages.contact', 'title' => 'contact.meta_title', 'description' => 'contact.meta_description'],
     ],
     'en' => [
@@ -47,7 +50,7 @@ $localizedPages = [
         ['uri' => 'technical-inspection', 'name' => 'technical_inspection', 'view' => 'pages.technical-inspection', 'title' => 'inspection.meta_title', 'description' => 'inspection.meta_description'],
         ['uri' => 'booking', 'name' => 'booking', 'view' => 'pages.booking', 'title' => 'booking.meta_title', 'description' => 'booking.meta_description'],
         ['uri' => 'appointment-tracking', 'name' => 'tracking', 'view' => 'pages.tracking', 'title' => 'tracking.meta_title', 'description' => 'tracking.meta_description'],
-        ['uri' => 'news', 'name' => 'news', 'title' => 'news.meta_title', 'description' => 'news.meta_description'],
+        ['uri' => 'news', 'name' => 'news', 'view' => 'pages.news', 'title' => 'news.meta_title', 'description' => 'news.meta_description'],
         ['uri' => 'contact', 'name' => 'contact', 'view' => 'pages.contact', 'title' => 'contact.meta_title', 'description' => 'contact.meta_description'],
     ],
 ];
@@ -58,7 +61,7 @@ foreach ($localizedPages as $locale => $pages) {
         ->middleware('setLocale')
         ->group(function () use ($pages, $locale): void {
             foreach ($pages as $page) {
-                Route::get($page['uri'], function (SEOService $seo) use ($page, $locale) {
+                Route::get($page['uri'], function (Request $request, SEOService $seo, ContentService $content) use ($page, $locale) {
                     $overrides = [
                         'title' => __($page['title']),
                         'description' => __($page['description']),
@@ -69,6 +72,30 @@ foreach ($localizedPages as $locale => $pages) {
                     }
 
                     $meta = $seo->forRoute($page['name'], locale: $locale, overrides: $overrides);
+
+                    if ($page['name'] === 'news') {
+                        $selectedCategory = filled($request->query('category'))
+                            ? $content->articleCategoryBySlug((string) $request->query('category'), $locale)
+                            : null;
+
+                        if ($selectedCategory) {
+                            $request->attributes->set('localized_query_parameters', collect(['fr', 'en'])
+                                ->mapWithKeys(fn (string $candidateLocale): array => [
+                                    $candidateLocale => ['category' => $selectedCategory->getAttribute("slug_{$candidateLocale}")],
+                                ])
+                                ->filter(fn (array $parameters): bool => filled($parameters['category'] ?? null))
+                                ->all());
+                        }
+
+                        return view($page['view'], [
+                            'seo' => $meta,
+                            'title' => $meta['title'],
+                            'articles' => $content->publishedArticles(12, $selectedCategory),
+                            'categories' => $content->activeArticleCategories(),
+                            'selectedCategory' => $selectedCategory,
+                            'content' => $content,
+                        ]);
+                    }
 
                     return view($page['view'] ?? 'pages.public-placeholder', [
                         'seo' => $meta,
@@ -194,28 +221,51 @@ foreach ($localizedPages as $locale => $pages) {
         });
 }
 
-Route::get('/fr/actualites/{slug}', function (string $slug, SEOService $seo) {
-    $meta = $seo->forRoute('article.show', ['slug' => $slug], 'fr', [
-        'title' => __('news.article_meta_title'),
-        'description' => __('news.article_meta_description'),
-    ]);
+$articleRoute = function (string $locale) {
+    return function (string $slug, Request $request, SEOService $seo, ContentService $content) use ($locale) {
+        $article = $content->articleBySlug($slug, $locale);
 
-    return view('pages.public-placeholder', [
-        'seo' => $meta,
-        'title' => $meta['title'],
-        'slug' => $slug,
-    ]);
-})->middleware('setLocale')->name('fr.article.show');
+        abort_unless($article, 404);
 
-Route::get('/en/news/{slug}', function (string $slug, SEOService $seo) {
-    $meta = $seo->forRoute('article.show', ['slug' => $slug], 'en', [
-        'title' => __('news.article_meta_title'),
-        'description' => __('news.article_meta_description'),
-    ]);
+        $localizedRouteParameters = collect(['fr', 'en'])
+            ->mapWithKeys(fn (string $candidateLocale): array => [
+                $candidateLocale => ['slug' => $article->getAttribute("slug_{$candidateLocale}")],
+            ])
+            ->filter(fn (array $parameters): bool => filled($parameters['slug'] ?? null))
+            ->all();
+        $request->attributes->set('localized_route_parameters', $localizedRouteParameters);
 
-    return view('pages.public-placeholder', [
-        'seo' => $meta,
-        'title' => $meta['title'],
-        'slug' => $slug,
-    ]);
-})->middleware('setLocale')->name('en.article.show');
+        $hreflang = collect($localizedRouteParameters)
+            ->mapWithKeys(fn (array $parameters, string $candidateLocale): array => [
+                $candidateLocale => route("{$candidateLocale}.article.show", $parameters),
+            ])
+            ->all();
+        $articleTitle = $content->localized($article, 'title', $locale) ?? __('news.article_meta_title');
+        $articleSummary = $content->localized($article, 'summary', $locale) ?? __('news.article_meta_description');
+        $metaTitle = $content->localized($article, 'meta_title', $locale) ?? $articleTitle.' · GS AUTOBILAN';
+        $metaDescription = $content->localized($article, 'meta_description', $locale) ?? $articleSummary;
+        $featuredImage = $content->publicImageUrl($article->featured_image, 'images/homepage/prepare-visit.png');
+        $ogImage = Str::startsWith($featuredImage, ['http://', 'https://', '//'])
+            ? $featuredImage
+            : asset($featuredImage);
+
+        return view('pages.article-show', [
+            'seo' => $seo->meta($locale, [
+                'title' => $metaTitle,
+                'description' => $metaDescription,
+                'canonical' => $hreflang[$locale] ?? null,
+                'hreflang' => $hreflang,
+                'og_image' => $ogImage,
+            ]),
+            'title' => $metaTitle,
+            'article' => $article,
+            'relatedArticles' => $content->relatedArticles($article),
+            'content' => $content,
+            'featuredImage' => $featuredImage,
+        ]);
+    };
+};
+
+Route::get('/fr/actualites/{slug}', $articleRoute('fr'))->middleware('setLocale')->name('fr.article.show');
+
+Route::get('/en/news/{slug}', $articleRoute('en'))->middleware('setLocale')->name('en.article.show');

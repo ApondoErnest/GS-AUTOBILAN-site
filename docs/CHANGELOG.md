@@ -1,5 +1,61 @@
 # Documentation changelog
 
+## 1.33 — 2026-07-29
+
+### Changed
+
+- **S064:** Built the public News listing and article detail pages with published article filtering, localized category queries, localized detail slugs, related articles, article-specific SEO metadata, and booking/contact CTAs.
+- **S086:** Completed the local stabilization checklist and added `tests/Feature/LocalStabilizationChecklistTest.php` to render all public pages, seeded News article detail routes, and crawl same-site links for 404/500 regressions.
+- The active roadmap/checklists now show **S064 and S086 complete** with **S087 Docker Compose** as the next step; the S086 stabilization bundle passed with 52 tests and 1,345 assertions.
+
+## 1.32 — 2026-07-29
+
+### Changed
+
+- **S085:** Verified public contact content against the confirmed company-data source of truth, covering agency phones/emails, addresses, opening hours, Direction Générale address/BP/phone/email, and the public slogan.
+- Corrected stale contact-page agency emails, stale Direction Générale contact values, missing Direction Générale BP display, footer secondary phone prefixes, compact Obili Sunday hours, and French slogan punctuation.
+- Added `tests/Feature/PublicContactContentVerificationTest.php` plus the S085 testing runbook/log; roadmap/testing notes now show **S080–S085 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.31 — 2026-07-29
+
+### Changed
+
+- **S084:** Added critical workflow Pest coverage for booking reference uniqueness when stored sequence state trails existing rows, tracking success/failure through service and public route behavior, and booking/document-readiness authorization by staff role and assigned agency.
+- Added `tests/Feature/CriticalWorkflowPestCoverageTest.php` as a repeatable CI/local guard for the S084 reference, tracking, and authorization acceptance checks.
+- Added the S084 testing runbook/log and updated the roadmap/testing notes to show **S080–S084 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.30 — 2026-07-29
+
+### Changed
+
+- **S083:** Added a bilingual responsive browser smoke pass covering completed public pages in FR/EN at mobile and desktop browser viewports, with horizontal-overflow, placeholder, translation-key, mobile-menu, and browser-console checks.
+- Added `tests/Feature/BilingualResponsiveBrowserSmokeTest.php` as a repeatable Pest companion for locale rendering, viewport meta, mobile navigation hooks, language alternates, placeholder absence, and untranslated-key leakage.
+- Added the S083 testing runbook/log and updated the roadmap/testing notes to show **S080–S083 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.29 — 2026-07-29
+
+### Changed
+
+- **S082:** Added an Agency Admin role isolation smoke test covering assigned-agency scoping across Filament agencies, bookings, document readiness, contact messages, scoped form options, direct edit URLs, and dashboard booking metrics.
+- Added unassigned Agency Admin assertions so scoped operational resources stay forbidden when no agency is assigned.
+- Added the S082 testing runbook/log and updated the roadmap/testing notes to show **S080–S082 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.28 — 2026-07-29
+
+### Changed
+
+- **S081:** Added a tracking security smoke test that verifies wrong reference, wrong phone, and wrong vehicle registration submissions stay generic and never render a tracking result.
+- Added rate-limit assertions for the sixth failed tracking lookup from the same requester, including retry/rate-limit headers and localized throttle feedback.
+- Added the S081 testing runbook/log and updated the roadmap/testing notes to show **S080–S081 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.27 — 2026-07-29
+
+### Changed
+
+- **S080:** Added a booking workflow smoke test that submits a public French booking, confirms the same request through Filament as assigned Agency Admin staff, updates document readiness, and verifies the customer tracking result.
+- Added the S080 testing runbook/log with the manual checklist and repeatable local command; tracking assertions verify public appointment/document messages while hiding customer email, customer name, internal booking notes, and private document notes.
+- Roadmap and testing notes now show **S080 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
 ## 1.26 — 2026-07-29
 
 ### Changed

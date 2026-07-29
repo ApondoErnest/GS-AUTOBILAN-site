@@ -4,21 +4,26 @@
     $currentLocale = app()->getLocale() ?: 'fr';
     $currentRouteName = request()->route()?->getName();
     $currentRouteParameters = request()->route()?->parameters() ?? [];
+    $localizedRouteParameters = request()->attributes->get('localized_route_parameters', []);
+    $localizedQueryParameters = request()->attributes->get('localized_query_parameters', []);
     $currentQuery = request()->query();
 
-    $localizedHref = function (string $locale) use ($currentRouteName, $currentRouteParameters, $currentQuery): string {
+    $localizedHref = function (string $locale) use ($currentRouteName, $currentRouteParameters, $localizedRouteParameters, $localizedQueryParameters, $currentQuery): string {
         $routeSuffix = preg_replace('/^(fr|en)\./', '', $currentRouteName ?? '');
         $routeName = $routeSuffix !== '' ? $locale.'.'.$routeSuffix : $locale.'.home';
+        $routeParameters = $localizedRouteParameters[$locale] ?? $currentRouteParameters;
+        $queryParameters = $localizedQueryParameters[$locale] ?? $currentQuery;
 
         if (! \Illuminate\Support\Facades\Route::has($routeName)) {
             $routeName = $locale.'.home';
-            $currentRouteParameters = [];
+            $routeParameters = [];
+            $queryParameters = [];
         }
 
-        $href = route($routeName, $currentRouteParameters, false);
+        $href = route($routeName, $routeParameters, false);
 
-        if ($currentQuery !== []) {
-            $href .= '?'.http_build_query($currentQuery);
+        if ($queryParameters !== []) {
+            $href .= '?'.http_build_query($queryParameters);
         }
 
         return $href;

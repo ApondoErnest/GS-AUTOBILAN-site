@@ -1,9 +1,9 @@
 # GS AUTOBILAN — Master technical plan (V1)
 
-**Type:** Technical roadmap (no code) · **Version:** 1.17 · **Updated:** 2026-07-29
+**Type:** Technical roadmap (no code) · **Version:** 1.24 · **Updated:** 2026-07-29
 **Slogan:** Votre sécurité, c’est notre métier.
 
-**Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096). First unchecked: **S064**. S066–S079 are complete out of sequence.
+**Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096). First unchecked: **S087**. S064 and S066–S086 are complete.
 **Company data:** [docs/01-project-documentation/00-company-data.md](docs/01-project-documentation/00-company-data.md)
 
 ---
@@ -78,15 +78,15 @@ Docs → Requirements → Local → Laravel → Architecture → Frontend
 | 7 Database | [docs/07-…](docs/07-database/) | S035–S039 |
 | 8 Backend | [docs/08-…](docs/08-backend/) | S040–S047 |
 | 9 Admin | [docs/09-…](docs/09-admin-dashboard/) | S048–S055 |
-| 10 Public site | [docs/10-…](docs/10-public-website/) | S056–S063 and S065 complete · S064 remaining |
+| 10 Public site | [docs/10-…](docs/10-public-website/) | S056–S065 complete |
 | 11 Booking | [docs/11-…](docs/11-booking-module/) | S066–S068 complete |
 | 12 Tracking | [docs/12-…](docs/12-tracking-module/) | S069–S070 complete |
 | 13 Bilingual | [docs/13-…](docs/13-bilingual/) | S071–S073 complete |
 | 14 SEO | [docs/14-…](docs/14-seo-performance/) | S074–S076 complete |
 | 15 Security | [docs/15-…](docs/15-security/) | S077–S079 complete |
-| 16 Testing | [docs/16-…](docs/16-testing/) | S080–S085 |
-| 17 Stabilize | [docs/17-…](docs/17-local-stabilization/) | S086 |
-| 18 Docker | [docs/18-…](docs/18-docker/) | S087–S088 |
+| 16 Testing | [docs/16-…](docs/16-testing/) | S080–S085 complete |
+| 17 Stabilize | [docs/17-…](docs/17-local-stabilization/) | S086 complete |
+| 18 Docker | [docs/18-…](docs/18-docker/) | S087–S088 next |
 | 19 VPS | [docs/19-…](docs/19-vps-deployment/) | S089–S091 |
 | 20 Launch | [docs/20-…](docs/20-launch/) | S092–S094 |
 | 21 Maintenance | [docs/21-…](docs/21-maintenance/) | S095–S096 |
@@ -117,4 +117,4 @@ Full: [docs/01-project-documentation/05-operational-workflows.md](docs/01-projec
 
 ## 8. Next
 
-Open **[docs/STEPS.md](docs/STEPS.md)** → first unchecked step (**S064**).
+Open **[docs/STEPS.md](docs/STEPS.md)** → first unchecked step (**S087**).

@@ -68,7 +68,7 @@ class BaseDataSeeder extends Seeder
                 'slug' => 'nkolbisson',
                 'name_fr' => 'GS AUTOBILAN Agence de Nkolbisson',
                 'name_en' => 'GS AUTOBILAN Nkolbisson Agency',
-                'address_fr' => 'Carrefour Onana, a cote de la station Ajaxx, venant de Dagobert',
+                'address_fr' => 'Carrefour Onana, à côté de la station Ajaxx, venant de Dagobert',
                 'address_en' => 'Carrefour Onana, next to Ajaxx station, coming from Dagobert',
                 'city' => 'Yaounde',
                 'quarter' => 'Nkolbisson',
@@ -137,13 +137,13 @@ class BaseDataSeeder extends Seeder
         $settings = [
             'site_identity' => [
                 'name' => 'GS AUTOBILAN',
-                'slogan_fr' => "Votre securite, c'est notre metier.",
+                'slogan_fr' => 'Votre sécurité, c’est notre métier.',
                 'slogan_en' => 'Your safety is our profession.',
                 'default_locale' => 'fr',
                 'available_locales' => ['fr', 'en'],
             ],
             'direction_generale' => [
-                'address_fr' => 'Bastos, derriere Hotel Le Diplomate',
+                'address_fr' => 'Bastos, derrière Hôtel Le Diplomate',
                 'address_en' => 'Bastos, behind Hotel Le Diplomate',
                 'box_fr' => 'BP 12525',
                 'box_en' => 'P.O. Box 12525',
