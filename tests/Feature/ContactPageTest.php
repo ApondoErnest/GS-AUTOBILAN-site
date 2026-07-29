@@ -81,8 +81,10 @@ it('renders the contact message desk and head office card in French', function (
         ->assertSee('BP 12525', false)
         ->assertSee('+237 653 283 107', false)
         ->assertSee('gsautosbilan@gmail.com', false)
+        ->assertSee('admin@gsautobilan.com', false)
         ->assertSee('href="tel:+237653283107"', false)
         ->assertSee('href="mailto:gsautosbilan@gmail.com"', false)
+        ->assertSee('href="mailto:admin@gsautobilan.com"', false)
         ->assertSee('Appeler la direction', false)
         ->assertSee('Envoyer un email', false)
         ->assertSee('Pas de ligne de visite technique sur ce site', false);
@@ -191,8 +193,10 @@ it('renders the contact message desk and head office card in English', function 
         ->assertSee('P.O. Box 12525', false)
         ->assertSee('+237 653 283 107', false)
         ->assertSee('gsautosbilan@gmail.com', false)
+        ->assertSee('admin@gsautobilan.com', false)
         ->assertSee('href="tel:+237653283107"', false)
         ->assertSee('href="mailto:gsautosbilan@gmail.com"', false)
+        ->assertSee('href="mailto:admin@gsautobilan.com"', false)
         ->assertSee('Call head office', false)
         ->assertSee('Send an email', false)
         ->assertSee('No technical inspection lane at this site', false);

@@ -42,6 +42,7 @@ it('keeps S085 public contact translation sources aligned with confirmed company
         ->toContain('+237 678 844 791 / +237 658 473 182')
         ->toContain('+237 653 283 107')
         ->toContain('gsautosbilan@gmail.com')
+        ->toContain('admin@gsautobilan.com')
         ->toContain('dimanche 07h00–15h00')
         ->toContain('Dimanche : 07h00 – 15h00')
         ->not->toContain('nkolbisson@gsautobilan.cm')
@@ -61,6 +62,7 @@ it('keeps S085 public contact translation sources aligned with confirmed company
         ->toContain('+237 678 844 791 / +237 658 473 182')
         ->toContain('+237 653 283 107')
         ->toContain('gsautosbilan@gmail.com')
+        ->toContain('admin@gsautobilan.com')
         ->toContain('Sunday 07:00–15:00')
         ->toContain('Sunday: 07:00 – 15:00')
         ->not->toContain('nkolbisson@gsautobilan.cm')
@@ -100,6 +102,7 @@ it('renders S085 confirmed contact content on the public contact page', function
         'BP 12525',
         '+237 653 283 107',
         'gsautosbilan@gmail.com',
+        'admin@gsautobilan.com',
     ]],
     'English contact page' => ['/en/contact', [
         'Your safety is our profession.',
@@ -113,6 +116,7 @@ it('renders S085 confirmed contact content on the public contact page', function
         'P.O. Box 12525',
         '+237 653 283 107',
         'gsautosbilan@gmail.com',
+        'admin@gsautobilan.com',
     ]],
 ]);
 
@@ -160,6 +164,10 @@ it('seeds S085 company contact data from the confirmed source of truth', functio
             'box_en' => 'P.O. Box 12525',
             'phone' => '+237653283107',
             'email' => 'gsautosbilan@gmail.com',
+            'emails' => [
+                'gsautosbilan@gmail.com',
+                'admin@gsautobilan.com',
+            ],
         ]);
 });
 

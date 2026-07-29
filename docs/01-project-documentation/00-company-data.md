@@ -3,7 +3,7 @@
 **Single source of truth** for GS AUTOBILAN contact and location data.  
 Other docs should **link here** instead of repeating these tables.
 
-**Status:** Active · Confirm email spelling before launch (`gsautosbilan@gmail.com`).
+**Status:** Active · Confirm email spelling before launch (`gsautosbilan@gmail.com`, `admin@gsautobilan.com`).
 
 ---
 
@@ -50,4 +50,4 @@ Other docs should **link here** instead of repeating these tables.
 | Location | Bastos, derrière Hôtel Le Diplomate |
 | BP | 12525 |
 | Telephone | +237 653 283 107 |
-| Email | gsautosbilan@gmail.com |
+| Emails | gsautosbilan@gmail.com / admin@gsautobilan.com |

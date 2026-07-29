@@ -118,8 +118,12 @@ return [
             'box' => 'BP 12525',
             'phone' => '+237 653 283 107',
             'email' => 'gsautosbilan@gmail.com',
+            'emails' => [
+                'gsautosbilan@gmail.com',
+                'admin@gsautobilan.com',
+            ],
             'call_href' => 'tel:+237653283107',
-            'email_href' => 'mailto:gsautosbilan@gmail.com',
+            'email_href' => 'mailto:admin@gsautobilan.com',
             'actions' => [
                 'call' => 'Appeler la direction',
                 'email' => 'Envoyer un email',

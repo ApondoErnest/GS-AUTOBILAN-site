@@ -149,6 +149,10 @@ class BaseDataSeeder extends Seeder
                 'box_en' => 'P.O. Box 12525',
                 'phone' => '+237653283107',
                 'email' => 'gsautosbilan@gmail.com',
+                'emails' => [
+                    'gsautosbilan@gmail.com',
+                    'admin@gsautobilan.com',
+                ],
             ],
             'seo_defaults' => [
                 'title_fr' => 'GS AUTOBILAN - Centre de visite technique automobile',

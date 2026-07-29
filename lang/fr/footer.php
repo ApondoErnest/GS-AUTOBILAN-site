@@ -61,6 +61,10 @@ return [
         'box' => 'BP 12525',
         'phone' => '+237 653 283 107',
         'email' => 'gsautosbilan@gmail.com',
+        'emails' => [
+            'gsautosbilan@gmail.com',
+            'admin@gsautobilan.com',
+        ],
     ],
     'legal' => [
         'copyright' => '© 2026 GS AUTOBILAN. Tous droits réservés.',

@@ -200,6 +200,10 @@
 
             <div class="mt-6 grid gap-5 lg:grid-cols-3 lg:gap-6">
                 @foreach ($locationCards as $card)
+                    @php
+                        $cardEmails = array_values(array_filter((array) ($card['emails'] ?? [$card['email'] ?? null])));
+                    @endphp
+
                     <article class="relative overflow-hidden rounded-lg border border-gs-concrete/70 bg-white p-5 shadow-lg shadow-gs-navy/10 sm:p-7">
                         @if ($card['type'] === 'agency')
                             <span class="absolute inset-y-0 left-0 w-2 bg-gs-accent" aria-hidden="true"></span>
@@ -248,10 +252,16 @@
                                     <span>{{ $card['phone'] }}</span>
                                 </p>
 
-                                @if (isset($card['email']))
+                                @if ($cardEmails !== [])
                                     <p class="flex gap-4">
                                         <x-heroicon-o-envelope class="mt-1 h-6 w-6 shrink-0 text-gs-primary" aria-hidden="true" />
-                                        <span class="break-all">{{ $card['email'] }}</span>
+                                        <span class="min-w-0 space-y-1">
+                                            @foreach ($cardEmails as $email)
+                                                <a href="mailto:{{ $email }}" class="block break-all transition hover:text-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/30">
+                                                    {{ $email }}
+                                                </a>
+                                            @endforeach
+                                        </span>
                                     </p>
                                 @endif
                             </div>

@@ -4,6 +4,8 @@
     $services = trans('footer.services');
     $agencies = trans('footer.agencies');
     $features = trans('footer.features');
+    $directionEmails = trans('footer.contact.emails');
+    $directionEmails = is_array($directionEmails) ? array_values(array_filter($directionEmails)) : [trans('footer.contact.email')];
 @endphp
 
 <footer class="gs-footer bg-gs-wall">
@@ -206,7 +208,13 @@
                         </li>
                         <li class="flex gap-3">
                             <x-heroicon-o-envelope class="h-5 w-5 shrink-0" aria-hidden="true" />
-                            <span>{{ __('footer.contact.email') }}</span>
+                            <span class="min-w-0 space-y-1">
+                                @foreach ($directionEmails as $email)
+                                    <a href="mailto:{{ $email }}" class="block break-all transition hover:text-white focus:outline-none focus:ring-2 focus:ring-white/40">
+                                        {{ $email }}
+                                    </a>
+                                @endforeach
+                            </span>
                         </li>
                     </ul>
                 </div>

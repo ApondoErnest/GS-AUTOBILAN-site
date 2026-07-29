@@ -32,6 +32,8 @@ it('renders the about page hero in French', function () {
         ->assertSee('GS AUTOBILAN<br>Nkolbisson', false)
         ->assertSee('GS AUTOBILAN<br>Obili Scalom', false)
         ->assertSee('Direction<br>Générale', false)
+        ->assertSee('gsautosbilan@gmail.com', false)
+        ->assertSee('admin@gsautobilan.com', false)
         ->assertSee('Itinéraire', false)
         ->assertSee('Prendre rendez-vous', false)
         ->assertSee('Contacter', false);
@@ -68,6 +70,8 @@ it('renders the about page hero in English', function () {
         ->assertSee('Our agencies and head office', false)
         ->assertSee('GS AUTOBILAN<br>Nkolbisson', false)
         ->assertSee('Head<br>Office', false)
+        ->assertSee('gsautosbilan@gmail.com', false)
+        ->assertSee('admin@gsautobilan.com', false)
         ->assertSee('Directions', false)
         ->assertSee('Book an appointment', false)
         ->assertSee('Contact', false);

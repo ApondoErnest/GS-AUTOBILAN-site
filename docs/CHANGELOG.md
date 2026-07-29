@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Added the second Direction Générale / head-office email address `admin@gsautobilan.com` to the public Contact, Footer, and About surfaces, plus seeded head-office settings and contact-content verification.
 - **S064:** Built the public News listing and article detail pages with published article filtering, localized category queries, localized detail slugs, related articles, article-specific SEO metadata, and booking/contact CTAs.
 - **S086:** Completed the local stabilization checklist and added `tests/Feature/LocalStabilizationChecklistTest.php` to render all public pages, seeded News article detail routes, and crawl same-site links for 404/500 regressions.
 - The active roadmap/checklists now show **S064 and S086 complete** with **S087 Docker Compose** as the next step; the S086 stabilization bundle passed with 52 tests and 1,345 assertions.

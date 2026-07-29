@@ -8,6 +8,7 @@
     $agencies = __('contact.agencies');
     $desk = __('contact.desk');
     $faq = __('contact.faq');
+    $headOfficeEmails = array_values(array_filter((array) data_get($desk, 'head_office.emails', [data_get($desk, 'head_office.email')])));
     $bookingHref = route($routeLocale.'.booking', [], false);
     $selectedAgency = old('agency_slug', request()->query('agence'));
     $agencyValues = array_column($desk['form']['agency_options'], 'value');
@@ -192,7 +193,13 @@
 
                     <p class="flex gap-3 sm:gap-4">
                         <x-heroicon-o-envelope class="mt-0.5 h-4 w-4 shrink-0 text-gs-grey sm:h-6 sm:w-6" aria-hidden="true" />
-                        <span>{{ $desk['head_office']['email'] }}</span>
+                        <span class="min-w-0 space-y-1">
+                            @foreach ($headOfficeEmails as $email)
+                                <a href="mailto:{{ $email }}" class="block break-all transition hover:text-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary/30">
+                                    {{ $email }}
+                                </a>
+                            @endforeach
+                        </span>
                     </p>
                 </div>
 

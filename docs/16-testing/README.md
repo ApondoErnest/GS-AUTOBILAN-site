@@ -43,7 +43,7 @@
 
 - Completed 2026-07-29.
 - Added the public contact content verification record at [06-public-contact-content-verification.md](06-public-contact-content-verification.md).
-- Corrected public contact-page agency emails, Direction Générale address/BP/phone/email links, footer secondary phone prefixes, compact Obili Sunday hours, and the French slogan punctuation against confirmed company data.
+- Corrected public contact-page agency emails, Direction Générale address/BP/phone/email links, footer secondary phone prefixes, compact Obili Sunday hours, and the French slogan punctuation against confirmed company data. The Direction Générale email set now includes `gsautosbilan@gmail.com` and `admin@gsautobilan.com`.
 - Added `tests/Feature/PublicContactContentVerificationTest.php` to guard public contact translation sources, rendered FR/EN contact pages, and seeded agency/settings contact data.
 - Verification result: `php artisan test tests/Feature/PublicContactContentVerificationTest.php` passed with 4 tests and 104 assertions.
 
