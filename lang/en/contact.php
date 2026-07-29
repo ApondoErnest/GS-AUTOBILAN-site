@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'GS AUTOBILAN - Contact',
+    'meta_description' => 'Contact GS AUTOBILAN for an appointment, administrative question, directions, or help with your file.',
     'intro' => [
         'title' => 'What would you like to do?',
         'lead' => 'Choose your need so we can guide you quickly.',

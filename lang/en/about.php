@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'GS AUTOBILAN - About',
+    'meta_description' => 'Learn about GS AUTOBILAN, its mission, values, and vehicle technical inspection agencies in Yaounde.',
     'hero' => [
         'eyebrow' => 'About GS AUTOBILAN',
         'title' => 'Your safety<br>is our profession.',

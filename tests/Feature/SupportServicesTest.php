@@ -84,7 +84,7 @@ it('returns active bilingual content and falls back between locales', function (
         'slug_fr' => 'preparer-sa-visite',
         'slug_en' => 'prepare-your-visit',
         'summary_fr' => 'Resume disponible en francais.',
-        'summary_en' => null,
+        'summary_en' => 'English summary available.',
         'content_fr' => 'Contenu FR.',
         'content_en' => 'EN content.',
         'status' => ArticleStatus::Published,
@@ -147,7 +147,11 @@ it('returns active bilingual content and falls back between locales', function (
     expect($content->activeFaqs())->toHaveCount(1);
     expect($content->activeGalleryItems())->toHaveCount(1);
     expect($content->activeTestimonials())->toHaveCount(1);
-    expect($content->localized($published, 'summary', 'en'))->toBe('Resume disponible en francais.');
+    expect($content->localized($published, 'summary', 'en'))->toBe('English summary available.');
+    expect($content->localized([
+        'summary_fr' => 'Resume disponible en francais.',
+        'summary_en' => null,
+    ], 'summary', 'en'))->toBe('Resume disponible en francais.');
 
     $sections = $content->homepageSections();
 

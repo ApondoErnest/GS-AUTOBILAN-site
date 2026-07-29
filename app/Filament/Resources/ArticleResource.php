@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enums\ArticleStatus;
 use App\Filament\AdminNavigation;
 use App\Filament\Resources\ArticleResource\Pages;
+use App\Filament\Support\SecureImageUpload;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use BackedEnum;
@@ -13,7 +14,6 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -94,11 +94,8 @@ class ArticleResource extends Resource
                 Section::make('Publishing')
                     ->columns(2)
                     ->schema([
-                        FileUpload::make('featured_image')
-                            ->label('Featured image')
-                            ->image()
-                            ->directory('articles')
-                            ->visibility('public'),
+                        SecureImageUpload::make('featured_image', 'articles')
+                            ->label('Featured image'),
                         DateTimePicker::make('published_at')
                             ->label('Published at')
                             ->seconds(false)

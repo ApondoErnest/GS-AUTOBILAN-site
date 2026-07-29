@@ -19,11 +19,12 @@
         <div class="h-1.5 bg-gs-accent" aria-hidden="true"></div>
         <div class="flex items-center justify-between border-b border-gs-concrete px-5 py-4">
             <a href="{{ route($routeLocale.'.home', [], false) }}" data-mobile-menu-link class="relative block h-14 w-56 max-w-[64vw] overflow-hidden focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2" aria-label="{{ __('chrome.brand_home_label') }}">
-                <img
-                    src="{{ asset('images/site_logo.png') }}"
+                <x-media.picture
+                    src="images/site_logo.png"
                     alt="GS AUTOBILAN"
+                    loading="lazy"
                     class="absolute left-1/2 top-1/2 w-[320px] max-w-none -translate-x-1/2 -translate-y-1/2"
-                >
+                />
             </a>
 
             <button type="button" data-mobile-menu-close data-mobile-menu-initial-focus class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gs-concrete text-gs-navy transition hover:border-gs-primary hover:bg-gs-soft focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2" aria-label="{{ __('actions.close_menu') }}">

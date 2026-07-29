@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ContactStatus;
+use App\Models\Concerns\LogsAdminActivity;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,10 +21,30 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 ])]
 class ContactMessage extends Model
 {
+    use LogsAdminActivity;
+
     protected function casts(): array
     {
         return [
             'status' => ContactStatus::class,
+        ];
+    }
+
+    protected function adminActivityLogName(): string
+    {
+        return 'contact_messages';
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function adminActivityLogAttributes(): array
+    {
+        return [
+            'agency_id',
+            'status',
+            'assigned_user_id',
+            'internal_notes',
         ];
     }
 

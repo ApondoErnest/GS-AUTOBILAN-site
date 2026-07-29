@@ -15,11 +15,13 @@
     <div class="hidden min-[1400px]:block">
         <div class="relative flex min-h-28 w-full items-center gap-6 border-b border-gs-concrete bg-white px-8">
             <a href="{{ route($routeLocale.'.home', [], false) }}" class="relative block h-20 w-64 shrink-0 overflow-hidden focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2" aria-label="{{ __('chrome.brand_home_label') }}">
-                <img
-                    src="{{ asset('images/site_logo.png') }}"
+                <x-media.picture
+                    src="images/site_logo.png"
                     alt="GS AUTOBILAN"
+                    loading="eager"
+                    fetchpriority="high"
                     class="absolute left-1/2 top-1/2 w-[400px] max-w-none -translate-x-1/2 -translate-y-1/2"
-                >
+                />
             </a>
 
             <nav class="flex min-w-0 flex-1 items-center justify-center gap-4 text-[15px] font-bold text-gs-ink" aria-label="Navigation principale">
@@ -80,11 +82,13 @@
             </button>
 
             <a href="{{ route($routeLocale.'.home', [], false) }}" class="relative block h-16 w-72 max-w-[64vw] overflow-hidden focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2" aria-label="{{ __('chrome.brand_home_label') }}">
-                <img
-                    src="{{ asset('images/site_logo.png') }}"
+                <x-media.picture
+                    src="images/site_logo.png"
                     alt="GS AUTOBILAN"
+                    loading="eager"
+                    fetchpriority="high"
                     class="absolute left-1/2 top-1/2 w-[380px] max-w-none -translate-x-1/2 -translate-y-1/2"
-                >
+                />
             </a>
 
             <button type="button" class="inline-flex h-12 w-12 items-center justify-center text-gs-navy transition hover:text-gs-primary focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2" aria-label="{{ __('actions.user_area') }}">

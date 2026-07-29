@@ -16,12 +16,14 @@
 
 @section('content')
     <section class="relative isolate min-h-[540px] overflow-hidden bg-gs-navy text-white sm:min-h-[660px] lg:min-h-[640px]" aria-labelledby="about-hero-title" data-about-hero>
-        <img
-            src="{{ asset('images/aboutpage/hero-about.png') }}"
+        <x-media.picture
+            src="images/aboutpage/hero-about.png"
             alt=""
+            loading="eager"
+            fetchpriority="high"
             class="absolute inset-0 -z-20 h-full w-full scale-[0.84] object-cover object-[56%_top] opacity-80 sm:scale-100 sm:object-center sm:opacity-100"
             aria-hidden="true"
-        >
+        />
 
         <div class="absolute inset-0 -z-10 bg-gs-navy/30" aria-hidden="true"></div>
         <div
@@ -144,12 +146,13 @@
     <section class="bg-gs-soft px-4 py-7 sm:px-8 sm:py-10 lg:px-16 lg:py-11 xl:px-24 2xl:px-[100px]" aria-labelledby="about-inspection-title" data-about-inspection-team>
         <div class="grid max-w-[104rem] gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-10 xl:gap-12">
             <div class="overflow-hidden rounded-lg shadow-lg shadow-gs-navy/10 ring-1 ring-gs-primary/10">
-                <img
-                    src="{{ asset('images/aboutpage/technician-about.png') }}"
+                <x-media.picture
+                    src="images/aboutpage/technician-about.png"
                     alt=""
+                    loading="lazy"
                     class="h-full min-h-[18rem] w-full object-cover object-[52%_center] sm:min-h-[28rem] lg:aspect-[1.66/1] lg:min-h-0"
                     aria-hidden="true"
-                >
+                />
             </div>
 
             <div class="min-w-0">

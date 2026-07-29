@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Tariff;
 use App\Models\User;
+use App\Services\CmsBilingualAuditService;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
@@ -49,4 +50,5 @@ it('seeds the S039 base data idempotently', function () {
 
     expect(Faq::query()->where('is_active', true)->count())->toBe(6);
     expect(ArticleCategory::query()->where('is_active', true)->count())->toBe(5);
+    expect(app(CmsBilingualAuditService::class)->missingRequiredFields())->toBe([]);
 });

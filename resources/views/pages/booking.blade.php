@@ -178,6 +178,7 @@
 
                     <form method="POST" action="{{ route($routeLocale.'.booking.store', [], false) }}" class="{{ $hasBookingConfirmation ? 'hidden ' : '' }}rounded-lg border border-gs-concrete bg-white p-3 shadow-xl shadow-gs-navy/8 sm:p-5 lg:p-5" data-booking-form novalidate>
                         @csrf
+                        <x-honeypot />
                         <section data-booking-step-panel="1" aria-labelledby="booking-step-1-title">
                             <div class="flex items-center gap-2.5">
                                 <x-heroicon-s-map-pin class="h-5 w-5 text-gs-navy" aria-hidden="true" />

@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'Prendre rendez-vous · GS AUTOBILAN',
+    'meta_description' => 'Demandez un créneau de visite technique GS AUTOBILAN à Yaoundé et recevez la confirmation par téléphone ou WhatsApp.',
     'hero' => [
         'eyebrow' => 'Rendez-vous',
         'title' => 'Demandez votre créneau de visite technique',

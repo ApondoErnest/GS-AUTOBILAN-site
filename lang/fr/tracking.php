@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'Suivre mon rendez-vous · GS AUTOBILAN',
+    'meta_description' => 'Suivez votre demande de rendez-vous GS AUTOBILAN avec votre référence, téléphone et immatriculation du véhicule.',
     'hero' => [
         'eyebrow' => 'Suivi de demande',
         'title' => 'Suivez votre demande de rendez-vous',

@@ -1,5 +1,74 @@
 # Documentation changelog
 
+## 1.26 — 2026-07-29
+
+### Changed
+
+- **S079:** Added the local backup/restore runbook for database, uploaded media, environment references, SQLite dry-run restore, and the future MySQL dump/restore shape for Docker/VPS.
+- Added `scripts/backup-restore-smoke.sh`, then ran it to migrate/seed a disposable SQLite database, back up database plus sample media, damage the source, restore into a separate target, and verify restored agencies, settings, and media.
+- Roadmap and security notes now show **S077–S079 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.25 — 2026-07-29
+
+### Changed
+
+- **S078:** Hardened admin image uploads for services, articles, gallery items, and testimonials with a shared JPEG/PNG/WebP allow-list, `jpg/jpeg/png/webp` extension validation, a 2 MB cap, public-disk directories, and server-generated UUID filenames.
+- Extended Spatie activity logging to key admin workflow/content/settings/staff models, with tracked changes stored in `attribute_changes` and user password fields excluded from audit payloads.
+- Roadmap and security notes now show **S077–S078 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.24 — 2026-07-29
+
+### Changed
+
+- **S077:** Added honeypot fields and explicit spam-protection middleware to public booking, tracking, and contact form submissions.
+- Added booking/contact submission rate limits of five attempts per requester over fifteen minutes with localized generic full-page and JSON feedback; tracking keeps the S070 failed-lookup limiter and now runs behind honeypot protection.
+- Roadmap and security notes now show **S077 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.23 — 2026-07-29
+
+### Changed
+
+- **S076:** Added WebP siblings for public raster imagery, introduced shared `x-media.picture` rendering with WebP sources and PNG fallbacks, and marked public heroes with eager/high-priority loading while keeping below-fold imagery lazy/async.
+- Updated the tariffs CSS hero background to use `image-set()` and added focused asset optimization coverage for WebP availability, rendered loading attributes, and the lightweight non-SPA frontend entry.
+- Roadmap and SEO notes now show **S074–S076 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.22 — 2026-07-29
+
+### Changed
+
+- **S075:** Added generated `/sitemap.xml` output with localized public page URLs, FR/EN/x-default alternates, and published article URLs when available.
+- Replaced robots handling with a route-backed `/robots.txt` response that disallows `/admin` and points crawlers to the sitemap.
+- Added Agencies page LocalBusiness JSON-LD for both GS AUTOBILAN agencies and focused SEO infrastructure coverage; roadmap and SEO notes now show **S075 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.21 — 2026-07-29
+
+### Changed
+
+- **S074:** Added per-page bilingual SEO metadata for public FR/EN routes, including meta titles, descriptions, canonical URLs, OpenGraph tags, `hreflang` alternates, and French `x-default`.
+- Added SEO metadata coverage for all public page skeletons plus placeholder article routes; `SEOService` now tolerates missing `settings` tables so explicit route metadata does not fail in lean public-page contexts.
+- Roadmap and SEO notes updated to show **S074 complete out of sequence** while **S064 News listing + article detail pages** remains the first unchecked step.
+
+## 1.20 — 2026-07-29
+
+### Changed
+
+- **S073:** Completed the manual bilingual review pass for completed public pages in FR/EN, added a review log, and added repeatable smoke coverage for locale-specific page copy, document `lang`, placeholder absence, and unresolved translation-key leaks.
+- Roadmap and bilingual module notes updated to show **S071–S073 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked and must receive its own bilingual review when implemented.
+
+## 1.19 — 2026-07-29
+
+### Changed
+
+- **S072:** Added an executable CMS bilingual audit for active/published public content, including required `_fr` / `_en` fields on CMS models and recursive bilingual pairs inside settings JSON.
+- Feature coverage now verifies clean live content, detected missing live fields, ignored draft/inactive records, and seeded base CMS data; roadmap and bilingual notes show **S072 complete out of sequence** while **S064 News listing + article detail pages** remains first unchecked.
+
+## 1.18 — 2026-07-29
+
+### Changed
+
+- **S071:** Completed the FR/EN UI translation review by aligning translation-file structures, adding localized Laravel validation dictionaries for public booking/tracking/contact errors and field labels, and covering translation parity plus localized contact validation responses in feature tests.
+- Roadmap and bilingual module notes updated to show **S071 complete out of sequence** while **S064 News listing + article detail pages** remains the first unchecked step.
+
 ## 1.17 — 2026-07-27
 
 ### Changed

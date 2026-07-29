@@ -47,12 +47,13 @@
                     <a href="{{ $actionHrefMap[$action['target']] }}" class="group relative grid min-h-[5.25rem] grid-cols-[2rem_1fr] items-center gap-2 overflow-hidden rounded-lg border border-gs-concrete/80 bg-white px-2.5 py-2.5 text-left shadow-md shadow-gs-navy/7 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-gs-navy/12 focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2 min-[380px]:grid-cols-[2.2rem_1fr] sm:min-h-[11.5rem] sm:flex sm:flex-col sm:justify-center sm:px-5 sm:py-6 sm:text-center lg:min-h-[12.2rem]">
                         <span class="absolute inset-x-0 bottom-0 h-1 bg-gs-accent sm:h-1.5" aria-hidden="true"></span>
 
-                        <img
-                            src="{{ asset($action['icon']) }}"
+                        <x-media.picture
+                            :src="$action['icon']"
                             alt=""
+                            loading="lazy"
                             class="h-7 w-7 object-contain min-[380px]:h-8 min-[380px]:w-8 sm:h-16 sm:w-16"
                             aria-hidden="true"
-                        >
+                        />
 
                         <span class="min-w-0 text-[0.72rem] font-black leading-tight tracking-normal text-gs-navy min-[380px]:text-[0.78rem] sm:mt-5 sm:max-w-[12rem] sm:text-xl">
                             {!! $action['label'] !!}
@@ -215,6 +216,7 @@
 
             <form action="{{ route($routeLocale.'.contact.store', [], false) }}" method="post" class="order-2 rounded-lg border border-gs-concrete bg-white p-4 shadow-md shadow-gs-navy/8 sm:p-5 lg:order-1 lg:p-6" data-contact-message-form>
                 @csrf
+                <x-honeypot />
 
                 <h2 class="text-lg font-black leading-tight tracking-normal text-gs-navy sm:text-2xl lg:text-[1.45rem]">
                     {{ $desk['form']['title'] }}
@@ -278,9 +280,11 @@
                     <span>{{ $desk['form']['note'] }}</span>
                 </p>
 
+                @php($contactFormError = $errors->first('public_form'))
+
                 <p
-                    class="{{ $contactStatusBaseClass }} {{ session('contact_message_status') ? $contactStatusSuccessClass : 'hidden '.$contactStatusSuccessClass }}"
-                    role="status"
+                    class="{{ $contactStatusBaseClass }} {{ session('contact_message_status') ? $contactStatusSuccessClass : ($contactFormError ? $contactStatusErrorClass : 'hidden '.$contactStatusSuccessClass) }}"
+                    role="{{ $contactFormError ? 'alert' : 'status' }}"
                     aria-live="polite"
                     tabindex="-1"
                     data-contact-form-status
@@ -289,7 +293,7 @@
                     data-contact-error-class="{{ $contactStatusErrorClass }}"
                     data-contact-error-message="{{ $desk['form']['error'] }}"
                 >
-                    {{ session('contact_message_status') }}
+                    {{ $contactFormError ?: session('contact_message_status') }}
                 </p>
 
                 <button type="submit" class="mt-3 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-md bg-gs-primary px-4 text-xs font-black text-white shadow-lg shadow-gs-primary/20 transition hover:bg-gs-navy focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2 sm:mt-4 sm:min-h-12 sm:gap-3 sm:px-5 sm:text-base">

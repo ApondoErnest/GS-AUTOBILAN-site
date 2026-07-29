@@ -65,11 +65,12 @@
         <div class="mx-auto grid max-w-[1500px] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-12 xl:grid-cols-[1.1fr_1.25fr_.78fr_.9fr_1.22fr]">
             <div>
                 <a href="{{ route($routeLocale.'.home', [], false) }}" class="relative block h-24 w-72 max-w-full overflow-hidden" aria-label="{{ __('chrome.brand_home_label') }}">
-                    <img
-                        src="{{ asset('images/site_logo.png') }}"
+                    <x-media.picture
+                        src="images/site_logo.png"
                         alt="GS AUTOBILAN"
+                        loading="lazy"
                         class="absolute left-1/2 top-1/2 w-[430px] max-w-none -translate-x-1/2 -translate-y-1/2 brightness-0 invert"
-                    >
+                    />
                 </a>
 
                 <div class="mt-5 flex gap-4">

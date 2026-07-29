@@ -23,12 +23,14 @@
 
 @section('content')
     <section class="relative isolate min-h-[520px] overflow-hidden bg-gs-navy text-white sm:min-h-[610px] lg:min-h-[580px]" aria-labelledby="services-hero-title" data-services-hero>
-        <img
-            src="{{ asset('images/servicespage/services-hero.png') }}"
+        <x-media.picture
+            src="images/servicespage/services-hero.png"
             alt=""
+            loading="eager"
+            fetchpriority="high"
             class="absolute inset-x-0 top-0 -z-20 h-[64%] w-full object-cover object-[58%_top] opacity-95 sm:inset-0 sm:h-full sm:object-[58%_center]"
             aria-hidden="true"
-        >
+        />
 
         <div class="absolute inset-0 -z-10 bg-gs-navy/42" aria-hidden="true"></div>
         <div
@@ -211,11 +213,12 @@
                             ])
                         >
                         <div class="flex min-h-[8.25rem] items-center justify-center sm:min-h-[15rem] lg:min-h-[16rem] xl:min-h-[18rem]">
-                            <img
-                                src="{{ asset($profile['image']) }}"
+                            <x-media.picture
+                                :src="$profile['image']"
                                 alt="{{ $profile['image_alt'] }}"
+                                loading="lazy"
                                 class="max-h-[8.75rem] w-full object-contain sm:max-h-[17rem] lg:max-h-[17rem] xl:max-h-[20rem]"
-                            >
+                            />
                         </div>
 
                         <div class="min-w-0">

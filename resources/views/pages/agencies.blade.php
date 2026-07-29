@@ -11,12 +11,14 @@
 
 @section('content')
     <section class="relative isolate min-h-[560px] overflow-hidden bg-gs-navy text-white sm:min-h-[700px] lg:min-h-[680px]" aria-labelledby="agencies-hero-title" data-agencies-hero>
-        <img
-            src="{{ asset('images/agencies/hero-agencies.png') }}"
+        <x-media.picture
+            src="images/agencies/hero-agencies.png"
             alt=""
+            loading="eager"
+            fetchpriority="high"
             class="absolute inset-0 -z-20 h-full w-full origin-top scale-[0.86] object-cover object-[58%_top] opacity-95 sm:scale-100 sm:object-[58%_center]"
             aria-hidden="true"
-        >
+        />
 
         <div class="absolute inset-0 -z-10 bg-gs-navy/5" aria-hidden="true"></div>
         <div

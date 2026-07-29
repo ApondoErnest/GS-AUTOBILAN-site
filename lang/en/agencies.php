@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'GS AUTOBILAN - Our agencies',
+    'meta_description' => 'Find GS AUTOBILAN Nkolbisson and Obili Scalom agencies with opening hours, contacts, WhatsApp, and directions.',
     'hero' => [
         'eyebrow' => 'Our agencies',
         'title' => 'Find your<br>GS AUTOBILAN agency',

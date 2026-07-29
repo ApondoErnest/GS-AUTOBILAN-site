@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\LogsAdminActivity;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -23,11 +24,34 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class Service extends Model
 {
+    use LogsAdminActivity;
+
     protected function casts(): array
     {
         return [
             'sort_order' => 'integer',
             'is_active' => 'boolean',
+        ];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function adminActivityLogAttributes(): array
+    {
+        return [
+            'title_fr',
+            'title_en',
+            'slug_fr',
+            'slug_en',
+            'short_description_fr',
+            'short_description_en',
+            'full_description_fr',
+            'full_description_en',
+            'icon',
+            'image',
+            'sort_order',
+            'is_active',
         ];
     }
 

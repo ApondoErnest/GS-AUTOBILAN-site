@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'Tarifs · GS AUTOBILAN',
+    'meta_description' => 'Consultez les tarifs de visite technique GS AUTOBILAN par catégorie de véhicule, validité et conditions de passage.',
     'hero' => [
         'eyebrow' => 'Nos tarifs',
         'title' => 'Des tarifs clairs pour chaque catégorie de véhicule',

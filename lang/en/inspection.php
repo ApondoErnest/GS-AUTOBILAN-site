@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'GS AUTOBILAN - Technical Inspection',
+    'meta_description' => 'Understand the steps, documents, and main vehicle inspection points for your visit at GS AUTOBILAN.',
     'hero' => [
         'eyebrow' => 'Technical Inspection',
         'title' => 'Understand and complete your technical inspection',

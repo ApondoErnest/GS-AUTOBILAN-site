@@ -10,7 +10,7 @@
 <article {{ $attributes->merge(['class' => 'group overflow-hidden rounded-lg border border-gs-concrete bg-white shadow-sm shadow-gs-navy/5 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-gs-navy/10']) }}>
     @if ($image)
         <a href="{{ $href }}" class="block aspect-[16/9] overflow-hidden bg-gs-soft">
-            <img src="{{ $image }}" alt="" class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+            <x-media.picture :src="$image" alt="" loading="lazy" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
         </a>
     @endif
 

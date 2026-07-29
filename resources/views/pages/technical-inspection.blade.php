@@ -15,12 +15,14 @@
 
 @section('content')
     <section class="relative isolate min-h-[470px] overflow-hidden bg-gs-navy text-white sm:min-h-[540px] lg:min-h-[500px]" aria-labelledby="inspection-hero-title" data-inspection-hero>
-        <img
-            src="{{ asset('images/inspection/hero-inspection.png') }}"
+        <x-media.picture
+            src="images/inspection/hero-inspection.png"
             alt=""
+            loading="eager"
+            fetchpriority="high"
             class="absolute inset-0 -z-30 h-full w-full object-cover object-[68%_center] opacity-95 sm:object-[62%_center] lg:object-[58%_center]"
             aria-hidden="true"
-        >
+        />
 
         <div class="absolute inset-0 -z-20 bg-gs-navy/24" aria-hidden="true"></div>
         <div
@@ -140,12 +142,13 @@
             <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4 xl:gap-5">
                 @foreach ($controlPoints['items'] as $item)
                     <article class="grid min-h-[7.7rem] grid-cols-[4rem_1fr] items-center gap-4 rounded-lg border border-gs-concrete/80 bg-white px-4 py-4 shadow-md shadow-gs-navy/7 sm:min-h-[8.4rem] sm:grid-cols-[4.65rem_1fr] sm:px-5 lg:min-h-[8.1rem] lg:grid-cols-[4.8rem_1fr] lg:px-5 xl:grid-cols-[5.25rem_1fr] xl:px-6">
-                        <img
-                            src="{{ asset($item['icon']) }}"
+                        <x-media.picture
+                            :src="$item['icon']"
                             alt=""
+                            loading="lazy"
                             class="h-14 w-14 object-contain sm:h-16 sm:w-16 lg:h-[4.25rem] lg:w-[4.25rem] xl:h-[4.7rem] xl:w-[4.7rem]"
                             aria-hidden="true"
-                        >
+                        />
 
                         <div class="min-w-0">
                             <h3 class="text-base font-black leading-tight tracking-normal text-gs-navy sm:text-lg lg:text-[1.05rem] xl:text-[1.18rem]">
@@ -178,12 +181,13 @@
                                 {{ $loop->iteration }}
                             </span>
 
-                            <img
-                                src="{{ asset($step['icon']) }}"
+                            <x-media.picture
+                                :src="$step['icon']"
                                 alt=""
+                                loading="lazy"
                                 class="h-12 w-12 object-contain sm:h-14 sm:w-14 lg:h-15 lg:w-15"
                                 aria-hidden="true"
-                            >
+                            />
 
                             <div class="min-w-0 pt-2 lg:pt-0">
                                 <h3 class="text-base font-black leading-tight tracking-normal text-gs-navy sm:text-lg lg:text-[1.02rem] xl:text-[1.12rem]">
@@ -223,12 +227,13 @@
                     @endphp
 
                     <article class="{{ $toneClasses['panel'] }} grid min-h-[6.4rem] grid-cols-[4.25rem_1fr] items-center gap-4 rounded-lg border-2 px-4 py-4 shadow-md sm:grid-cols-[5rem_1fr] sm:px-5 lg:min-h-[7.2rem] lg:px-6">
-                        <img
-                            src="{{ asset($outcome['icon']) }}"
+                        <x-media.picture
+                            :src="$outcome['icon']"
                             alt=""
+                            loading="lazy"
                             class="h-14 w-14 object-contain sm:h-16 sm:w-16"
                             aria-hidden="true"
-                        >
+                        />
 
                         <div class="min-w-0">
                             <h3 class="{{ $toneClasses['title'] }} text-xl font-black leading-tight tracking-normal sm:text-2xl lg:text-[1.35rem] xl:text-[1.55rem]">
@@ -264,12 +269,13 @@
                                         'border-t border-white/24 pt-5' => ! $loop->first,
                                     ])>
                                         <div class="flex items-center border-l border-white/36 pl-4">
-                                            <img
-                                                src="{{ asset($item['icon']) }}"
+                                            <x-media.picture
+                                                :src="$item['icon']"
                                                 alt=""
+                                                loading="lazy"
                                                 class="h-12 w-12 object-contain sm:h-14 sm:w-14"
                                                 aria-hidden="true"
-                                            >
+                                            />
                                         </div>
 
                                         <p class="text-sm font-bold leading-snug tracking-normal text-white/88 sm:text-base lg:text-[1.05rem]">
@@ -282,12 +288,13 @@
                     @else
                         <article class="rounded-lg border border-gs-concrete/80 bg-white px-5 py-5 shadow-md shadow-gs-navy/7 sm:px-7 sm:py-6">
                             <div class="flex items-start gap-4">
-                                <img
-                                    src="{{ asset($card['icon']) }}"
+                                <x-media.picture
+                                    :src="$card['icon']"
                                     alt=""
+                                    loading="lazy"
                                     class="h-10 w-10 shrink-0 object-contain"
                                     aria-hidden="true"
-                                >
+                                />
 
                                 <div class="min-w-0">
                                     <h3 class="text-xl font-black leading-tight tracking-normal text-gs-primary sm:text-2xl lg:text-[1.45rem]">
@@ -297,12 +304,13 @@
                                     <ul class="mt-4 space-y-2.5">
                                         @foreach ($card['items'] as $item)
                                             <li class="grid grid-cols-[1.75rem_1fr] items-start gap-3">
-                                                <img
-                                                    src="{{ asset($item['icon']) }}"
+                                                <x-media.picture
+                                                    :src="$item['icon']"
                                                     alt=""
+                                                    loading="lazy"
                                                     class="mt-0.5 h-5 w-5 object-contain"
                                                     aria-hidden="true"
-                                                >
+                                                />
                                                 <span class="text-sm font-semibold leading-snug tracking-normal text-gs-ink sm:text-base lg:text-[1.05rem]">
                                                     {{ $item['label'] }}
                                                 </span>
@@ -317,12 +325,13 @@
             </div>
 
             <div class="mt-4 flex items-center justify-center gap-4 rounded-lg border-2 border-gs-primary/25 bg-gs-soft px-4 py-4 text-center text-gs-primary shadow-sm shadow-gs-primary/8 sm:px-6">
-                <img
-                    src="{{ asset($preparation['notice']['icon']) }}"
+                <x-media.picture
+                    :src="$preparation['notice']['icon']"
                     alt=""
+                    loading="lazy"
                     class="h-8 w-8 shrink-0 object-contain"
                     aria-hidden="true"
-                >
+                />
                 <p class="text-sm font-black leading-snug tracking-normal sm:text-base lg:text-[1.1rem]">
                     {{ $preparation['notice']['copy'] }}
                 </p>

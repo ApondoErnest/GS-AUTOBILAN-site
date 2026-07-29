@@ -52,6 +52,29 @@ it('keeps the current public page when switching languages', function () {
         ->assertDontSee('href="/fr/accueil"', false);
 });
 
+it('keeps French and English UI translation files structurally aligned', function () {
+    $frenchFiles = collect(glob(lang_path('fr/*.php')))
+        ->map(fn (string $path): string => basename($path))
+        ->sort()
+        ->values();
+    $englishFiles = collect(glob(lang_path('en/*.php')))
+        ->map(fn (string $path): string => basename($path))
+        ->sort()
+        ->values();
+
+    expect($englishFiles->all())->toBe($frenchFiles->all());
+
+    foreach ($frenchFiles as $file) {
+        $frenchKeys = s071TranslationLeafKeys(require lang_path('fr/'.$file));
+        $englishKeys = s071TranslationLeafKeys(require lang_path('en/'.$file));
+
+        sort($frenchKeys);
+        sort($englishKeys);
+
+        expect($englishKeys)->toBe($frenchKeys, "Translation keys drifted in {$file}");
+    }
+});
+
 it('registers the localized public route skeletons', function () {
     $this->get('/fr/contact')->assertOk()->assertSee('Contact', false);
     $this->get('/en/contact')->assertOk()->assertSee('Contact', false);
@@ -62,3 +85,22 @@ it('registers the localized public route skeletons', function () {
 it('does not match unsupported locale prefixes', function () {
     $this->get('/de/home')->assertNotFound();
 });
+
+function s071TranslationLeafKeys(array $translations, string $prefix = ''): array
+{
+    $keys = [];
+
+    foreach ($translations as $key => $value) {
+        $leaf = $prefix === '' ? (string) $key : $prefix.'.'.$key;
+
+        if (is_array($value)) {
+            array_push($keys, ...s071TranslationLeafKeys($value, $leaf));
+
+            continue;
+        }
+
+        $keys[] = $leaf;
+    }
+
+    return $keys;
+}

@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'GS AUTOBILAN - Nos agences',
+    'meta_description' => 'Retrouvez les agences GS AUTOBILAN de Nkolbisson et Obili Scalom avec horaires, contacts, WhatsApp et itinéraires.',
     'hero' => [
         'eyebrow' => 'Nos agences',
         'title' => 'Trouvez votre agence<br>GS AUTOBILAN',

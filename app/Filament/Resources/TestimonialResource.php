@@ -4,13 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\AdminNavigation;
 use App\Filament\Resources\TestimonialResource\Pages;
+use App\Filament\Support\SecureImageUpload;
 use App\Models\Testimonial;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -59,11 +59,8 @@ class TestimonialResource extends Resource
                             ->numeric()
                             ->minValue(1)
                             ->maxValue(5),
-                        FileUpload::make('image_path')
-                            ->label('Image')
-                            ->image()
-                            ->directory('testimonials')
-                            ->visibility('public'),
+                        SecureImageUpload::make('image_path', 'testimonials')
+                            ->label('Image'),
                     ]),
                 Section::make('Message')
                     ->columns(2)

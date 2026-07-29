@@ -11,11 +11,11 @@
     $technicalInspectionHref = route($routeLocale.'.technical_inspection', [], false);
     $newsHref = route($routeLocale.'.news', [], false);
     $heroImages = [
-        asset('images/homepage/hero-1.png'),
-        asset('images/homepage/hero-2.png'),
-        asset('images/homepage/hero-3.png'),
-        asset('images/homepage/hero-4.png'),
-        asset('images/homepage/hero-5.png'),
+        'images/homepage/hero-1.png',
+        'images/homepage/hero-2.png',
+        'images/homepage/hero-3.png',
+        'images/homepage/hero-4.png',
+        'images/homepage/hero-5.png',
     ];
     $trustItems = trans('home.hero.trust_items');
     $agencyCards = trans('home.agencies.cards');
@@ -32,13 +32,15 @@
     <section class="relative isolate min-h-[640px] overflow-hidden bg-gs-navy text-white sm:min-h-[720px] lg:min-h-[760px]" aria-label="{{ __('chrome.home_aria') }}" data-hero-carousel>
         <div class="absolute inset-0 -z-20 bg-gs-navy">
             @foreach ($heroImages as $image)
-                <img
-                    src="{{ $image }}"
+                <x-media.picture
+                    :src="$image"
                     alt=""
+                    :loading="$loop->first ? 'eager' : 'lazy'"
+                    :fetchpriority="$loop->first ? 'high' : null"
                     class="gs-hero-slide absolute inset-0 h-full w-full object-cover max-sm:!bottom-auto max-sm:!h-[70%] max-sm:object-[center_top] {{ $loop->first ? 'is-active' : '' }}"
                     data-hero-slide
                     aria-hidden="true"
-                >
+                />
             @endforeach
         </div>
 
@@ -116,12 +118,13 @@
                 @foreach ($agencyCards as $agency)
                     <article class="relative isolate overflow-hidden rounded-lg border border-gs-concrete bg-white p-5 shadow-md shadow-gs-navy/10 sm:p-7">
                         <span class="absolute left-0 top-5 z-10 h-20 w-1.5 rounded-r-sm bg-gs-accent" aria-hidden="true"></span>
-                        <img
-                            src="{{ asset($agency['image']) }}"
+                        <x-media.picture
+                            :src="$agency['image']"
                             alt=""
                             class="pointer-events-none absolute bottom-10 right-0 z-0 w-[44%] max-w-[18rem] object-contain opacity-[0.13] sm:bottom-8 sm:w-[36%] sm:max-w-[20rem]"
+                            loading="lazy"
                             aria-hidden="true"
-                        >
+                        />
 
                         <div class="relative z-10 flex min-w-0 gap-4 pl-2 sm:gap-5">
                             <span class="mt-1 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-gs-primary">
@@ -297,13 +300,13 @@
                 <div class="mt-5 grid grid-cols-2 gap-3">
                     @foreach ($galleryImages as $image)
                         <div class="{{ $loop->first ? 'col-span-2 aspect-[3.8/1]' : ($loop->last ? 'col-span-2 aspect-[3.4/1]' : 'aspect-[1.8/1]') }} overflow-hidden rounded-md border border-gs-concrete shadow-sm shadow-gs-navy/10">
-                            <img
-                                src="{{ asset($image) }}"
+                            <x-media.picture
+                                :src="$image"
                                 alt=""
                                 class="h-full w-full object-cover"
                                 loading="lazy"
                                 aria-hidden="true"
-                            >
+                            />
                         </div>
                     @endforeach
                 </div>
@@ -324,13 +327,13 @@
                         <article class="overflow-hidden rounded-lg border border-gs-concrete bg-white shadow-md shadow-gs-navy/10">
                             <a href="{{ route($routeLocale.'.article.show', ['slug' => $article['slug']], false) }}" class="group block focus:outline-none focus:ring-2 focus:ring-gs-primary focus:ring-offset-2">
                                 <div class="relative aspect-[2.25/1] overflow-hidden">
-                                    <img
-                                        src="{{ asset($article['image']) }}"
+                                    <x-media.picture
+                                        :src="$article['image']"
                                         alt=""
                                         class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                                         loading="lazy"
                                         aria-hidden="true"
-                                    >
+                                    />
                                     <span class="absolute left-3 top-3 rounded-sm bg-gs-accent px-2 py-1 text-xs font-black text-white shadow-sm">
                                         {{ __('home.advice_cta.tag') }}
                                     </span>
@@ -357,13 +360,13 @@
             </div>
 
             <div class="relative isolate flex h-full flex-col justify-center overflow-hidden rounded-lg bg-gs-navy p-5 text-white shadow-xl shadow-gs-navy/15 sm:p-6 lg:p-8">
-                <img
-                    src="{{ asset(__('home.advice_cta.background')) }}"
+                <x-media.picture
+                    :src="__('home.advice_cta.background')"
                     alt=""
                     class="absolute inset-0 -z-20 h-full w-full object-cover"
                     loading="lazy"
                     aria-hidden="true"
-                >
+                />
                 <div class="absolute inset-0 -z-10 bg-gs-navy/78" aria-hidden="true"></div>
                 <div class="absolute inset-0 -z-10 bg-gradient-to-r from-gs-navy via-gs-navy/80 to-gs-navy/45" aria-hidden="true"></div>
 

@@ -461,19 +461,19 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block M — Bilingual completion
 
 ### S071 — Complete `lang/fr` and `lang/en` UI translation files
-- [ ] **Pending**
-- **Foundation note:** shared chrome strings started early before S033 using structured PHP files under `lang/fr/` and `lang/en/`; S071 still remains for full forms/statuses/errors review.
+- [x] **Completed out of sequence** — FR/EN UI translation files now have matching key coverage, inspection hero title keys are aligned, and Laravel validation dictionaries localize public form errors and field labels for booking, tracking, and contact submissions (2026-07-29). S064 remains the first unchecked public-site step.
+- **Foundation note:** shared chrome strings started early before S033 using structured PHP files under `lang/fr/` and `lang/en/`; S071 completed the full forms/statuses/errors review.
 - **Detail:** [13-bilingual/README.md](13-bilingual/README.md)
 - **Depends on:** S070
 - **Done when:** Nav, buttons, forms, statuses translate.
 
 ### S072 — Audit all CMS `_fr` / `_en` content fields
-- [ ] **Pending**
+- [x] **Completed out of sequence** — `CmsBilingualAuditService` now checks active/published CMS records and bilingual settings JSON for empty required FR/EN public content fields, with feature coverage for passing live content, missing live fields, ignored draft/inactive records, and seeded base data (2026-07-29). S064 remains the first unchecked public-site step.
 - **Depends on:** S071
 - **Done when:** No empty required EN/FR fields on published content.
 
 ### S073 — Manual bilingual review pass
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Completed public pages were reviewed in FR/EN with a documented review log and repeatable smoke coverage for locale-specific page copy, document `lang`, placeholder absence, and unresolved translation-key leaks; S064 News remains pending and will need its own review when implemented (2026-07-29). S064 remains the first unchecked public-site step.
 - **Depends on:** S072
 - **Done when:** Reviewer confirms no half-translated public pages.
 
@@ -482,18 +482,18 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block N — SEO and performance
 
 ### S074 — Add per-page meta titles/descriptions + hreflang
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Public FR/EN routes now pass page-specific SEO payloads through `SEOService`, the shared layout renders title, meta description, canonical, OpenGraph, `hreflang`, and `x-default` tags, and coverage verifies bilingual metadata/alternates for all public page skeletons plus placeholder article metadata until S064 builds real article pages (2026-07-29). S064 remains the first unchecked public-site step.
 - **Detail:** [14-seo-performance/README.md](14-seo-performance/README.md)
 - **Depends on:** S073
 - **Done when:** Each public page has bilingual meta + alternates.
 
 ### S075 — Add sitemap.xml, robots.txt, JSON-LD LocalBusiness
-- [ ] **Pending**
+- [x] **Completed out of sequence** — `/sitemap.xml` now generates localized public URLs with FR/EN/x-default alternates and published article URLs when present, `/robots.txt` disallows `/admin` and points to the sitemap, and the Agencies page renders per-agency LocalBusiness JSON-LD for Nkolbisson and Obili Scalom (2026-07-29). S064 remains the first unchecked public-site step.
 - **Depends on:** S074
 - **Done when:** Sitemap generated; `/admin` disallowed; agency schema present.
 
 ### S076 — Optimize images and public asset loading
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Public raster assets now ship WebP siblings while retaining PNG fallbacks, shared Blade image rendering outputs WebP `<source>` elements with lazy/async loading by default, public page heroes use eager loading with high fetch priority, the tariffs CSS background uses `image-set()`, and coverage guards WebP usage plus the lightweight non-SPA frontend entry (2026-07-29). S064 remains the first unchecked public-site step.
 - **Depends on:** S075
 - **Done when:** Lazy loading / WebP (or equivalent) in place; no heavy SPA.
 
@@ -502,18 +502,18 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block O — Security
 
 ### S077 — Apply honeypot + rate limits on public forms
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Booking, tracking, and contact forms now render hidden honeypot fields and submit through explicit spam-protection middleware; booking/contact submissions are limited to five attempts per requester over fifteen minutes with localized generic feedback, and tracking keeps the S070 failed-lookup limiter behind the same honeypot protection (2026-07-29). S064 remains the first unchecked public-site step.
 - **Detail:** [15-security/README.md](15-security/README.md)
 - **Depends on:** S076
 - **Done when:** Booking, tracking, contact protected.
 
 ### S078 — Harden uploads and confirm audit logging
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Admin image uploads now share a hardened FileUpload configuration with JPEG/PNG/WebP MIME allow-listing, `jpg/jpeg/png/webp` extension validation, a 2 MB size cap, public-disk scoped directories, and server-generated UUID filenames; key admin workflow/content/settings/staff changes now emit Spatie activity logs with tracked changes in `attribute_changes` and password fields excluded from user audit payloads (2026-07-29). S064 remains the first unchecked public-site step.
 - **Depends on:** S077
 - **Done when:** Upload mime/size rules work; key admin actions logged.
 
 ### S079 — Write and test backup restore procedure (local/docs)
-- [ ] **Pending**
+- [x] **Completed out of sequence** — Added a local backup/restore procedure covering database, public uploaded media, environment references, SQLite restore, and future MySQL restore shape; added and ran `scripts/backup-restore-smoke.sh`, which migrated/seeded a disposable SQLite database, backed up the database plus sample media, damaged the source, restored into a separate target, and verified restored agencies/settings/media (2026-07-29). S064 remains the first unchecked public-site step.
 - **Depends on:** S078
 - **Done when:** Backup steps documented and restore tested at least once.
 
@@ -650,9 +650,9 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | J Public pages | S056–S065 | In progress |
 | K Booking | S066–S068 | Locked |
 | L Tracking | S069–S070 | Locked |
-| M Bilingual | S071–S073 | Locked |
-| N SEO | S074–S076 | Locked |
-| O Security | S077–S079 | Locked |
+| M Bilingual | S071–S073 | Completed |
+| N SEO | S074–S076 | Completed |
+| O Security | S077–S079 | Completed |
 | P Testing | S080–S085 | Locked |
 | Q Stabilize | S086 | Locked |
 | R Docker | S087–S088 | Locked |
@@ -660,4 +660,4 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 64 · **Remaining:** 32 · **Next:** S064
+**Total steps:** 96 · **Completed:** 73 · **Remaining:** 23 · **Next:** S064

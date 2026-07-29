@@ -178,7 +178,7 @@ return [
                 'category' => 'D',
                 'type' => 'Other machinery',
                 'price' => '41 750 FCFA',
-                'validity' => '06 months',
+                'validity' => '12 months',
             ],
         ],
         'why_title' => 'Why choose<br>GS AUTOBILAN?',

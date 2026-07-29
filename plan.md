@@ -1,9 +1,9 @@
 # GS AUTOBILAN — Master technical plan (V1)
 
-**Type:** Technical roadmap (no code) · **Version:** 1.12 · **Updated:** 2026-07-27
+**Type:** Technical roadmap (no code) · **Version:** 1.17 · **Updated:** 2026-07-29
 **Slogan:** Votre sécurité, c’est notre métier.
 
-**Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096). First unchecked: **S064**. S066–S070 are complete out of sequence.
+**Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096). First unchecked: **S064**. S066–S079 are complete out of sequence.
 **Company data:** [docs/01-project-documentation/00-company-data.md](docs/01-project-documentation/00-company-data.md)
 
 ---
@@ -81,9 +81,9 @@ Docs → Requirements → Local → Laravel → Architecture → Frontend
 | 10 Public site | [docs/10-…](docs/10-public-website/) | S056–S063 and S065 complete · S064 remaining |
 | 11 Booking | [docs/11-…](docs/11-booking-module/) | S066–S068 complete |
 | 12 Tracking | [docs/12-…](docs/12-tracking-module/) | S069–S070 complete |
-| 13 Bilingual | [docs/13-…](docs/13-bilingual/) | S071–S073 |
-| 14 SEO | [docs/14-…](docs/14-seo-performance/) | S074–S076 |
-| 15 Security | [docs/15-…](docs/15-security/) | S077–S079 |
+| 13 Bilingual | [docs/13-…](docs/13-bilingual/) | S071–S073 complete |
+| 14 SEO | [docs/14-…](docs/14-seo-performance/) | S074–S076 complete |
+| 15 Security | [docs/15-…](docs/15-security/) | S077–S079 complete |
 | 16 Testing | [docs/16-…](docs/16-testing/) | S080–S085 |
 | 17 Stabilize | [docs/17-…](docs/17-local-stabilization/) | S086 |
 | 18 Docker | [docs/18-…](docs/18-docker/) | S087–S088 |

@@ -7,6 +7,7 @@ return [
     'hours_summary' => 'Nkolbisson 07:00–18:00  •  Obili Scalom 07:00–19:00',
     'menu_title' => 'Menu',
     'home_title' => 'GS AUTOBILAN - Home',
+    'home_meta_description' => 'GS AUTOBILAN helps motorists in Yaounde book, prepare, and track vehicle technical inspections at Nkolbisson or Obili Scalom.',
     'home_aria' => 'GS AUTOBILAN home',
     'footer_aria' => 'GS AUTOBILAN footer',
     'socials_aria' => 'Social media',

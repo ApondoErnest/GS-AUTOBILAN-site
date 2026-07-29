@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\LogsAdminActivity;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
 ])]
 class Faq extends Model
 {
+    use LogsAdminActivity;
+
     protected $table = 'faqs';
 
     protected function casts(): array
@@ -23,6 +26,26 @@ class Faq extends Model
         return [
             'sort_order' => 'integer',
             'is_active' => 'boolean',
+        ];
+    }
+
+    protected function adminActivityLogName(): string
+    {
+        return 'faqs';
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function adminActivityLogAttributes(): array
+    {
+        return [
+            'question_fr',
+            'question_en',
+            'answer_fr',
+            'answer_en',
+            'sort_order',
+            'is_active',
         ];
     }
 

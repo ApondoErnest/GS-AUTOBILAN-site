@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enums\GalleryCategory;
 use App\Filament\AdminNavigation;
 use App\Filament\Resources\GalleryItemResource\Pages;
+use App\Filament\Support\SecureImageUpload;
 use App\Models\Agency;
 use App\Models\GalleryItem;
 use BackedEnum;
@@ -12,7 +13,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -49,11 +49,8 @@ class GalleryItemResource extends Resource
                 Section::make('Image')
                     ->columns(2)
                     ->schema([
-                        FileUpload::make('image_path')
+                        SecureImageUpload::make('image_path', 'gallery')
                             ->label('Image')
-                            ->image()
-                            ->directory('gallery')
-                            ->visibility('public')
                             ->required(),
                         Select::make('category')
                             ->options(self::galleryCategoryOptions())

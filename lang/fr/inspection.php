@@ -2,9 +2,14 @@
 
 return [
     'meta_title' => 'GS AUTOBILAN - Visite Technique',
+    'meta_description' => 'Comprenez les étapes, documents et principaux points de contrôle de la visite technique automobile chez GS AUTOBILAN.',
     'hero' => [
         'eyebrow' => 'Visite Technique',
         'title' => 'Comprendre et réussir votre visite technique',
+        'desktop_title_lines' => [
+            'Comprendre et réussir',
+            'votre visite technique',
+        ],
         'lead' => 'Découvrez les contrôles effectués, préparez vos documents et suivez chaque étape de votre passage chez GS AUTOBILAN.',
         'prepare_href' => '#preparer-ma-visite',
         'actions' => [
@@ -31,7 +36,7 @@ return [
     ],
     'importance' => [
         'title' => 'Pourquoi la visite technique est essentielle',
-        'lead' => "La visite technique contribue à la sécurité de tous usagers de la route et à la protection de l’environnement. Elle garantit que votre véhicule respecte les exigences réglementaires en vigueur.",
+        'lead' => 'La visite technique contribue à la sécurité de tous usagers de la route et à la protection de l’environnement. Elle garantit que votre véhicule respecte les exigences réglementaires en vigueur.',
         'cards' => [
             [
                 'title' => 'Sécurité routière',
@@ -41,7 +46,7 @@ return [
             ],
             [
                 'title' => 'Prévention des risques',
-                'copy' => "La détection précoce des anomalies permet d’éviter les pannes, les accidents et les coûts élevés.",
+                'copy' => 'La détection précoce des anomalies permet d’éviter les pannes, les accidents et les coûts élevés.',
                 'icon' => 'heroicon-o-exclamation-triangle',
                 'tone' => 'danger',
             ],
@@ -55,7 +60,7 @@ return [
     ],
     'control_points' => [
         'title' => 'Les principaux points de contrôle',
-        'lead' => "Nos équipes vérifient les systèmes essentiels du véhicule à l’aide d’équipements spécialisés et d’inspections visuelles.",
+        'lead' => 'Nos équipes vérifient les systèmes essentiels du véhicule à l’aide d’équipements spécialisés et d’inspections visuelles.',
         'items' => [
             [
                 'title' => '1. Freinage',
@@ -114,7 +119,7 @@ return [
             ],
             [
                 'title' => 'Passage sur la ligne de contrôle',
-                'copy' => "Contrôles techniques et tests grâce à l’aide d’équipements spécialisés.",
+                'copy' => 'Contrôles techniques et tests grâce à l’aide d’équipements spécialisés.',
                 'icon' => 'images/inspection/process-car.svg',
             ],
             [
@@ -162,7 +167,7 @@ return [
                         'icon' => 'images/inspection/prep-check.svg',
                     ],
                     [
-                        'label' => "Pièce d’identité",
+                        'label' => 'Pièce d’identité',
                         'icon' => 'images/inspection/prep-check.svg',
                     ],
                     [
@@ -170,7 +175,7 @@ return [
                         'icon' => 'images/inspection/prep-check.svg',
                     ],
                     [
-                        'label' => "Ancien document de visite, lorsqu’il est disponible",
+                        'label' => 'Ancien document de visite, lorsqu’il est disponible',
                         'icon' => 'images/inspection/prep-check.svg',
                     ],
                     [
@@ -189,15 +194,15 @@ return [
                         'icon' => 'images/inspection/prep-check.svg',
                     ],
                     [
-                        'label' => "Contrôlez l’état apparent des pneumatiques",
+                        'label' => 'Contrôlez l’état apparent des pneumatiques',
                         'icon' => 'images/inspection/prep-check.svg',
                     ],
                     [
-                        'label' => "Assurez une bonne visibilité des éléments d’identification",
+                        'label' => 'Assurez une bonne visibilité des éléments d’identification',
                         'icon' => 'images/inspection/prep-check.svg',
                     ],
                     [
-                        'label' => "Facilitez l’accès au châssis et aux zones inspectées",
+                        'label' => 'Facilitez l’accès au châssis et aux zones inspectées',
                         'icon' => 'images/inspection/prep-check.svg',
                     ],
                     [
@@ -205,7 +210,7 @@ return [
                         'icon' => 'images/inspection/prep-check.svg',
                     ],
                     [
-                        'label' => "Arrivez suffisamment tôt pour l’accueil administratif",
+                        'label' => 'Arrivez suffisamment tôt pour l’accueil administratif',
                         'icon' => 'images/inspection/prep-check.svg',
                     ],
                 ],

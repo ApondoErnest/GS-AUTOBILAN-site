@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\LogsAdminActivity;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +32,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class Agency extends Model
 {
+    use LogsAdminActivity;
+
     protected function casts(): array
     {
         return [
@@ -41,6 +44,35 @@ class Agency extends Model
             'longitude' => 'decimal:7',
             'sort_order' => 'integer',
             'is_active' => 'boolean',
+        ];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function adminActivityLogAttributes(): array
+    {
+        return [
+            'name_fr',
+            'name_en',
+            'slug',
+            'address_fr',
+            'address_en',
+            'city',
+            'quarter',
+            'phones',
+            'whatsapp',
+            'email',
+            'opening_hours_fr',
+            'opening_hours_en',
+            'latitude',
+            'longitude',
+            'map_link',
+            'status',
+            'sort_order',
+            'description_fr',
+            'description_en',
+            'is_active',
         ];
     }
 

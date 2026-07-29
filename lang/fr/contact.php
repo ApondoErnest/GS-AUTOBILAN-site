@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'GS AUTOBILAN - Contact',
+    'meta_description' => 'Contactez GS AUTOBILAN pour un rendez-vous, une question administrative, un itinéraire ou une aide sur votre dossier.',
     'intro' => [
         'title' => 'Que souhaitez-vous faire ?',
         'lead' => 'Choisissez votre besoin pour être orienté rapidement.',

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Concerns\LogsAdminActivity;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
@@ -20,7 +21,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasRoles, Notifiable;
+    use HasFactory, HasRoles, LogsAdminActivity, Notifiable;
 
     /**
      * Get the attributes that should be cast.
@@ -34,6 +35,20 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
             'is_active' => 'boolean',
             'last_login_at' => 'datetime',
+        ];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function adminActivityLogAttributes(): array
+    {
+        return [
+            'name',
+            'email',
+            'assigned_agency_id',
+            'is_active',
+            'last_login_at',
         ];
     }
 

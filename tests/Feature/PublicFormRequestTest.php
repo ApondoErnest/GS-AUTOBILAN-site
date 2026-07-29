@@ -98,7 +98,7 @@ it('rejects invalid booking request data', function () {
 });
 
 it('validates and normalizes tracking lookup requests', function () {
-    $this->withHeaders(['Accept' => 'application/json'])->postJson('/_s046/tracking', [
+    $this->postJson('/_s046/tracking', [
         'reference' => ' gs-2026-000001 ',
         'phone' => '+237 699 000 000',
         'vehicle_registration' => ' ce 123 ab ',
@@ -162,6 +162,39 @@ it('rejects invalid contact messages', function () {
             'subject',
             'message',
         ]);
+});
+
+it('returns localized validation messages for public form submissions', function () {
+    $this->withoutMiddleware([
+        ValidateCsrfToken::class,
+        VerifyCsrfToken::class,
+    ]);
+
+    $this->postJson('/fr/contact', [
+        'name' => '',
+        'phone' => '123',
+        'email' => 'client@example.test',
+        'subject' => '',
+        'message' => '',
+    ])
+        ->assertUnprocessable()
+        ->assertJsonPath('errors.name.0', 'Le champ nom complet est obligatoire.')
+        ->assertJsonPath('errors.phone.0', 'Saisissez le numéro de téléphone au format international, par exemple +237699000000.')
+        ->assertJsonPath('errors.subject.0', 'Le champ sujet est obligatoire.')
+        ->assertJsonPath('errors.message.0', 'Le champ message est obligatoire.');
+
+    $this->postJson('/en/contact', [
+        'name' => '',
+        'phone' => '123',
+        'email' => 'client@example.test',
+        'subject' => '',
+        'message' => '',
+    ])
+        ->assertUnprocessable()
+        ->assertJsonPath('errors.name.0', 'The full name field is required.')
+        ->assertJsonPath('errors.phone.0', 'Enter the phone number in international format, for example +237699000000.')
+        ->assertJsonPath('errors.subject.0', 'The subject field is required.')
+        ->assertJsonPath('errors.message.0', 'The message field is required.');
 });
 
 function s046ActiveAgencyAndService(): array

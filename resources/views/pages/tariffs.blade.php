@@ -17,7 +17,7 @@
 
 @section('content')
     <section class="bg-gs-wall px-3 py-3 sm:px-6 sm:py-4 lg:px-32" aria-labelledby="tariffs-hero-title" data-tariffs-hero>
-        <div class="mx-auto max-w-[122rem] overflow-hidden rounded-xl bg-gs-navy px-4 py-4 text-white shadow-xl shadow-gs-navy/20 sm:px-8 sm:py-5 lg:px-12 lg:py-5" style="background-image: linear-gradient(90deg, rgba(6, 42, 92, 0.98) 0%, rgba(6, 42, 92, 0.96) 45%, rgba(6, 42, 92, 0.94) 100%), url('{{ asset('images/servicespage/services-hero.png') }}'); background-position: center right; background-size: cover;">
+        <div class="mx-auto max-w-[122rem] overflow-hidden rounded-xl bg-gs-navy px-4 py-4 text-white shadow-xl shadow-gs-navy/20 sm:px-8 sm:py-5 lg:px-12 lg:py-5" style="background-image: linear-gradient(90deg, rgba(6, 42, 92, 0.98) 0%, rgba(6, 42, 92, 0.96) 45%, rgba(6, 42, 92, 0.94) 100%), image-set(url('{{ asset('images/servicespage/services-hero.webp') }}') type('image/webp'), url('{{ asset('images/servicespage/services-hero.png') }}') type('image/png')); background-position: center right; background-size: cover;">
             <div class="mx-auto max-w-[58rem] text-center xl:max-w-[76rem]">
                 <p class="inline-flex min-h-7 items-center rounded-md bg-gs-accent px-3 text-xs font-black uppercase leading-none tracking-normal text-white shadow-md shadow-gs-navy/20 sm:min-h-8 sm:px-4 sm:text-sm lg:text-base">
                     {{ $hero['eyebrow'] }}
@@ -92,7 +92,7 @@
                     <article id="tariff-panel-{{ $category['slug'] }}" role="tabpanel" aria-labelledby="tariff-tab-{{ $category['slug'] }}" data-tariff-panel="{{ $category['slug'] }}" class="{{ $loop->first ? '' : 'hidden' }}">
                         <div class="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)_minmax(21rem,0.88fr)]">
                             <div class="flex items-center justify-center border-b border-gs-primary/10 bg-white px-4 py-3 sm:py-4 lg:border-b-0 lg:border-r lg:px-6 lg:py-5">
-                                <img src="{{ asset($category['image']) }}" alt="{{ $category['image_alt'] }}" class="max-h-32 w-full max-w-[18rem] object-contain sm:max-h-48 sm:max-w-[26rem] lg:max-h-80 lg:max-w-[34rem]">
+                                <x-media.picture :src="$category['image']" alt="{{ $category['image_alt'] }}" loading="lazy" class="max-h-32 w-full max-w-[18rem] object-contain sm:max-h-48 sm:max-w-[26rem] lg:max-h-80 lg:max-w-[34rem]" />
                             </div>
 
                             <div class="border-b border-gs-primary/10 px-5 py-5 lg:border-b-0 lg:border-r lg:px-7 lg:py-7">
@@ -145,7 +145,7 @@
                                         <div class="mt-4 space-y-3">
                                             @foreach ($category['variants'] as $variant)
                                                 <div class="grid grid-cols-[4rem_1fr] gap-3 rounded-lg border border-gs-primary/15 bg-gs-soft px-3 py-3">
-                                                    <img src="{{ asset($variant['image']) }}" alt="{{ $variant['label'] }}" class="h-14 w-16 object-contain">
+                                                    <x-media.picture :src="$variant['image']" alt="{{ $variant['label'] }}" loading="lazy" class="h-14 w-16 object-contain" />
                                                     <div>
                                                         <p class="text-xs font-black uppercase text-gs-primary">{{ $variant['category'] }}</p>
                                                         <p class="mt-1 text-sm font-black text-gs-navy">{{ $variant['label'] }}</p>

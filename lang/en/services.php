@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'GS AUTOBILAN - Our services',
+    'meta_description' => 'Explore GS AUTOBILAN services for technical inspection, re-inspection, guidance, and vehicle document preparation.',
     'hero' => [
         'eyebrow' => 'Our services',
         'title' => 'Technical inspection services designed for safety',

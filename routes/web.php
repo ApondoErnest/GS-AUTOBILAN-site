@@ -6,6 +6,7 @@ use App\Http\Requests\TrackingLookupRequest;
 use App\Models\Booking;
 use App\Services\BookingService;
 use App\Services\ContactMessageService;
+use App\Services\SEOService;
 use App\Services\TrackingService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
@@ -14,30 +15,40 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/fr/accueil');
 
+Route::get('/robots.txt', fn () => response(implode(PHP_EOL, [
+    'User-agent: *',
+    'Disallow: /admin',
+    '',
+    'Sitemap: '.url('/sitemap.xml'),
+    '',
+]), 200, ['Content-Type' => 'text/plain; charset=UTF-8']))->name('robots');
+
+Route::get('/sitemap.xml', fn (SEOService $seo) => $seo->sitemap())->name('sitemap');
+
 $localizedPages = [
     'fr' => [
-        ['uri' => 'accueil', 'name' => 'home', 'view' => 'pages.home', 'title' => 'chrome.home_title'],
-        ['uri' => 'a-propos', 'name' => 'about', 'view' => 'pages.about', 'title' => 'about.meta_title'],
-        ['uri' => 'nos-agences', 'name' => 'agencies', 'view' => 'pages.agencies', 'title' => 'agencies.meta_title'],
-        ['uri' => 'services', 'name' => 'services', 'view' => 'pages.services', 'title' => 'services.meta_title'],
-        ['uri' => 'tarifs', 'name' => 'tariffs', 'view' => 'pages.tariffs', 'title' => 'tariffs.meta_title'],
-        ['uri' => 'visite-technique', 'name' => 'technical_inspection', 'view' => 'pages.technical-inspection', 'title' => 'inspection.meta_title'],
-        ['uri' => 'rendez-vous', 'name' => 'booking', 'view' => 'pages.booking', 'title' => 'actions.book'],
-        ['uri' => 'suivi-rendez-vous', 'name' => 'tracking', 'view' => 'pages.tracking', 'title' => 'tracking.meta_title'],
-        ['uri' => 'actualites', 'name' => 'news', 'title' => 'nav.news'],
-        ['uri' => 'contact', 'name' => 'contact', 'view' => 'pages.contact', 'title' => 'contact.meta_title'],
+        ['uri' => 'accueil', 'name' => 'home', 'view' => 'pages.home', 'title' => 'chrome.home_title', 'description' => 'chrome.home_meta_description'],
+        ['uri' => 'a-propos', 'name' => 'about', 'view' => 'pages.about', 'title' => 'about.meta_title', 'description' => 'about.meta_description'],
+        ['uri' => 'nos-agences', 'name' => 'agencies', 'view' => 'pages.agencies', 'title' => 'agencies.meta_title', 'description' => 'agencies.meta_description'],
+        ['uri' => 'services', 'name' => 'services', 'view' => 'pages.services', 'title' => 'services.meta_title', 'description' => 'services.meta_description'],
+        ['uri' => 'tarifs', 'name' => 'tariffs', 'view' => 'pages.tariffs', 'title' => 'tariffs.meta_title', 'description' => 'tariffs.meta_description'],
+        ['uri' => 'visite-technique', 'name' => 'technical_inspection', 'view' => 'pages.technical-inspection', 'title' => 'inspection.meta_title', 'description' => 'inspection.meta_description'],
+        ['uri' => 'rendez-vous', 'name' => 'booking', 'view' => 'pages.booking', 'title' => 'booking.meta_title', 'description' => 'booking.meta_description'],
+        ['uri' => 'suivi-rendez-vous', 'name' => 'tracking', 'view' => 'pages.tracking', 'title' => 'tracking.meta_title', 'description' => 'tracking.meta_description'],
+        ['uri' => 'actualites', 'name' => 'news', 'title' => 'news.meta_title', 'description' => 'news.meta_description'],
+        ['uri' => 'contact', 'name' => 'contact', 'view' => 'pages.contact', 'title' => 'contact.meta_title', 'description' => 'contact.meta_description'],
     ],
     'en' => [
-        ['uri' => 'home', 'name' => 'home', 'view' => 'pages.home', 'title' => 'chrome.home_title'],
-        ['uri' => 'about', 'name' => 'about', 'view' => 'pages.about', 'title' => 'about.meta_title'],
-        ['uri' => 'our-agencies', 'name' => 'agencies', 'view' => 'pages.agencies', 'title' => 'agencies.meta_title'],
-        ['uri' => 'services', 'name' => 'services', 'view' => 'pages.services', 'title' => 'services.meta_title'],
-        ['uri' => 'tariffs', 'name' => 'tariffs', 'view' => 'pages.tariffs', 'title' => 'tariffs.meta_title'],
-        ['uri' => 'technical-inspection', 'name' => 'technical_inspection', 'view' => 'pages.technical-inspection', 'title' => 'inspection.meta_title'],
-        ['uri' => 'booking', 'name' => 'booking', 'view' => 'pages.booking', 'title' => 'actions.book'],
-        ['uri' => 'appointment-tracking', 'name' => 'tracking', 'view' => 'pages.tracking', 'title' => 'tracking.meta_title'],
-        ['uri' => 'news', 'name' => 'news', 'title' => 'nav.news'],
-        ['uri' => 'contact', 'name' => 'contact', 'view' => 'pages.contact', 'title' => 'contact.meta_title'],
+        ['uri' => 'home', 'name' => 'home', 'view' => 'pages.home', 'title' => 'chrome.home_title', 'description' => 'chrome.home_meta_description'],
+        ['uri' => 'about', 'name' => 'about', 'view' => 'pages.about', 'title' => 'about.meta_title', 'description' => 'about.meta_description'],
+        ['uri' => 'our-agencies', 'name' => 'agencies', 'view' => 'pages.agencies', 'title' => 'agencies.meta_title', 'description' => 'agencies.meta_description'],
+        ['uri' => 'services', 'name' => 'services', 'view' => 'pages.services', 'title' => 'services.meta_title', 'description' => 'services.meta_description'],
+        ['uri' => 'tariffs', 'name' => 'tariffs', 'view' => 'pages.tariffs', 'title' => 'tariffs.meta_title', 'description' => 'tariffs.meta_description'],
+        ['uri' => 'technical-inspection', 'name' => 'technical_inspection', 'view' => 'pages.technical-inspection', 'title' => 'inspection.meta_title', 'description' => 'inspection.meta_description'],
+        ['uri' => 'booking', 'name' => 'booking', 'view' => 'pages.booking', 'title' => 'booking.meta_title', 'description' => 'booking.meta_description'],
+        ['uri' => 'appointment-tracking', 'name' => 'tracking', 'view' => 'pages.tracking', 'title' => 'tracking.meta_title', 'description' => 'tracking.meta_description'],
+        ['uri' => 'news', 'name' => 'news', 'title' => 'news.meta_title', 'description' => 'news.meta_description'],
+        ['uri' => 'contact', 'name' => 'contact', 'view' => 'pages.contact', 'title' => 'contact.meta_title', 'description' => 'contact.meta_description'],
     ],
 ];
 
@@ -47,9 +58,21 @@ foreach ($localizedPages as $locale => $pages) {
         ->middleware('setLocale')
         ->group(function () use ($pages, $locale): void {
             foreach ($pages as $page) {
-                Route::get($page['uri'], function () use ($page) {
-                    return view($page['view'] ?? 'pages.public-placeholder', [
+                Route::get($page['uri'], function (SEOService $seo) use ($page, $locale) {
+                    $overrides = [
                         'title' => __($page['title']),
+                        'description' => __($page['description']),
+                    ];
+
+                    if ($page['name'] === 'agencies') {
+                        $overrides['json_ld'] = $seo->localBusinessSchemas($locale);
+                    }
+
+                    $meta = $seo->forRoute($page['name'], locale: $locale, overrides: $overrides);
+
+                    return view($page['view'] ?? 'pages.public-placeholder', [
+                        'seo' => $meta,
+                        'title' => $meta['title'],
                     ]);
                 })->name($page['name']);
 
@@ -106,7 +129,9 @@ foreach ($localizedPages as $locale => $pages) {
                                     'contact' => $contactMode,
                                 ],
                             ]);
-                    })->name($page['name'].'.store');
+                    })
+                        ->middleware(['honeypot', 'public.form.throttle:booking'])
+                        ->name($page['name'].'.store');
 
                     Route::get($page['uri'].'/{booking:reference}/recapitulatif.pdf', function (Booking $booking) use ($locale) {
                         $booking->loadMissing(['agency', 'service', 'documentReadiness']);
@@ -129,11 +154,13 @@ foreach ($localizedPages as $locale => $pages) {
                         }
 
                         return back()->with('contact_message_status', $message);
-                    })->name($page['name'].'.store');
+                    })
+                        ->middleware(['honeypot', 'public.form.throttle:contact'])
+                        ->name($page['name'].'.store');
                 }
 
                 if ($page['name'] === 'tracking') {
-                    Route::post($page['uri'], function (TrackingLookupRequest $request, TrackingService $tracking) use ($page, $locale) {
+                    Route::post($page['uri'], function (TrackingLookupRequest $request, TrackingService $tracking, SEOService $seo) use ($page, $locale) {
                         $payload = $request->validated();
                         $result = $tracking->lookup(
                             reference: $payload['reference'],
@@ -148,23 +175,47 @@ foreach ($localizedPages as $locale => $pages) {
                                 ->withErrors(['tracking_lookup' => __('tracking.lookup.errors.not_found')]);
                         }
 
-                        return view($page['view'] ?? 'pages.public-placeholder', [
+                        $meta = $seo->forRoute($page['name'], locale: $locale, overrides: [
                             'title' => __($page['title']),
+                            'description' => __($page['description']),
+                        ]);
+
+                        return view($page['view'] ?? 'pages.public-placeholder', [
+                            'seo' => $meta,
+                            'title' => $meta['title'],
                             'trackingResult' => $result,
                             'trackingLookup' => $payload,
                         ]);
-                    })->middleware('tracking.lookup.throttle')->name($page['name'].'.lookup');
+                    })
+                        ->middleware(['honeypot', 'tracking.lookup.throttle'])
+                        ->name($page['name'].'.lookup');
                 }
             }
         });
 }
 
-Route::get('/fr/actualites/{slug}', fn (string $slug) => view('pages.public-placeholder', [
-    'title' => __('nav.news'),
-    'slug' => $slug,
-]))->middleware('setLocale')->name('fr.article.show');
+Route::get('/fr/actualites/{slug}', function (string $slug, SEOService $seo) {
+    $meta = $seo->forRoute('article.show', ['slug' => $slug], 'fr', [
+        'title' => __('news.article_meta_title'),
+        'description' => __('news.article_meta_description'),
+    ]);
 
-Route::get('/en/news/{slug}', fn (string $slug) => view('pages.public-placeholder', [
-    'title' => __('nav.news'),
-    'slug' => $slug,
-]))->middleware('setLocale')->name('en.article.show');
+    return view('pages.public-placeholder', [
+        'seo' => $meta,
+        'title' => $meta['title'],
+        'slug' => $slug,
+    ]);
+})->middleware('setLocale')->name('fr.article.show');
+
+Route::get('/en/news/{slug}', function (string $slug, SEOService $seo) {
+    $meta = $seo->forRoute('article.show', ['slug' => $slug], 'en', [
+        'title' => __('news.article_meta_title'),
+        'description' => __('news.article_meta_description'),
+    ]);
+
+    return view('pages.public-placeholder', [
+        'seo' => $meta,
+        'title' => $meta['title'],
+        'slug' => $slug,
+    ]);
+})->middleware('setLocale')->name('en.article.show');

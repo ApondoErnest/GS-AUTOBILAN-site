@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'Track my appointment · GS AUTOBILAN',
+    'meta_description' => 'Track your GS AUTOBILAN appointment request with your reference, phone number, and vehicle registration.',
     'hero' => [
         'eyebrow' => 'Request tracking',
         'title' => 'Track your appointment request',

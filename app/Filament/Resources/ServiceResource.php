@@ -4,13 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\AdminNavigation;
 use App\Filament\Resources\ServiceResource\Pages;
+use App\Filament\Support\SecureImageUpload;
 use App\Models\Service;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -82,10 +82,7 @@ class ServiceResource extends Resource
                         TextInput::make('icon')
                             ->maxLength(255)
                             ->helperText('Optional icon key for public components.'),
-                        FileUpload::make('image')
-                            ->image()
-                            ->directory('services')
-                            ->visibility('public'),
+                        SecureImageUpload::make('image', 'services'),
                         TextInput::make('sort_order')
                             ->label('Sort order')
                             ->numeric()

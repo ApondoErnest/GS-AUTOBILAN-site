@@ -61,6 +61,7 @@
         <div class="mx-auto max-w-[122rem]">
             <form action="{{ route($routeLocale.'.tracking.lookup', [], false) }}" method="POST" class="relative overflow-hidden rounded-xl border border-gs-concrete bg-white px-4 py-5 shadow-xl shadow-gs-navy/8 sm:px-6 sm:py-6 lg:px-7 lg:py-7" data-tracking-lookup-form>
                 @csrf
+                <x-honeypot />
                 <span class="absolute left-0 top-7 hidden h-16 w-1 rounded-r-full bg-gs-accent lg:block" aria-hidden="true"></span>
 
                 <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -113,7 +114,7 @@
 
                 @if ($errors->any())
                     <div class="mt-4 rounded-lg border border-gs-danger/25 bg-gs-danger/5 px-4 py-3 text-sm font-bold leading-snug text-gs-danger" role="alert" data-tracking-error>
-                        {{ $errors->first('tracking_lookup') ?: $lookup['errors']['validation'] }}
+                        {{ $errors->first('tracking_lookup') ?: $errors->first('public_form') ?: $lookup['errors']['validation'] }}
                     </div>
                 @endif
 

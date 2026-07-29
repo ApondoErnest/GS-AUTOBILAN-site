@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'Book an appointment · GS AUTOBILAN',
+    'meta_description' => 'Request a GS AUTOBILAN technical inspection slot in Yaounde and receive confirmation by phone or WhatsApp.',
     'hero' => [
         'eyebrow' => 'Appointment',
         'title' => 'Request your technical inspection visit slot',

@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'Tariffs · GS AUTOBILAN',
+    'meta_description' => 'Check GS AUTOBILAN technical inspection tariffs by vehicle category, validity period, and visit conditions.',
     'hero' => [
         'eyebrow' => 'Our tariffs',
         'title' => 'Clear tariffs for every vehicle category',

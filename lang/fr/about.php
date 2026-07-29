@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'GS AUTOBILAN - À propos',
+    'meta_description' => 'Découvrez la mission, les valeurs et les agences GS AUTOBILAN dédiées à la visite technique automobile à Yaoundé.',
     'hero' => [
         'eyebrow' => 'À propos de GS AUTOBILAN',
         'title' => "Votre sécurité,<br>c'est notre métier.",

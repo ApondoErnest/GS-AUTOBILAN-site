@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\BookingStatus;
+use App\Models\Concerns\LogsAdminActivity;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,12 +32,35 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 ])]
 class Booking extends Model
 {
+    use LogsAdminActivity;
+
     protected function casts(): array
     {
         return [
             'preferred_date' => 'date',
             'confirmed_date' => 'date',
             'status' => BookingStatus::class,
+        ];
+    }
+
+    protected function adminActivityLogName(): string
+    {
+        return 'bookings';
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function adminActivityLogAttributes(): array
+    {
+        return [
+            'agency_id',
+            'service_id',
+            'confirmed_date',
+            'confirmed_time_slot',
+            'status',
+            'internal_notes',
+            'public_message',
         ];
     }
 

@@ -2,6 +2,7 @@
 
 return [
     'meta_title' => 'GS AUTOBILAN - Nos services',
+    'meta_description' => 'Explorez les services GS AUTOBILAN pour visite technique, contre-visite, orientation et préparation de dossier véhicule.',
     'hero' => [
         'eyebrow' => 'Nos services',
         'title' => 'Des services de visite technique pensés pour la sécurité',

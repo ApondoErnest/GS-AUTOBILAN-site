@@ -178,7 +178,7 @@ return [
                 'category' => 'D',
                 'type' => 'Autres engins',
                 'price' => '41 750 FCFA',
-                'validity' => '06 mois',
+                'validity' => '12 mois',
             ],
         ],
         'why_title' => 'Pourquoi choisir<br>GS AUTOBILAN ?',

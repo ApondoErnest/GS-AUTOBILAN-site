@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\SetLocale;
+use App\Http\Middleware\ThrottlePublicFormSubmission;
 use App\Http\Middleware\ThrottleTrackingLookup;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,12 +16,14 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
+            'honeypot' => \Spatie\Honeypot\ProtectAgainstSpam::class,
+            'public.form.throttle' => ThrottlePublicFormSubmission::class,
             'setLocale' => SetLocale::class,
             'tracking.lookup.throttle' => ThrottleTrackingLookup::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
-            fn (Request $request) => $request->is('api/*'),
+            fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
     })->create();
