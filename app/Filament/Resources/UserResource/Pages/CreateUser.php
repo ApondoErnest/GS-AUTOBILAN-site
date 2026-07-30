@@ -4,6 +4,7 @@ namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Contracts\Support\Htmlable;
 
 class CreateUser extends CreateRecord
 {
@@ -13,6 +14,16 @@ class CreateUser extends CreateRecord
      * @var list<string>
      */
     protected array $selectedRoles = [];
+
+    public function getTitle(): string|Htmlable
+    {
+        return __('admin_users.pages.create.title');
+    }
+
+    public function getSubheading(): string|Htmlable|null
+    {
+        return __('admin_users.pages.create.subtitle');
+    }
 
     /**
      * @param  array<string, mixed>  $data

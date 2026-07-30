@@ -36,6 +36,7 @@ use Spatie\Permission\PermissionRegistrar;
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
+    app()->setLocale('en');
     app(PermissionRegistrar::class)->forgetCachedPermissions();
 
     foreach (['super_admin', 'agency_admin', 'content_manager'] as $role) {

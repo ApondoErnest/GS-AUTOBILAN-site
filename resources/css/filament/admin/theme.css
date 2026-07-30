@@ -955,7 +955,9 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
 .gs-admin-operations-page,
 .gs-admin-content-page,
 .gs-admin-agencies-services-page,
-.gs-admin-tariffs-page {
+.gs-admin-tariffs-page,
+.gs-admin-communication-page,
+.gs-admin-users-settings-page {
     --gs-operations-surface: #ffffff;
     --gs-operations-subtle: #f7fbff;
     --gs-operations-shadow: 0 18px 46px rgba(6, 42, 92, 0.09);
@@ -1819,39 +1821,39 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
     color: #15803d;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) {
     --gs-bookings-surface: #ffffff;
     --gs-bookings-subtle: #f7fbff;
     --gs-bookings-line: rgba(20, 93, 179, 0.13);
     --gs-bookings-shadow: 0 18px 44px rgba(6, 42, 92, 0.09);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-ctn,
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-ctn,
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section {
     overflow: hidden;
     border-radius: 8px;
     background: var(--gs-bookings-surface);
     box-shadow: var(--gs-bookings-shadow);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-ctn {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-ctn {
     border: 1px solid var(--gs-bookings-line);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header,
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header,
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header {
     background:
         linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(238, 245, 255, 0.96)),
         #ffffff;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header {
     position: relative;
     padding: 1rem clamp(1rem, 2vw, 1.35rem);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header::before,
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section::before {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header::before,
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section::before {
     position: absolute;
     inset: 0 0 auto;
     height: 0.2rem;
@@ -1859,32 +1861,32 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
     content: '';
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-heading,
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header-heading {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-heading,
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header-heading {
     color: var(--gs-admin-navy);
     font-weight: 850;
     letter-spacing: 0;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-description,
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header-description {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-description,
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header-description {
     color: var(--gs-admin-muted);
     font-size: 0.84rem;
     font-weight: 640;
     line-height: 1.45;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-toolbar,
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-filters-above-content-ctn {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-toolbar,
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-filters-above-content-ctn {
     border-color: rgba(20, 93, 179, 0.1);
     background: rgba(247, 251, 255, 0.76);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-table > thead > tr {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-table > thead > tr {
     background: #eef5ff;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-cell {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-cell {
     color: var(--gs-admin-bay);
     font-size: 0.68rem;
     font-weight: 850;
@@ -1892,77 +1894,77 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
     text-transform: uppercase;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-table > tbody {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-table > tbody {
     border-color: rgba(20, 93, 179, 0.08);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-row {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-row {
     transition:
         background-color 160ms ease,
         box-shadow 160ms ease;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-row:hover {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-row:hover {
     background: #f7fbff;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-text-item {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-text-item {
     color: var(--gs-admin-ink);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-cell:first-child .fi-ta-text-item {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-cell:first-child .fi-ta-text-item {
     color: var(--gs-admin-navy);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-text-description {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-text-description {
     color: var(--gs-admin-muted);
     font-size: 0.75rem;
     font-weight: 680;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-badge {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-badge {
     border-radius: 999px;
     font-weight: 820;
     letter-spacing: 0;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section {
     position: relative;
     border: 1px solid var(--gs-bookings-line);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header {
     padding: 0.95rem 1rem;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header .fi-icon {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header .fi-icon {
     color: var(--gs-admin-blue);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-content {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-content {
     background: #ffffff;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-fo-field-label {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-fo-field-label {
     color: var(--gs-admin-navy);
     font-size: 0.8rem;
     font-weight: 780;
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-input-wrp {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-input-wrp {
     border-color: rgba(20, 93, 179, 0.14);
     border-radius: 8px;
     background: #ffffff;
     box-shadow: 0 8px 18px rgba(6, 42, 92, 0.04);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-input-wrp:focus-within {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-input-wrp:focus-within {
     border-color: rgba(20, 93, 179, 0.52);
     box-shadow: 0 0 0 4px rgba(20, 93, 179, 0.1), 0 12px 26px rgba(6, 42, 92, 0.08);
 }
 
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-input,
-:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-select-input {
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-input,
+:is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-select-input {
     color: var(--gs-admin-ink);
 }
 
@@ -2028,7 +2030,7 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
     --gs-dashboard-shadow: 0 20px 54px rgba(0, 0, 0, 0.24);
 }
 
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) {
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) {
     --gs-bookings-surface: rgba(8, 23, 48, 0.92);
     --gs-bookings-subtle: rgba(255, 255, 255, 0.055);
     --gs-bookings-line: rgba(255, 255, 255, 0.1);
@@ -2038,7 +2040,9 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
 .dark .gs-admin-operations-page,
 .dark .gs-admin-content-page,
 .dark .gs-admin-agencies-services-page,
-.dark .gs-admin-tariffs-page {
+.dark .gs-admin-tariffs-page,
+.dark .gs-admin-communication-page,
+.dark .gs-admin-users-settings-page {
     --gs-operations-surface: rgba(8, 23, 48, 0.92);
     --gs-operations-subtle: rgba(255, 255, 255, 0.055);
     --gs-operations-shadow: 0 20px 54px rgba(0, 0, 0, 0.24);
@@ -2086,8 +2090,8 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
 .dark .gs-admin-topbar-language,
 .dark .gs-dashboard-activity__item,
 .dark .gs-dashboard-activity__empty,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-ctn,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-ctn,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section,
 .dark .gs-operations-command,
 .dark .gs-operations-panel,
 .dark .gs-operations-summary-card,
@@ -2100,54 +2104,54 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
     background: rgba(255, 255, 255, 0.06);
 }
 
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header {
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header {
     background:
         linear-gradient(135deg, rgba(8, 23, 48, 0.98), rgba(20, 93, 179, 0.2)),
         #081730;
 }
 
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-toolbar,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-filters-above-content-ctn,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-table > thead > tr {
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-toolbar,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-filters-above-content-ctn,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-table > thead > tr {
     border-color: rgba(255, 255, 255, 0.08);
     background: rgba(255, 255, 255, 0.055);
 }
 
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-heading,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header-heading,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-text-item,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-cell:first-child .fi-ta-text-item,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-fo-field-label {
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-heading,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header-heading,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-text-item,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-cell:first-child .fi-ta-text-item,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-fo-field-label {
     color: #ffffff;
 }
 
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-description,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header-description,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-text-description {
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-description,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header-description,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-text-description {
     color: rgba(226, 232, 240, 0.68);
 }
 
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-cell {
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-cell {
     color: #f9d96a;
 }
 
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-row:hover {
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-row:hover {
     background: rgba(255, 255, 255, 0.045);
 }
 
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-content {
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-content {
     background: rgba(8, 23, 48, 0.78);
 }
 
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-input-wrp {
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-input-wrp {
     border-color: rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.06);
     box-shadow: none;
 }
 
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-input,
-.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-select-input {
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-input,
+.dark :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-select-input {
     color: #ffffff;
 }
 
@@ -2734,41 +2738,41 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
         height: 2.55rem;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-ctn {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-ctn {
         border-radius: 8px;
         box-shadow: 0 10px 24px rgba(6, 42, 92, 0.08);
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header {
         padding: 0.85rem 0.9rem;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-heading {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-heading {
         font-size: 0.98rem;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-description {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-description {
         font-size: 0.73rem;
         line-height: 1.35;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-header-toolbar {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-header-toolbar {
         gap: 0.65rem;
         padding: 0.7rem 0.85rem;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-table-stacked-header-cell {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-table-stacked-header-cell {
         background: var(--gs-bookings-subtle);
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody {
         display: grid;
         gap: 0.65rem;
         padding: 0.65rem;
         background: var(--gs-bookings-subtle);
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody > tr {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody > tr {
         display: grid;
         gap: 0;
         padding: 0;
@@ -2778,7 +2782,7 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
         box-shadow: 0 8px 18px rgba(6, 42, 92, 0.06);
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody > tr > .fi-ta-cell:not(.fi-ta-selection-cell) {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody > tr > .fi-ta-cell:not(.fi-ta-selection-cell) {
         display: grid;
         grid-template-columns: minmax(5.7rem, 0.38fr) minmax(0, 1fr);
         gap: 0.65rem;
@@ -2787,11 +2791,11 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
         border-bottom: 1px solid rgba(20, 93, 179, 0.08);
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody > tr > .fi-ta-cell:not(.fi-ta-selection-cell):last-child {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody > tr > .fi-ta-cell:not(.fi-ta-selection-cell):last-child {
         border-bottom: 0;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody > tr > .fi-ta-cell:not(.fi-ta-selection-cell) > .fi-ta-cell-label {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody > tr > .fi-ta-cell:not(.fi-ta-selection-cell) > .fi-ta-cell-label {
         padding: 0;
         color: var(--gs-admin-bay);
         font-size: 0.63rem;
@@ -2800,45 +2804,45 @@ body.gs-admin-auth-body .fi-simple-main.fi-width-full {
         text-transform: uppercase;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody > tr > .fi-ta-cell:not(.fi-ta-selection-cell) > .fi-ta-cell-content {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-table.fi-ta-table-stacked-on-mobile > tbody > tr > .fi-ta-cell:not(.fi-ta-selection-cell) > .fi-ta-cell-content {
         min-width: 0;
         font-size: 0.77rem;
         line-height: 1.35;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-text:not(.fi-inline) {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-text:not(.fi-inline) {
         padding: 0;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-text-item {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-text-item {
         font-size: 0.78rem;
         line-height: 1.32;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-ta-text-description {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-ta-text-description {
         font-size: 0.66rem;
         line-height: 1.25;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-badge {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-badge {
         max-width: 100%;
         white-space: normal;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section {
         box-shadow: 0 10px 24px rgba(6, 42, 92, 0.07);
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header {
         padding: 0.82rem 0.9rem;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header-heading {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header-heading {
         font-size: 0.9rem;
         line-height: 1.2;
     }
 
-    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs) .fi-section-header-description {
+    :is(.fi-resource-bookings, .fi-resource-document-readiness, .fi-resource-agencies, .fi-resource-services, .fi-resource-tariffs, .fi-resource-contact-messages, .fi-resource-users, .fi-resource-settings, .fi-resource-activities, .fi-resource-audit) .fi-section-header-description {
         font-size: 0.72rem;
         line-height: 1.32;
     }

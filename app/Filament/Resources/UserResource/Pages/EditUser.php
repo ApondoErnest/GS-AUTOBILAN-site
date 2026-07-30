@@ -5,6 +5,7 @@ namespace App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Contracts\Support\Htmlable;
 
 class EditUser extends EditRecord
 {
@@ -15,13 +16,27 @@ class EditUser extends EditRecord
      */
     protected array $selectedRoles = [];
 
+    public function getTitle(): string|Htmlable
+    {
+        return __('admin_users.pages.edit.title', [
+            'user' => UserResource::userTitle($this->record),
+        ]);
+    }
+
+    public function getSubheading(): string|Htmlable|null
+    {
+        return __('admin_users.pages.edit.subtitle');
+    }
+
     /**
      * @return array<DeleteAction>
      */
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->label(__('admin_users.actions.delete'))
+                ->icon('heroicon-o-trash'),
         ];
     }
 
