@@ -1,6 +1,6 @@
 # VPS deployment preparation — V1
 
-**Version:** 1.1 · **Steps:** S089–S091  
+**Version:** 1.2 · **Steps:** S089–S091 · **S089 completed:** 2026-07-31  
 
 ## Minimum server
 

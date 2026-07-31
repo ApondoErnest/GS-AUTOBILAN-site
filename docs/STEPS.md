@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S087** (Write Docker Compose stack)
+**Current next step:** **S088** (run app successfully in Docker)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -567,13 +567,13 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block R — Docker
 
 ### S087 — Write Docker Compose stack (app, nginx, mysql, redis, worker, scheduler)
-- [ ] **Pending**
+- [x] **Completed** — `docker-compose.yml` + PHP/nginx Dockerfiles · `.env.docker.example` · volumes documented (2026-07-31)
 - **Detail:** [18-docker/README.md](18-docker/README.md)
 - **Depends on:** S086
 - **Done when:** Compose file exists for all required services.
 
 ### S088 — Run app successfully in Docker with persistent volumes
-- [ ] **Pending**
+- [x] **Completed** — Stack verified at http://127.0.0.1:8080 · public + `/admin/login` · DB + `storage/app` persist across `down`/`up` (2026-07-31)
 - **Depends on:** S087
 - **Done when:** Site and admin work in containers; DB/media persist.
 
@@ -582,13 +582,13 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block S — VPS
 
 ### S089 — Provision VPS (min 2 vCPU / 4 GB) with Docker and firewall
-- [ ] **Pending**
+- [x] **Completed** — VPS provisioned · Ubuntu · Docker + Compose · UFW + fail2ban · deploy user (2026-07-31)
 - **Detail:** [19-vps-deployment/README.md](19-vps-deployment/README.md)
 - **Depends on:** S088
 - **Done when:** Server reachable and hardened basics in place.
 
 ### S090 — Configure domain, SSL, production `.env`
-- [ ] **Pending**
+- [ ] **Pending** ← **do this next**
 - **Depends on:** S089
 - **Done when:** HTTPS works; debug off; production secrets set.
 
@@ -655,9 +655,9 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | O Security | S077–S079 | Completed |
 | P Testing | S080–S085 | Completed |
 | Q Stabilize | S086 | Completed |
-| R Docker | S087–S088 | In progress |
-| S VPS | S089–S091 | Locked |
+| R Docker | S087–S088 | Completed |
+| S VPS | S089–S091 | S089 done · S090 next |
 | T Launch | S092–S094 | Locked |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 81 · **Remaining:** 15 · **Next:** S087
+**Total steps:** 96 · **Completed:** 84 · **Remaining:** 12 · **Next:** S090

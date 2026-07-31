@@ -1,9 +1,9 @@
 # GS AUTOBILAN — Master technical plan (V1)
 
-**Type:** Technical roadmap (no code) · **Version:** 1.24 · **Updated:** 2026-07-29
+**Type:** Technical roadmap (no code) · **Version:** 1.26 · **Updated:** 2026-07-31
 **Slogan:** Votre sécurité, c’est notre métier.
 
-**Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096). First unchecked: **S087**. S064 and S066–S086 are complete.
+**Execute:** [docs/STEPS.md](docs/STEPS.md) one step at a time (S001→S096). First unchecked: **S090**. S089 VPS provisioned.
 **Company data:** [docs/01-project-documentation/00-company-data.md](docs/01-project-documentation/00-company-data.md)
 
 ---
@@ -86,7 +86,7 @@ Docs → Requirements → Local → Laravel → Architecture → Frontend
 | 15 Security | [docs/15-…](docs/15-security/) | S077–S079 complete |
 | 16 Testing | [docs/16-…](docs/16-testing/) | S080–S085 complete |
 | 17 Stabilize | [docs/17-…](docs/17-local-stabilization/) | S086 complete |
-| 18 Docker | [docs/18-…](docs/18-docker/) | S087–S088 next |
+| 18 Docker | [docs/18-…](docs/18-docker/) | S087 done · S088 next |
 | 19 VPS | [docs/19-…](docs/19-vps-deployment/) | S089–S091 |
 | 20 Launch | [docs/20-…](docs/20-launch/) | S092–S094 |
 | 21 Maintenance | [docs/21-…](docs/21-maintenance/) | S095–S096 |
@@ -117,4 +117,4 @@ Full: [docs/01-project-documentation/05-operational-workflows.md](docs/01-projec
 
 ## 8. Next
 
-Open **[docs/STEPS.md](docs/STEPS.md)** → first unchecked step (**S087**).
+Open **[docs/STEPS.md](docs/STEPS.md)** → first unchecked step (**S088**).
