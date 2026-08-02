@@ -1,29 +1,44 @@
 # Launch — V1
 
-**Version:** 1.1 · **Steps:** S092–S094  
-**Content gate:** [../01-project-documentation/04-content-checklist.md](../01-project-documentation/04-content-checklist.md)
+**Version:** 1.2 · **Steps:** S092–S094  
 
-## Pre-launch checklist
+## Docs
 
-- [ ] Domain + SSL  
-- [ ] Public pages FR/EN  
-- [ ] Admin login + roles + agency scoping  
-- [ ] Booking + tracking + contact  
-- [ ] Emails if configured  
-- [ ] Mobile layout  
-- [ ] Official tariffs (`is_placeholder` cleared)  
-- [ ] Email spelling confirmed  
-- [ ] Photos/logo decision  
-- [ ] SEO + sitemap + robots.txt  
-- [ ] Backups restore-tested  
-- [ ] Admin passwords changed  
-- [ ] Phones / addresses / GPS verified  
+| Step | File |
+|------|------|
+| **S092 Pre-launch checklist** | [01-pre-launch-checklist.md](01-pre-launch-checklist.md) |
+| Content gate | [../01-project-documentation/04-content-checklist.md](../01-project-documentation/04-content-checklist.md) |
+| Company data | [../01-project-documentation/00-company-data.md](../01-project-documentation/00-company-data.md) |
 
-## Soft launch
+## Pre-launch checklist (summary)
+
+See **[01-pre-launch-checklist.md](01-pre-launch-checklist.md)** for the full S092 runbook.
+
+- Domain + SSL  
+- Public pages FR/EN  
+- Admin login + roles + agency scoping  
+- Booking + tracking + contact  
+- Emails if configured  
+- Mobile layout  
+- Official tariffs (`is_placeholder` cleared)  
+- Email spelling confirmed  
+- Photos/logo decision  
+- SEO + sitemap + robots.txt  
+- Backups restore-tested  
+- Admin passwords changed  
+- Phones / addresses / GPS verified  
+
+Automated public checks:
+
+```bash
+bash scripts/vps/pre-launch-check.sh
+```
+
+## Soft launch (S093)
 
 Staff-only tests: bookings, statuses, tracking, contact, mobile · fix issues  
 
-## Official launch
+## Official launch (S094)
 
 Public site · Google Business · social · flyers · staff training · monitor errors  
 

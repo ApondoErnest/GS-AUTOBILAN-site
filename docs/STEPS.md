@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S091** (backups and monitoring)
+**Current next step:** **S092** (pre-launch checklist)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -594,7 +594,7 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** HTTPS works; debug off; production secrets set.
 
 ### S091 — Configure backups and monitoring
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — Daily MySQL backup · restore smoke test · cron · health checks · UptimeRobot (2026-08-02)
 - **Detail:** [19-vps-deployment/02-backups-and-monitoring.md](19-vps-deployment/02-backups-and-monitoring.md)
 - **Depends on:** S090
 - **Done when:** Daily DB backup + uptime/SSL monitoring configured.
@@ -604,8 +604,8 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block T — Launch
 
 ### S092 — Complete pre-launch checklist
-- [ ] **Pending**
-- **Detail:** [20-launch/README.md](20-launch/README.md)
+- [ ] **Pending** ← **do this next**
+- **Detail:** [20-launch/01-pre-launch-checklist.md](20-launch/01-pre-launch-checklist.md)
 - **Depends on:** S091
 - **Done when:** All pre-launch boxes checked (tariffs, email, photos/logo decision, passwords).
 
@@ -658,8 +658,8 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | P Testing | S080–S085 | Completed |
 | Q Stabilize | S086 | Completed |
 | R Docker | S087–S088 | Completed |
-| S VPS | S089–S091 | S089–S090 done · S091 next |
-| T Launch | S092–S094 | Locked |
+| S VPS | S089–S091 | Completed |
+| T Launch | S092–S094 | S092 next |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 85 · **Remaining:** 11 · **Next:** S091
+**Total steps:** 96 · **Completed:** 86 · **Remaining:** 10 · **Next:** S092
