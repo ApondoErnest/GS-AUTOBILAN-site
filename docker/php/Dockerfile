@@ -123,5 +123,6 @@ CMD ["php-fpm"]
 # =========================================================
 FROM nginx:1.27-alpine AS nginx-production
 
+COPY docker/nginx/forwarded-maps.conf /etc/nginx/conf.d/00-forwarded-maps.conf
 COPY docker/nginx/default.prod.conf /etc/nginx/conf.d/default.conf
 COPY --from=frontend-build /var/www/html/public /var/www/html/public
