@@ -10,6 +10,7 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
+      target: dev
       args:
         UID: ${DOCKER_UID:-1000}
         GID: ${DOCKER_GID:-1000}
@@ -88,6 +89,7 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
+      target: dev
     image: gs-autobilan-app:latest
     container_name: gs-autobilan-worker
     restart: unless-stopped

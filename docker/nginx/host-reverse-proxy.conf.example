@@ -1,0 +1,27 @@
+# Host Nginx reverse proxy (VPS — /etc/nginx/sites-available/gsautobilan)
+# Terminates public HTTP/HTTPS; proxies to Docker Nginx on 127.0.0.1:8080.
+# After enabling this site, run Certbot:
+#   sudo certbot --nginx -d gsautobilan.com -d www.gsautobilan.com
+
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name gsautobilan.com www.gsautobilan.com;
+
+    client_max_body_size 32M;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_redirect off;
+    }
+}

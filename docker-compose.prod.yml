@@ -1,0 +1,149 @@
+# GS AUTOBILAN — Production Docker stack (S090)
+# Usage:
+#   cp .env.docker.production.example .env.docker
+#   docker compose -f docker-compose.prod.yml --env-file .env.docker config --quiet
+#   docker compose -f docker-compose.prod.yml --env-file .env.docker up -d --build
+
+name: gs-autobilan
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      target: app-production
+    image: gs-autobilan-app:latest
+    container_name: gs-autobilan-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    env_file:
+      - .env.docker
+    volumes:
+      - storage_data:/var/www/html/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - gs_autobilan
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      target: nginx-production
+    image: gs-autobilan-nginx:latest
+    container_name: gs-autobilan-nginx
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${DOCKER_HTTP_PORT:-8080}:80"
+    volumes:
+      - storage_data:/var/www/html/storage:ro
+    depends_on:
+      app:
+        condition: service_started
+    networks:
+      - gs_autobilan
+
+  mysql:
+    image: mysql:8.4
+    container_name: gs-autobilan-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD || exit 1",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+    networks:
+      - gs_autobilan
+
+  redis:
+    image: redis:7-alpine
+    container_name: gs-autobilan-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks:
+      - gs_autobilan
+
+  worker:
+    image: gs-autobilan-app:latest
+    container_name: gs-autobilan-worker
+    restart: unless-stopped
+    working_dir: /var/www/html
+    env_file:
+      - .env.docker
+    command:
+      [
+        "php",
+        "artisan",
+        "queue:work",
+        "redis",
+        "--sleep=3",
+        "--tries=3",
+        "--timeout=120",
+        "--max-time=3600",
+        "--no-interaction",
+      ]
+    volumes:
+      - storage_data:/var/www/html/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - gs_autobilan
+
+  scheduler:
+    image: gs-autobilan-app:latest
+    container_name: gs-autobilan-scheduler
+    restart: unless-stopped
+    working_dir: /var/www/html
+    env_file:
+      - .env.docker
+    command:
+      - sh
+      - -c
+      - |
+        while true; do
+          php artisan schedule:run --verbose --no-interaction
+          sleep 60
+        done
+    volumes:
+      - storage_data:/var/www/html/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - gs_autobilan
+
+networks:
+  gs_autobilan:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  redis_data:
+  storage_data:
