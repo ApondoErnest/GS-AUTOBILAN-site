@@ -1,0 +1,17 @@
+# GS AUTOBILAN — VPS cron examples (S091)
+# Install on VPS as root:
+#   sudo cp scripts/vps/cron.example /etc/cron.d/gs-autobilan
+#   sudo chmod 644 /etc/cron.d/gs-autobilan
+#
+# Adjust user/path if needed. Logs:
+#   /var/log/gs-autobilan-backup.log
+#   /var/log/gs-autobilan-health.log
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Daily database backup at 02:15 UTC (media auto-included on Sundays)
+15 2 * * * ernesto /var/www/gs-autobilan/scripts/vps/backup-production.sh >> /var/log/gs-autobilan-backup.log 2>&1
+
+# Health check every 15 minutes
+*/15 * * * * ernesto /var/www/gs-autobilan/scripts/vps/health-check.sh >> /var/log/gs-autobilan-health.log 2>&1

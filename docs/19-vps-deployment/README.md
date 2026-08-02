@@ -1,6 +1,6 @@
 # VPS deployment preparation — V1
 
-**Version:** 1.2 · **Steps:** S089–S091 · **S089 completed:** 2026-07-31  
+**Version:** 1.3 · **Steps:** S089–S091 · **S090 completed:** 2026-08-02  
 
 ## Minimum server
 
@@ -21,6 +21,15 @@ Debug off · production DB/mail/cache/queue/storage · logging
 ## Monitor
 
 Uptime · disk · CPU · memory · queue failures · app errors · SSL expiry  
+
+## Docs
+
+| Topic | File |
+|-------|------|
+| VPS overview | this file |
+| Docker production stack | [../18-docker/README.md](../18-docker/README.md) |
+| **Backups + monitoring (S091)** | [02-backups-and-monitoring.md](02-backups-and-monitoring.md) |
+| Backup/restore procedure | [../15-security/01-backup-restore-procedure.md](../15-security/01-backup-restore-procedure.md) |
 
 ## Acceptance
 

@@ -4,7 +4,7 @@
 **Scope:** Local V1 procedure and restore smoke test
 **Last tested:** 2026-07-29
 
-This procedure proves that a GS AUTOBILAN backup is useful by restoring it into a separate target before launch. Production automation and monitoring are still handled later in S091.
+This procedure proves that a GS AUTOBILAN backup is useful by restoring it into a separate target before launch. Production automation is configured in **S091** — see [../19-vps-deployment/02-backups-and-monitoring.md](../19-vps-deployment/02-backups-and-monitoring.md) and `scripts/vps/backup-production.sh`.
 
 ## What To Back Up
 
