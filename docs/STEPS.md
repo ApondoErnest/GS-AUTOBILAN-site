@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S092** (pre-launch checklist)
+**Current next step:** **S093** (soft launch with staff)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -604,13 +604,14 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block T — Launch
 
 ### S092 — Complete pre-launch checklist
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — Pre-launch checks · robots.txt fix · tariffs/email/photos/passwords verified (2026-08-02)
 - **Detail:** [20-launch/01-pre-launch-checklist.md](20-launch/01-pre-launch-checklist.md)
 - **Depends on:** S091
 - **Done when:** All pre-launch boxes checked (tariffs, email, photos/logo decision, passwords).
 
 ### S093 — Soft launch with staff only
-- [ ] **Pending**
+- [ ] **Pending** ← **do this next**
+- **Detail:** [20-launch/02-soft-launch-runbook.md](20-launch/02-soft-launch-runbook.md)
 - **Depends on:** S092
 - **Done when:** Staff tested booking, tracking, contact, mobile; critical issues fixed.
 
@@ -659,7 +660,7 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | Q Stabilize | S086 | Completed |
 | R Docker | S087–S088 | Completed |
 | S VPS | S089–S091 | Completed |
-| T Launch | S092–S094 | S092 next |
+| T Launch | S092–S094 | S092 done · S093 next |
 | U Maintenance | S095–S096 | Locked |
 
-**Total steps:** 96 · **Completed:** 86 · **Remaining:** 10 · **Next:** S092
+**Total steps:** 96 · **Completed:** 87 · **Remaining:** 9 · **Next:** S093

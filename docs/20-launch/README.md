@@ -1,12 +1,14 @@
 # Launch — V1
 
-**Version:** 1.2 · **Steps:** S092–S094  
+**Version:** 1.2 · **Steps:** S092–S094 · **S092 completed:** 2026-08-02  
 
 ## Docs
 
 | Step | File |
 |------|------|
 | **S092 Pre-launch checklist** | [01-pre-launch-checklist.md](01-pre-launch-checklist.md) |
+| **S093 Soft launch runbook** | [02-soft-launch-runbook.md](02-soft-launch-runbook.md) |
+| Staff quick guide | [03-staff-quick-guide.md](03-staff-quick-guide.md) |
 | Content gate | [../01-project-documentation/04-content-checklist.md](../01-project-documentation/04-content-checklist.md) |
 | Company data | [../01-project-documentation/00-company-data.md](../01-project-documentation/00-company-data.md) |
 
@@ -36,7 +38,9 @@ bash scripts/vps/pre-launch-check.sh
 
 ## Soft launch (S093)
 
-Staff-only tests: bookings, statuses, tracking, contact, mobile · fix issues  
+See **[02-soft-launch-runbook.md](02-soft-launch-runbook.md)** · share **[03-staff-quick-guide.md](03-staff-quick-guide.md)** with desk staff.
+
+Staff-only tests: bookings, statuses, tracking, contact, mobile · fix critical issues before S094.
 
 ## Official launch (S094)
 
