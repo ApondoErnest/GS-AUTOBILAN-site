@@ -12,7 +12,7 @@
 
 **Legend:** `[x]` = completed · `[ ]` = not done · **Current** = first unchecked step
 
-**Current next step:** **S093** (soft launch with staff)
+**Current next step:** **S095** (routine maintenance cadence)
 
 **Reference:** [../plan.md](../plan.md) · [README.md](README.md) · Company data: [01-project-documentation/00-company-data.md](01-project-documentation/00-company-data.md)
 
@@ -610,13 +610,14 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 - **Done when:** All pre-launch boxes checked (tariffs, email, photos/logo decision, passwords).
 
 ### S093 — Soft launch with staff only
-- [ ] **Pending** ← **do this next**
+- [x] **Completed** — Staff tested booking, tracking, contact, mobile; critical issues fixed (2026-08-03)
 - **Detail:** [20-launch/02-soft-launch-runbook.md](20-launch/02-soft-launch-runbook.md)
 - **Depends on:** S092
 - **Done when:** Staff tested booking, tracking, contact, mobile; critical issues fixed.
 
 ### S094 — Official public launch
-- [ ] **Pending**
+- [x] **Completed** — Public announcement · Google Business · staff trained · launch-day monitoring (2026-08-03)
+- **Detail:** [20-launch/04-official-launch-runbook.md](20-launch/04-official-launch-runbook.md)
 - **Depends on:** S093
 - **Done when:** Site public; staff trained; monitoring watched for first day.
 
@@ -625,8 +626,8 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 ## Block U — Maintenance (ongoing)
 
 ### S095 — Establish routine maintenance cadence
-- [ ] **Pending**
-- **Detail:** [21-maintenance/README.md](21-maintenance/README.md)
+- [ ] **Pending** ← **do this next**
+- **Detail:** [21-maintenance/01-maintenance-cadence.md](21-maintenance/01-maintenance-cadence.md)
 - **Depends on:** S094
 - **Done when:** Who checks bookings/content/backups/security updates is assigned.
 
@@ -660,7 +661,7 @@ Build order (modern plan): Home → Agencies → Booking shell → Tracking shel
 | Q Stabilize | S086 | Completed |
 | R Docker | S087–S088 | Completed |
 | S VPS | S089–S091 | Completed |
-| T Launch | S092–S094 | S092 done · S093 next |
-| U Maintenance | S095–S096 | Locked |
+| T Launch | S092–S094 | Completed |
+| U Maintenance | S095–S096 | S095 next |
 
-**Total steps:** 96 · **Completed:** 87 · **Remaining:** 9 · **Next:** S093
+**Total steps:** 96 · **Completed:** 89 · **Remaining:** 7 · **Next:** S095

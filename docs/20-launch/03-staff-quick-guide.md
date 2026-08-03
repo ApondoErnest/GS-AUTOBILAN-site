@@ -87,4 +87,4 @@ Full details: company contact page on the website.
 
 ---
 
-*V1 — March 2026 soft launch. Report bugs to your Super Admin.*
+*V1 — Official public launch 2026.*

@@ -1,6 +1,6 @@
 # Launch — V1
 
-**Version:** 1.2 · **Steps:** S092–S094 · **S092 completed:** 2026-08-02  
+**Version:** 1.2 · **Steps:** S092–S094 · **S094 completed:** 2026-08-03  
 
 ## Docs
 
@@ -8,6 +8,7 @@
 |------|------|
 | **S092 Pre-launch checklist** | [01-pre-launch-checklist.md](01-pre-launch-checklist.md) |
 | **S093 Soft launch runbook** | [02-soft-launch-runbook.md](02-soft-launch-runbook.md) |
+| **S094 Official launch runbook** | [04-official-launch-runbook.md](04-official-launch-runbook.md) |
 | Staff quick guide | [03-staff-quick-guide.md](03-staff-quick-guide.md) |
 | Content gate | [../01-project-documentation/04-content-checklist.md](../01-project-documentation/04-content-checklist.md) |
 | Company data | [../01-project-documentation/00-company-data.md](../01-project-documentation/00-company-data.md) |
@@ -44,7 +45,9 @@ Staff-only tests: bookings, statuses, tracking, contact, mobile · fix critical 
 
 ## Official launch (S094)
 
-Public site · Google Business · social · flyers · staff training · monitor errors  
+See **[04-official-launch-runbook.md](04-official-launch-runbook.md)**.
+
+Public announcement · Google Business · social · flyers · staff training · launch-day monitoring.
 
 ## Acceptance
 
